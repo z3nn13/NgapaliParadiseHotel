@@ -35,5 +35,11 @@
     &__cta {
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    &__span {
+        font-family: var(--ff-secondary);
+        margin-top: 1rem;
     }
 }

@@ -11,6 +11,6 @@
         <a href="/register">
             <button class="button button--special">Join Membership</button>
         </a>
-        <span class="nav__contact">Call Us: +95-95-116-983</span>
+        <span class="nav__span">Get discounts up to 20%</span>
     </div>
 </nav>
