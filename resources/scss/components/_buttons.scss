@@ -1,0 +1,26 @@
+@use "../abstract/colors" as c;
+@use "../abstract/fonts" as f;
+
+.button {
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    color: white;
+    text-transform: uppercase;
+
+    &--special {
+        border: 1px solid white;
+    }
+
+    &--primary {
+        border: none;
+        background-color: c.$clr--cta--300;
+        font-family: f.$ff--secondary;
+    }
+
+    &--secondary {
+        border: 2px solid c.$clr--neutral--400;
+        color: c.$clr--neutral--400;
+    }
+}

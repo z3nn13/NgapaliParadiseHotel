@@ -1,0 +1,187 @@
+@use "../abstract" as a;
+
+$margin--size: clamp(3.5rem, 3vw, 7.1875rem);
+
+// Hero Section
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+
+    &__content {
+        background-color: a.$clr--neutral--400;
+        display: flex;
+        align-items: center;
+        padding-left: $margin--size;
+    }
+
+    &__heading {
+        color: a.$clr--cta--100;
+        font-weight: 100;
+        font-family: a.$ff--special;
+        font-size: a.$fs--xl;
+    }
+
+    &__title {
+        color: a.$clr--neutral--000;
+        font-weight: 500;
+        font-size: a.$fs--xl;
+        margin-bottom: 1em;
+    }
+
+    &__text {
+        color: rgba(a.$clr--cta--100, 0.5);
+    }
+
+    &__image {
+        width: 100%;
+    }
+}
+
+// Wave Section
+.wave-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(a.$clr--neutral--500, 0.1);
+
+    &__content {
+        padding: $margin--size;
+        font-weight: 500;
+        font-size: a.$fs--l;
+        border: 1px solid rgba(a.$clr--neutral--500, 0.1);
+    }
+
+    &__image {
+        width: 50%;
+        margin: auto;
+    }
+}
+
+// Pool Section
+.pool-section {
+    display: grid;
+    place-items: center;
+
+    &__image {
+        margin: $margin--size 0 calc($margin--size/2);
+        width: calc(100% - $margin--size * 2);
+    }
+
+    &__content {
+        font-size: a.$fs--l;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    &__paragraph {
+        margin-bottom: 1rem;
+        margin: auto;
+    }
+}
+
+// Room Section
+.room-section {
+    border-top: 1px solid rgba(black, 0.2);
+    display: grid;
+    gap: $margin--size;
+
+    &__content {
+        margin-top: $margin--size;
+        display: grid;
+        gap: 0.5rem;
+        place-items: center;
+    }
+    &__heading {
+        font-family: a.$ff--special;
+        font-size: calc(a.$fs--xl + 0.5rem);
+        color: a.$clr--cta--300;
+    }
+
+    &__title {
+        font-family: a.$ff--primary;
+        font-size: a.$fs--xl;
+        color: a.$clr--neutral--400;
+    }
+
+    &__paragraph {
+        text-align: center;
+        width: 34ch;
+    }
+
+    &__button--primary {
+        padding: 1em 2.5em;
+    }
+
+    &__button--secondary {
+        padding: 1em 2em;
+    }
+
+    &__image-layout {
+        border: 2px solid pink;
+        margin: auto;
+        margin-bottom: $margin--size;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5em;
+    }
+
+    &__image {
+        max-width: 100%;
+        background: #000;
+        &--left {
+            aspect-ratio: 1/2;
+            background: #000;
+            grid-row: span 2;
+        }
+    }
+}
+
+.footer {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__wrapper {
+        background-color: rgba(a.$clr--neutral--600, 0.75);
+        position: relative;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-family: a.$ff--secondary;
+        font-weight: 300;
+
+        & > * {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__logo {
+        margin-top: $margin--size;
+        width: 10em;
+    }
+    &__details {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    &__socials {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        border-top: 1px solid a.$clr--neutral--000;
+        border-bottom: 1px solid a.$clr--neutral--000;
+
+        .nav__item:first-of-type {
+            list-style-type: none;
+        }
+    }
+}
