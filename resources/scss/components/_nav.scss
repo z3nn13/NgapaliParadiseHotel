@@ -1,19 +1,21 @@
-.flex-container {
-    position: relative;
-}
+@use "../abstract/mixins" as m;
 
 .nav {
-    $margin--size: min(3rem, 7.1875rem);
-
-    // background-color: hsla(102, 100%, 85%, 0.5);
+    // background-color: rgba(green, 0.5);
     color: hsl(0, 0%, 100%);
+    z-index: 1000;
 
     &_type_landing {
-        display: flex;
-        margin: 3em 6em 0 $margin--size;
-        inset: 0;
-        position: absolute;
-        justify-content: space-between;
+        display: none;
+
+        @include m.mq(medium) {
+            display: flex;
+            margin: 3em var(--margin-size) 0 var(--margin-size);
+            left: 0;
+            right: 0;
+            position: absolute;
+            justify-content: space-between;
+        }
     }
 
     &__logo {

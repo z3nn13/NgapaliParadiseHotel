@@ -1,0 +1,48 @@
+.footer {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__wrapper {
+        background-color: rgba(black, 0.75);
+        position: relative;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-family: var(--ff-secondary);
+        font-weight: 300;
+
+        & > * {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__logo {
+        margin-top: var(--margin-size);
+        width: 10em;
+    }
+    &__details {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    &__socials {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        border-top: 1px solid var(--clr-neutral-100);
+        border-bottom: 1px solid var(--clr-neutral-100);
+
+        .nav__item:first-of-type {
+            list-style-type: none;
+        }
+    }
+}

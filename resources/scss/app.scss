@@ -1,3 +1,34 @@
+@use "abstract" as *;
 @forward "base";
 @forward "components";
 @forward "layouts";
+
+:root {
+    --margin-size: min(8vw, 7.1875rem);
+
+    @each $color, $shades in $colors {
+        @each $shade, $value in $shades {
+            --clr-#{$color}-#{$shade}: #{$value};
+        }
+    }
+
+    @each $screen-size, $font-size in $typescale {
+        @if ($screen-size == small) {
+            @each $size, $value in $font-size {
+                --fs-#{$size}: #{$value};
+            }
+        } @else if ($screen-size == medium) {
+            @include mq(small) {
+                @each $size, $value in $font-size {
+                    --fs-#{$size}: #{$value};
+                }
+            }
+        } @else {
+            @include mq(medium) {
+                @each $size, $value in $font-size {
+                    --fs-#{$size}: #{$value};
+                }
+            }
+        }
+    }
+}

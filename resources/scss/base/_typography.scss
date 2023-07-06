@@ -1,5 +1,3 @@
-@use "../abstract/fonts" as f;
-
 h1,
 h2,
 h3 {
@@ -15,5 +13,5 @@ a,
 a:visited,
 a:active {
     text-decoration: none;
-    font-family: f.$ff--secondary;
+    font-family: var(--ff-secondary);
 }

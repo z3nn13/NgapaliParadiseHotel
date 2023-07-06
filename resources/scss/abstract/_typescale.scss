@@ -1,0 +1,32 @@
+:root {
+    --ff-primary: "Newsreader", serif;
+    --ff-secondary: "Poppins", sans-serif;
+    --ff-special: "Sacramento", cursive;
+}
+
+$typescale: (
+    small: (
+        300: 1rem,
+        400: 1.125rem,
+        500: 1.563rem,
+        600: 1.953rem,
+        700: 2.441rem,
+        800: 3.052rem,
+    ),
+    medium: (
+        300: 1rem,
+        400: 1.225rem,
+        500: 1.763rem,
+        600: 2.4rem,
+        700: 3.2rem,
+        800: 4.8rem,
+    ),
+    large: (
+        300: 1rem,
+        400: 1.425rem,
+        500: 2rem,
+        600: 2.827rem,
+        700: 4rem,
+        800: 5.6543rem,
+    ),
+);

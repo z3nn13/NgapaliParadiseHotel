@@ -9,9 +9,9 @@
     #{$prop}: #{$value};
 }
 
-@mixin respond-to($name) {
-    @if map-has-key(b.$breakpoints, $name) {
-        @media #{inspect(map-get($breakpoints, $name))} {
+@mixin mq($key) {
+    @if map-has-key(b.$breakpoints, $key) {
+        @media only screen and (min-width: (map-get(b.$breakpoints, $key))) {
             @content;
         }
     } @else {
