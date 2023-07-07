@@ -1,4 +1,7 @@
 /* SCSS */
+@use "sass:map";
+@use "sass:meta";
+@use "sass:math";
 @use "../abstract/breakpoints" as b;
 
 @mixin css3-prefix($prop, $value) {
@@ -9,10 +12,18 @@
     #{$prop}: #{$value};
 }
 
-@mixin mq($key) {
-    @if map-has-key(b.$breakpoints, $key) {
-        @media only screen and (min-width: (map-get(b.$breakpoints, $key))) {
+@mixin mq($size) {
+    @if map.has-key(b.$breakpoints, $size) {
+        @media screen and (min-width: (map-get(b.$breakpoints, $size))) {
             @content;
+        }
+    } @else if meta.typeof($size) == number {
+        @if math.is-unitless($size) {
+            @error 'When using a number with @mq(), make sure to include a unit (em,px,rem).';
+        } @else {
+            @media screen and (min-width: $size) {
+                @content;
+            }
         }
     } @else {
         @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
