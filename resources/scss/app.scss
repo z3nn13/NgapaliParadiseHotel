@@ -4,8 +4,6 @@
 @forward "layouts";
 
 :root {
-    --margin-size: min(8vw, 7.1875rem);
-
     @each $color, $shades in $colors {
         @each $shade, $value in $shades {
             --clr-#{$color}-#{$shade}: #{$value};

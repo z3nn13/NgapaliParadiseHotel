@@ -1,0 +1,85 @@
+@use "../abstract/mixins" as m;
+.step-bar {
+    // border: 0.5rem solid lime;
+    color: hsl(var(--clr-primary-300));
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+        width: 100%;
+        margin-top: var(--margin-size);
+        margin-bottom: var(--margin-size);
+        text-align: center;
+        font-size: var(--fs-600);
+        font-family: var(--ff-special);
+    }
+
+    --circle-fill-color: hsl(var(--clr-primary-100));
+    --circle-border: 2px solid hsl(var(--clr-primary-400) / 0.3);
+    --before-color: hsl(var(--clr-sun-300));
+    --text-color: hsl(var(--clr-primary-500) / 0.5);
+    --circle-height: 3rem;
+
+    &__item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+
+        &--active {
+            font-weight: 500;
+            --circle-border: 2px solid hsl(var(--clr-primary-400));
+            --text-color: hsl(var(--clr-primary-500));
+        }
+
+        &:not(:first-child)::before {
+            content: "";
+            border-bottom: 2px solid hsl(var(--clr-neutral-800) / 0.1);
+            position: absolute;
+            top: calc(var(--circle-height) / 2);
+            left: -50%;
+            z-index: 2;
+            width: 100%;
+        }
+        &_:not(:last-child)::after {
+            content: "";
+            border-bottom: 2px solid hsl(var(--clr-neutral-800) / 0.1);
+            position: absolute;
+            top: calc(var(--circle-height) / 2);
+            left: 50%;
+            z-index: 2;
+            width: 100%;
+        }
+    }
+
+    &__circle {
+        font-family: var(--ff-secondary);
+        color: var(--text-color);
+        background: var(--circle-fill-color);
+        border: var(--circle-border);
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 5;
+        width: var(--circle-height);
+        height: var(--circle-height);
+        margin-bottom: 0.5rem;
+    }
+
+    &__name {
+        color: var(--text-color);
+        white-space: nowrap;
+        font-family: var(--ff-secondary);
+        text-transform: uppercase;
+    }
+}
+
+@include m.mq("small") {
+    .step-bar {
+        margin-right: var(--margin-size);
+        margin-left: var(--margin-size);
+    }
+}

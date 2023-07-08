@@ -1,0 +1,84 @@
+@use "../abstract/mixins" as m;
+// Booking form
+.booking__form {
+    --padding: 1.5rem;
+    --label-color: hsl(var(--clr-cta-300));
+    --input-border-bottom: 1px solid var(--input-color);
+
+    display: none;
+    border-radius: 0.8rem;
+    padding: var(--padding);
+
+    @include m.mq(medium) {
+        &--unfilled {
+            // Form Layout Desktop
+
+            background-color: hsl(var(--clr-neutral-100));
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            display: flex;
+            margin: auto;
+            width: calc(100% - (var(--margin-size) * 4));
+            min-width: min-content;
+            transform: translateY(50%);
+            filter: drop-shadow(1px 7px 4px rgba(0, 0, 0, 0.25));
+        }
+
+        &--filled {
+            --label-color: hsl(var(--clr-neutral-100));
+
+            --input-border-bottom: none;
+            display: flex;
+            margin: var(--margin-size);
+            margin-top: calc(var(--margin-size) / 2);
+            min-width: min-content;
+
+            background-color: hsl(var(--clr-cta-400));
+        }
+
+        &__field-wrapper {
+            display: flex;
+            justify-content: space-evenly;
+            flex: 1;
+        }
+
+        &__field {
+            display: flex;
+            flex-direction: column;
+            height: max-content;
+            flex: 1;
+            gap: calc(var(--padding) / 2);
+            padding-left: var(--padding);
+            padding-right: var(--padding);
+
+            &:not(:last-child) {
+                border-right: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+            }
+        }
+
+        &__label {
+            font-family: var(--ff-secondary);
+            font-size: 0.8rem;
+            color: var(--label-color);
+        }
+
+        &__input,
+        &__input:focus {
+            border: 0;
+            outline: none;
+            cursor: text;
+            border-bottom: var(--input-border-bottom);
+            color: hsl(var(--clr-neutral-300));
+            background: none;
+        }
+
+        &__button {
+            padding: 1rem 2rem;
+            height: max-content;
+            white-space: nowrap;
+        }
+    }
+}

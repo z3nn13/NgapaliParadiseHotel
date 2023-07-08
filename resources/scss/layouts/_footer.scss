@@ -26,20 +26,20 @@
         display: grid;
         place-items: center;
         text-align: center;
-        line-height: 1.5;
     }
 
     &__socials {
         display: flex;
         gap: 1.5rem;
+        list-style-type: none;
     }
 
     &__nav {
         display: flex;
         justify-content: center;
         width: 100%;
-        border-top: 1px solid var(--clr-neutral-100);
-        border-bottom: 1px solid var(--clr-neutral-100);
+        border-top: 1px solid hsl(var(--clr-neutral-100));
+        border-bottom: 1px solid hsl(var(--clr-neutral-100));
 
         .nav__item:first-of-type {
             list-style-type: none;

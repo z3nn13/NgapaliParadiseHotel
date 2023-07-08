@@ -1,4 +1,11 @@
 <x-layout>
+    <x-nav type="landing">
+        <a href="/register">
+            <button class="nav__button button button--special">Join Membership</button>
+        </a>
+        <span class="nav__span">Get discounts up to 20%</span>
+    </x-nav>
+
     {{-- Hero Section --}}
     <section class="hero">
         <div class="hero__content">
@@ -16,36 +23,25 @@
             <img class="hero__image" src="/images/home/hero_bg.png" alt="image of a house">
         </div>
 
-        <form class="form form_type_booking" method="GET" action="/booking">
-            <div class="form__field-wrapper">
-                <div class="form__field">
-                    <label class="form__label" for="arrivalDate">Arrival Date</label>
-                    <input class="form__input" type="date" name="arrivalDate" id="arrivalDate">
-                </div>
-                <div class="form__field">
-                    <label class="form__label" for="departureDate">Departure Date</label>
-                    <input class="form__input" type="date" name="departureDate" id="departureDate">
-                </div>
-                <div class="form__field">
-                    <label class="form__label" for="numGuests">Number of Guests</label>
-                    <input class="form__input" type="number" name="numGuests" id="numGuests">
-                </div>
-            </div>
-            <button class="form__button button button--primary">
-                Book a stay
-            </button>
-        </form>
+        <x-booking-form></x-booking-form>
 
     </section>
 
 
     {{-- Wave Section --}}
     <section class="wave-section">
-        <div class="wave-section__content">
+        <div class="wave-section__left">
             <h2>Discover the perfect
                 blend of warmth, and coastal charm.</h2>
         </div>
-        <img class="wave-section__image" src="/images/home/waves.png" alt="image of waves">
+        <div class="wave-section__right">
+            <p class="wave-section__paragraph">
+                Nestled along the <span class="wave-section__text--bold">serene shores of Ngapali Beach</span>, we
+                offer exquisite accommodations, with delectable culinary delights, and a mesmerizing allure of our
+                breathtaking vistas.
+            </p>
+        </div>
+        {{-- <img class="wave-section__image" src="/images/home/waves.png" alt="image of waves"> --}}
     </section>
 
 
@@ -60,7 +56,7 @@
                 unforgettable escape.<br>
             </p>
             <a href="/about">
-                <button class="button button--primary">
+                <button class="pool-section__button button button--primary">
                     <span class="button__body">Our Story</span>
                     <span class="button__append"><i class="fa-solid fa-arrow-right"></i></span>
                 </button>
@@ -71,19 +67,20 @@
     {{-- Room Section --}}
     <section class="room-section">
         <div class="room-section__content">
+
             <h2 class="room-section__heading">Award-Winning</h2>
             <h3 class="room-section__title">Seafront Rooms</h3>
             <p class="room-section__paragraph">Experience pure bliss in our seaside rooms perfectly positioned along
                 the
                 shore, offering breathtaking panoramic views of the sparkling ocean right from your window.</p>
-            <a href="/rooms">
+            <a class="room-section__link" href="/rooms">
                 <button class="room-section__button--primary button button--primary">
-                    <span class="button__body">Discover Room</span>
+                    Discover Room
                 </button>
             </a>
-            <a href="/register">
+            <a class="room-section__link" href="/register">
                 <button class="room-section__button--secondary button button--secondary">
-                    <span class="button__body">Join Membership</span>
+                    Join Membership
                 </button>
             </a>
         </div>

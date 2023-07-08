@@ -1,0 +1,62 @@
+@use "../abstract/mixins" as m;
+
+.nav {
+    // background-color: rgba(green, 0.5);
+    color: hsl(var(--clr-neutral-100));
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+
+    &--primary {
+        color: hsl(var(--clr-neutral-900));
+        padding: 3rem var(--margin-size) 1rem var(--margin-size);
+    }
+
+    &--landing {
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 0.5rem var(--margin-size) 0.5rem var(--margin-size);
+
+        @include m.mq(small) {
+            padding: 3rem var(--margin-size) 1rem var(--margin-size);
+        }
+    }
+
+    &__logo {
+        max-width: 100%;
+    }
+
+    &__list {
+        display: flex;
+    }
+
+    &__item {
+        display: none;
+    }
+
+    @include m.mq(small) {
+        &__item {
+            display: flex;
+            padding: 1.31rem;
+        }
+
+        &__link {
+            display: inline-block;
+            color: inherit;
+        }
+
+        &__cta {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__span {
+            font-family: var(--ff-secondary);
+            margin-top: 1rem;
+        }
+        &__menu {
+            display: none;
+        }
+    }
+}

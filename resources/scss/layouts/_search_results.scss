@@ -1,0 +1,212 @@
+@use "../abstract/mixins" as m;
+.result-section {
+    &__header {
+        border-bottom: 2px solid hsl(var(--clr-primary-300) / 0.1);
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 2;
+        gap: 1rem;
+
+        margin: var(--margin-size);
+    }
+    &__title {
+        color: hsl(var(--clr-primary-400));
+
+        font-family: var(--ff-primary);
+        font-size: var(--fs-600);
+        font-weight: 500;
+    }
+
+    &__found-text {
+        font-size: 1rem;
+        color: hsl(var(--clr-primary-400));
+        font-family: var(--ff-secondary);
+    }
+
+    &__box {
+        display: flex;
+        & > *,
+        & > *:focus {
+            background: none;
+            border: none;
+            outline: none;
+        }
+    }
+
+    &__select,
+    &__select:focus {
+        border: 2px solid hsl(var(--clr-primary-400) / 0.5);
+        border-radius: 0.5rem;
+        color: hsl(var(--clr-primary-400));
+        appearance: none;
+
+        width: min-content;
+        height: min-content;
+        padding: 0.5rem;
+        overflow: hidden;
+
+        font-family: var(--ff-primary);
+        text-transform: uppercase;
+
+        & option {
+            border-radius: 1rem;
+            background-color: hsl(var(--clr-primary-100));
+
+            margin: 1rem;
+            padding: 0.5rem;
+        }
+    }
+
+    &__select--filter,
+    &__select--filter:focus {
+        --bg-color: hsl(var(--clr-primary-400));
+        background-color: var(--bg-color);
+        color: hsl(var(--clr-neutral-100));
+
+        & option {
+            background-color: var(--bg-color);
+        }
+    }
+}
+
+.room-result {
+    &__title {
+        margin-bottom: var(--margin-size);
+
+        text-align: center;
+        font-family: var(--ff-special);
+        font-size: var(--fs-600);
+    }
+
+    --padding: 1rem;
+    &__container {
+        border-radius: 1rem;
+        background-color: hsl(var(--clr-neutral-100));
+
+        width: min-content;
+        margin: auto;
+        margin-bottom: var(--padding);
+        padding: var(--padding);
+        box-shadow: 1px 6px 17px -6px rgba(0, 0, 0, 0.75);
+    }
+
+    &__card {
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: var(--padding);
+
+        &-image {
+            height: auto;
+        }
+
+        &-body {
+            background-color: hsl(var(--clr-cta-400));
+            padding: var(--padding);
+            color: hsl(var(--clr-primary-100));
+            font-size: var(--fs-300);
+        }
+    }
+
+    &__tags {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: var(--padding);
+
+        margin-bottom: var(--padding);
+    }
+
+    &__link {
+        color: inherit;
+        font-family: var(--ff-primary);
+        font-weight: 600;
+        font-size: var(--fs-300);
+    }
+
+    &__separator {
+        margin: 0 var(--padding);
+        border-top: 2px solid hsl(var(--clr-primary-400) / 0.1);
+    }
+    &__deals {
+        // border: 2px solid lime;
+        margin: var(--padding);
+    }
+
+    &__deals-title {
+        font-size: 0.8rem;
+        font-family: var(--ff-secondary);
+
+        color: hsl(var(--clr-primary-500));
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+}
+
+.room-deal {
+    border: 1px solid hsl(var(--clr-neutral-900) / 0.5);
+    border-radius: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em;
+        white-space: nowrap;
+    }
+    &__title {
+        color: hsl(var(--clr-primary-400));
+        font-family: var(--ff-secondary);
+        margin-bottom: 1rem;
+    }
+    &__price {
+        color: hsl(var(--clr-primary-400));
+        font-family: var(--ff-secondary);
+        font-weight: 600;
+        font-size: var(--fs-400);
+
+        &--usd {
+            color: hsl(var(--clr-primary-400) / 0.6);
+            font-weight: 600;
+            font-size: 0.6rem;
+        }
+    }
+
+    &__button {
+        margin: 1rem;
+    }
+}
+
+@include m.mq("medium") {
+    .result-section {
+        &__header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 2rem;
+        }
+        &__title {
+            flex: 1;
+        }
+    }
+    .room-result {
+        &__title {
+            margin-bottom: 2rem;
+        }
+
+        &__container {
+            display: flex;
+        }
+        &__deals {
+            flex: 0;
+        }
+    }
+
+    .room-deal {
+        border-radius: 0.8rem;
+    }
+}

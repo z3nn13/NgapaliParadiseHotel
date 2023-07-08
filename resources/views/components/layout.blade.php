@@ -26,9 +26,8 @@
 </head>
 
 <body>
-    @include('partials._nav')
 
-    {{$slot}}
+    {{ $slot }}
 
     @include('partials._footer')
 

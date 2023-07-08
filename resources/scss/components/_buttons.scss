@@ -2,22 +2,27 @@
     background: none;
     cursor: pointer;
     margin: 0;
-    padding: 1rem 1.5rem;
+    padding: 1rem 3rem;
     color: white;
     text-transform: uppercase;
+    border-radius: 0.5rem;
 
     &--special {
         border: 1px solid white;
+        font-family: var(--ff-secondary);
     }
 
     &--primary {
         border: none;
-        background-color: var(--clr-cta-400);
+        max-width: max-content;
+        max-height: max-content;
+        background-color: hsl(var(--clr-cta-400));
         font-family: var(--ff-secondary);
+        font-size: var(--fs-300);
     }
 
     &--secondary {
-        border: 2px solid var(--clr-primary-400);
-        color: var(--clr-primary-400);
+        border: 2px solid hsl(var(--clr-primary-400));
+        color: hsl(var(--clr-primary-400));
     }
 }
