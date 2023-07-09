@@ -2,15 +2,15 @@
 // Booking form
 .booking__form {
     --padding: 1.5rem;
-    --label-color: hsl(var(--clr-cta-300));
-    --input-border-bottom: 1px solid var(--input-color);
+    --label-color: hsl(var(--clr-primary-400));
+    // --input-border-bottom: 1px solid hsl(var(--clr-neutral-300));
 
     display: none;
     border-radius: 0.8rem;
     padding: var(--padding);
 
     @include m.mq(medium) {
-        &--unfilled {
+        &--landing {
             // Form Layout Desktop
 
             background-color: hsl(var(--clr-neutral-100));
@@ -20,23 +20,22 @@
             right: 0;
             left: 0;
             display: flex;
-            margin: auto;
-            width: calc(100% - (var(--margin-size) * 4));
             min-width: min-content;
             transform: translateY(50%);
             filter: drop-shadow(1px 7px 4px rgba(0, 0, 0, 0.25));
+
+            width: calc(100% - (var(--margin-size) * 4));
+            margin: auto;
         }
 
-        &--filled {
+        &--search {
             --label-color: hsl(var(--clr-neutral-100));
-
             --input-border-bottom: none;
-            display: flex;
-            margin: var(--margin-size);
-            margin-top: calc(var(--margin-size) / 2);
-            min-width: min-content;
 
             background-color: hsl(var(--clr-cta-400));
+            display: flex;
+            min-width: min-content;
+            margin-top: calc(var(--margin-size) / 2);
         }
 
         &__field-wrapper {

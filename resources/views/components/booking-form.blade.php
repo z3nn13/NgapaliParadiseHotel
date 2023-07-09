@@ -1,40 +1,66 @@
-@props(['type' => 'unfilled'])
-<form {{ $attributes->merge(['class' => 'booking__form booking__form--' . $type]) }} method="GET"
-    action="/search-results">
+@props(['type' => 'landing', 'container' => 'landing'])
+@php
+    $minDate = date('Y-m-d');
+    $maxDate = date('Y-m-d', strtotime('+1 month'));
+    $input_fields = [
+        [
+            'label' => 'Arrival Date',
+            'name' => 'arrivalDate',
+            'type' => 'date',
+            'min' => $minDate,
+            'max' => '',
+            'default' => '',
+        ],
+        [
+            'label' => 'Departure Date',
+            'name' => 'departureDate',
+            'type' => 'date',
+            'min' => $minDate,
+            'max' => '',
+            'default' => '',
+        ],
+        [
+            'label' => 'Number Of Guests',
+            'type' => 'number',
+            'name' => 'numGuests',
+            'min' => 1,
+            'max' => 10,
+            'default' => 1,
+        ],
+    ];
+@endphp
+
+
+<form @class([
+    'booking__form',
+    'booking__form--' . $type,
+    'container--search',
+]) method="GET" action="/search-results">
     <div class="booking__form__field-wrapper">
-        {{-- Arrival Date --}}
-        <div class="booking__form__field">
-            <label class="booking__form__label" for="arrivalDate">Arrival Date</label>
-            <input class="booking__form__input" type="date" name="arrivalDate" id="arrivalDate" min="{{ date('Y-m-d') }}"
-                {{ $type == 'filled' ? 'disabled' : '' }} required
-                value={{ $type == 'filled' ? $_REQUEST['arrivalDate'] : old('arrivalDate') }}>
-        </div>
-
-        {{-- Departure Date --}}
-        <div class="booking__form__field">
-            <label class="booking__form__label" for="departureDate">Departure Date</label>
-            <input class="booking__form__input" type="date" name="departureDate" id="departureDate"
-                min="{{ date('Y-m-d') }}" {{ $type == 'filled' ? 'disabled' : '' }} required
-                value={{ $type == 'filled' ? $_REQUEST['departureDate'] : old('departureDate') }}>
-        </div>
-
-        {{-- Number of Guests --}}
-        <div class="booking__form__field">
-            <label class="booking__form__label" for="numGuests">Number of Guests</label>
-            <input class="booking__form__input" type="number" name="numGuests" id="numGuests" max=10
-                {{ $type == 'filled' ? 'disabled' : '' }} required
-                value={{ $type == 'filled' ? $_REQUEST['numGuests'] : old('numGuests') }}>
-        </div>
+        @foreach ($input_fields as $field)
+            {{-- Arrival Date --}}
+            <div class="booking__form__field">
+                <label class="booking__form__label" for="{{ $field['name'] }}">{{ $field['label'] }}</label>
+                <input class="booking__form__input" type="{{ $field['type'] }}" name="{{ $field['name'] }}"
+                    id="{{ $field['name'] }}" min="{{ $field['min'] }}" required
+                    {{ $field['max'] != '' ? 'max=' . $field['max'] : '' }}
+                    @if ($type == 'search') disabled
+                        value={{ $_REQUEST[$field['name']] }}
+                    @else
+                        value={{ old($field['name']) ? old($field['name']) : $field['default'] }} @endif>
+            </div>
+        @endforeach
     </div>
 
-    @if ($type == 'unfilled')
+    @if ($type == 'landing')
         <button class="booking__form__button button button--primary" type="submit">
             Book a stay
         </button>
-    @else
-        <button class="booking__form__button button button--special" type="submit">
-            Edit
-        </button>
+    @elseif ($type == 'search')
+        <a href="/">
+            <button class="booking__form__button button button--special" type="button">
+                Edit
+            </button>
+        </a>
     @endif
-
 </form>
