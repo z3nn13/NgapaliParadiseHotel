@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home');
+Route::view('/register', 'register');
 
 Route::get('/search-results', function () {
     return view('search-results');

@@ -8,8 +8,11 @@
     justify-content: space-between;
 
     &--primary {
-        color: hsl(var(--clr-neutral-900));
-        padding: 3rem var(--margin-size) 1rem var(--margin-size);
+        background-color: hsl(var(--clr-primary-500));
+        color: hsl(var(--clr-neutral-100));
+        align-items: center;
+        padding-left: var(--margin-size);
+        padding-right: var(--margin-size);
     }
 
     &--landing {

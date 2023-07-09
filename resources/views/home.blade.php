@@ -23,7 +23,7 @@
             <img class="hero__image" src="/images/home/hero_bg.png" alt="image of a house">
         </div>
 
-        <x-booking-form></x-booking-form>
+        <x-booking-form type="landing"></x-booking-form>
 
     </section>
 

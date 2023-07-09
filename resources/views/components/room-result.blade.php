@@ -1,6 +1,6 @@
 <div class="room-result">
     <h2 class="room-result__title">"Beachfront Deluxe Sea View"</h2>
-    <div class="room-result__container">
+    <div class="room-result__container container--search">
         <div class="room-result__card">
             <img src="/images/booking/card-image.png " class="room-result__card-image">
             <div class="room-result__card-body">

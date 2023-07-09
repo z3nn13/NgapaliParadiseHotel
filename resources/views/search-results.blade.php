@@ -1,7 +1,7 @@
 <x-layout>
     <x-nav>
         <a href="/register">
-            <button class="nav__button button button--secondary">Join Membership</button>
+            <button class="nav__button button button--special">Join Membership</button>
         </a>
         <span class="nav__span">Get discounts up to 20%</span>
     </x-nav>
@@ -9,11 +9,11 @@
     <x-step-bar active="1"></x-step-bar>
 
     {{-- Booking Form --}}
-    <x-booking-form type="filled"></x-booking-form>
+    <x-booking-form type="search"></x-booking-form>
 
 
     <section class="result-section">
-        <header class="result-section__header">
+        <header class="result-section__header container--search">
             <h2 class="result-section__title">Select Room</h2>
             <span class="result-section__found-text">Found 1 Rooms</span>
             <div class="result-section__box result-section__box--sort">

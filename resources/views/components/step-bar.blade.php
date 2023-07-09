@@ -9,7 +9,7 @@
 @endphp
 
 <h1 class="step-bar__title">Booking Progress</h1>
-<section class="step-bar">
+<section class="step-bar container--search">
     @foreach ($stepBarItems as $counter => $name)
         <div @class([
             'step-bar__item',

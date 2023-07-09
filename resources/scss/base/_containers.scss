@@ -1,0 +1,16 @@
+@use "../abstract/mixins" as m;
+
+@include m.mq(small) {
+    .container {
+        &--landing {
+            width: calc(100% - (var(--margin-size) * 2));
+            margin-left: auto;
+            margin-right: auto;
+        }
+        &--search {
+            width: calc(100% - (var(--margin-size) * 4));
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
