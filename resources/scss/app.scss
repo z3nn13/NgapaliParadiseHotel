@@ -1,7 +1,8 @@
-@use "abstract" as *;
 @forward "base";
 @forward "components";
 @forward "layouts";
+@forward "pages";
+@use "abstract" as *;
 
 :root {
     @each $color, $shades in $colors {
