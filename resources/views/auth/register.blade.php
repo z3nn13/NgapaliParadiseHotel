@@ -1,4 +1,28 @@
-<x-guest-layout>
+<x-layout>
+    <x-nav type="landing"></x-nav>
+
+    <div class="background">
+        <section class="perks">
+            <h2>Membership perks</h2>
+            <p>Exclusive 30% Coupon Code</p>
+            <p>Highest Priority Support</p>
+            <p>100% Free (Limited Time)</p>
+            <p>Unlock Member Unique Features</p>
+            <h2>.... and more to come</h2>
+        </section>
+
+        <form class="register-form" action="\register\{user}">
+            <h2>Become a member</h2>
+            <x-auth-input-field></x-auth-input-field>
+            {{-- <x-auth-checkbox></x-auth-checkbox> --}}
+            {{-- <x-button></x-button> --}}
+
+        </form>
+    </div>
+
+</x-layout>
+
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +73,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}

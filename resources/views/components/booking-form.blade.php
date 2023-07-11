@@ -57,10 +57,8 @@
             Book a stay
         </button>
     @elseif ($type == 'search')
-        <a href="/">
-            <button class="booking__form__button button button--special" type="button">
-                Edit
-            </button>
+        <a class="booking__form__button button button--special">
+            Edit
         </a>
     @endif
 </form>

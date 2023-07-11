@@ -1,8 +1,6 @@
 <x-layout>
     <x-nav type="landing">
-        <a href="/register">
-            <button class="nav__button button button--special">Join Membership</button>
-        </a>
+        <a class="nav__button button button--special" href="/register">Join Membership</a>
         <span class="nav__span">Get discounts up to 20%</span>
     </x-nav>
 
@@ -55,11 +53,9 @@
                 awaits, offering a blissful oasis for your<br>
                 unforgettable escape.<br>
             </p>
-            <a href="/about">
-                <button class="pool-section__button button button--primary">
-                    <span class="button__body">Our Story</span>
-                    <span class="button__append"><i class="fa-solid fa-arrow-right"></i></span>
-                </button>
+            <a class="pool-section__button button button--primary" href="/about">
+                <span class="button__body">Our Story</span>
+                <span class="button__append"><i class="fa-solid fa-arrow-right"></i></span>
             </a>
         </div>
     </section>
@@ -73,15 +69,11 @@
             <p class="room-section__paragraph">Experience pure bliss in our seaside rooms perfectly positioned along
                 the
                 shore, offering breathtaking panoramic views of the sparkling ocean right from your window.</p>
-            <a class="room-section__link" href="/rooms">
-                <button class="room-section__button--primary button button--primary">
-                    Discover Room
-                </button>
+            <a class="room-section__button--primary button button--primary" href="/rooms">
+                Discover Room
             </a>
-            <a class="room-section__link" href="/register">
-                <button class="room-section__button--secondary button button--secondary">
-                    Join Membership
-                </button>
+            <a class="room-section__button--secondary button button--secondary" href="/register">
+                Join Membership
             </a>
         </div>
 

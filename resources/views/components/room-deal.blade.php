@@ -6,8 +6,10 @@
     </div>
     <div class="room-deal__button-wrapper">
         <input type="hidden" name="roomDealID" value="1">
-        <a href="/booking/billing">
-            <button type="button" class="room-deal__button button button--primary">Reserve</button>
-        </a>
+        <form method="POST" action="/booking/billing">
+            @csrf
+            <input type="hidden" name="dealID" value=1>
+            <button type="submit" class="room-deal__button button button--primary">Reserve</button>
+        </form>
     </div>
 </div>
