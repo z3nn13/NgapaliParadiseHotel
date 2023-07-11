@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/booking/search', function () {
-    return view('search-results');
+    return view('booking.search');
 });
 
 Route::get('/booking/billing', function () {
