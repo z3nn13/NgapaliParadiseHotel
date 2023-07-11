@@ -35,7 +35,7 @@
     'booking__form',
     'booking__form--' . $type,
     'container--search',
-]) method="GET" action="/search-results">
+]) method="GET" action="/booking/search">
     <div class="booking__form__field-wrapper">
         @foreach ($input_fields as $field)
             {{-- Arrival Date --}}

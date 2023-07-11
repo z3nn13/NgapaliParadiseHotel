@@ -6,6 +6,8 @@
     </div>
     <div class="room-deal__button-wrapper">
         <input type="hidden" name="roomDealID" value="1">
-        <button type="submit" class="room-deal__button button button--primary">Reserve</button>
+        <a href="/booking/billing">
+            <button type="button" class="room-deal__button button button--primary">Reserve</button>
+        </a>
     </div>
 </div>
