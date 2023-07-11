@@ -1,4 +1,4 @@
-<footer class="footer" style="background-image: url('images/home/footer.jpg');">
+<footer class="footer">
     <div class="footer__wrapper">
         <img class=" footer__logo" src="/images/logos/white_text.png" alt="logo">
         <div class="footer__details">
