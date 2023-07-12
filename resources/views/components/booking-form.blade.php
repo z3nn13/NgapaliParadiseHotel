@@ -45,7 +45,7 @@
                     @if ($type == 'search') disabled
                         value={{ $_REQUEST[$field['name']] }}
                     @else
-                        value={{ old($field['name']) ? old($field['name']) : $field['default'] }} @endif>
+                        value={{ old($field['name']) ?? $field['default'] }} @endif>
             </div>
         @endforeach
     </div>

@@ -2,25 +2,56 @@
     <x-nav type="landing"></x-nav>
 
     <div class="background">
-        <section class="perks">
-            <h2>Membership perks</h2>
-            <p>Exclusive 30% Coupon Code</p>
-            <p>Highest Priority Support</p>
-            <p>100% Free (Limited Time)</p>
-            <p>Unlock Member Unique Features</p>
-            <h2>.... and more to come</h2>
-        </section>
+        <div class="grid-layout">
 
-        <form class="register-form" action="\register\{user}">
-            <h2>Become a member</h2>
-            <x-auth-input-field></x-auth-input-field>
-            {{-- <x-auth-checkbox></x-auth-checkbox> --}}
-            {{-- <x-button></x-button> --}}
+            {{-- Perk Section --}}
+            <section class="perks">
+                <h2 class="perks__title">Membership perks</h2>
+                <ul class="perks__list">
+                    <li class="perks__item">
+                        <p class="perks__text">Exclusive 30% Coupon Code</p>
+                    </li>
+                    <li class="perks__item">
+                        <p class="perks__text">Highest Priority Support</p>
+                    </li>
+                    <li class="perks__item">
+                        <p class="perks__text">100% Free (Limited Time)</p>
+                    </li>
+                    <li class="perks__item">
+                        <p class="perks__text">Unlock Member Unique Features</p>
+                    </li>
+                </ul>
+                <h2 class="perks__footer">.... and more to come</h2>
+            </section>
 
-        </form>
+
+            {{-- Register Form Section --}}
+            <form method="POST" class="register-form" action="\register">
+                @csrf
+                <h2 class="register-form__title">Become a member</h2>
+                <div class="register-form__input-group">
+                    <x-auth-input-field type="text" name="first_name">First Name</x-auth-input-field>
+                    <x-auth-input-field type="text" name="last_name">Last Name</x-auth-input-field>
+                    <x-auth-input-field type="mail" name="email">Email Address</x-auth-input-field>
+                    <x-auth-input-field type="password" name="password">Password</x-auth-input-field>
+                    <x-auth-input-field type="tel" name="phone_no">Phone No.</x-auth-input-field>
+                </div>
+
+                <input class="register-form__checkbox" type="checkbox" required>
+                <span class="register-form__checkbox-text"> I agree to the
+                    <a class="register-form__terms" href="/terms">Terms and Conditions</a>
+                </span>
+                <button class="register-form__button button" type="submit">
+                    Join Now
+                </button>
+                <p class="register-form__footer">Already a member? <a href="/login">Sign In</a></p>
+            </form>
+        </div>
     </div>
 
 </x-layout>
+
+
 
 {{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
