@@ -10,5 +10,13 @@
     <div class="nav__cta nav__item">
         {{ $slot }}
     </div>
+
+    @auth
+        <!-- Authentication -->
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    @endauth
     <img class="nav__menu" src="images/svg/nav-burger.svg" alt="" />
 </nav>
