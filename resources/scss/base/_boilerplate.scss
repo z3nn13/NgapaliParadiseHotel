@@ -17,3 +17,9 @@ body {
     color: hsl(var(--clr-neutral-900));
     line-height: 1.1;
 }
+
+a,
+a:hover,
+a:active {
+    color: inherit;
+}

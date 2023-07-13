@@ -7,6 +7,8 @@
             {{-- Perk Section --}}
             <section class="perks">
                 <h2 class="perks__title">Membership perks</h2>
+                <img src="images/svg/cocktail.svg" alt="cocktail image" />
+
                 <ul class="perks__list">
                     <li class="perks__item">
                         <p class="perks__text">Exclusive 30% Coupon Code</p>
@@ -37,10 +39,12 @@
                     <x-auth-input-field type="tel" name="phone_no">Phone No.</x-auth-input-field>
                 </div>
 
-                <input class="register-form__checkbox" type="checkbox" required>
-                <span class="register-form__checkbox-text"> I agree to the
-                    <a class="register-form__terms" href="/terms">Terms and Conditions</a>
-                </span>
+                <div class="register-form__checkbox-group">
+                    <input class="register-form__checkbox" type="checkbox" required>
+                    <span class="register-form__checkbox-text"> I agree to the
+                        <a class="register-form__terms" href="/terms">Terms and Conditions</a>
+                    </span>
+                </div>
                 <button class="register-form__button button" type="submit">
                     Join Now
                 </button>
