@@ -3,12 +3,14 @@
 namespace Database\Seeders;
 
 
+use App\Models\Room;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
+use App\Models\Reservation;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class RoomSeeder extends Seeder
+class RoomTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -37,9 +39,12 @@ class RoomSeeder extends Seeder
 
         foreach ($roomTypes as $roomType) {
             RoomType::create($roomType);
-            RoomDeal::factory(3)->create(
+            Room::create(["room_type_id" => $roomType["id"]]);
+            RoomDeal::factory(3)->create(["room_type_id" => $roomType["id"]]);
+            Reservation::factory(3)->create(
                 [
-                    "room_type_id" => $roomType["id"]
+                    "user_id" => 1,
+                    "deal_id" => 1,
                 ]
             );
         }

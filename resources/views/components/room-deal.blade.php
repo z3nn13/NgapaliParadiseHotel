@@ -6,9 +6,8 @@
         <p class="room-deal__price--usd">EST USD {{ number_format((float) $roomDeal->deal_usd, 2, '.', '') }}</p>
     </div>
     <div class="room-deal__button-wrapper">
-        <form method="POST" action="{{ route('booking.billing', ['id' => 1]) }}">
+        <form method="GET" action="{{ route('booking.billing', ['id' => $roomDeal->id]) }}">
             @csrf
-            <input type="hidden" name="dealID" value=1>
             <button type="submit" class="room-deal__button button button--primary">Reserve</button>
         </form>
     </div>

@@ -15,4 +15,15 @@ class RoomType extends Model
     {
         return $this->hasMany(RoomDeal::class);
     }
+
+    // The rooms that are related to this room type
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+
+    public function available_rooms($checkin, $checkout)
+    {
+        // 
+    }
 }
