@@ -46,7 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Relationship with roles
+    // The role the user belongs to
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');

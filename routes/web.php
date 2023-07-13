@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,11 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/booking/search', function () {
-    return view('booking.search');
-});
+Route::get('/booking/search', [RoomTypeController::class, 'index'])->name('booking.search');
 
 Route::get('/booking/billing', function () {
     return view('booking.billing');
-});
+})->name('booking.billing');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

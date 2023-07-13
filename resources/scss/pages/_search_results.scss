@@ -165,6 +165,7 @@
         color: hsl(var(--clr-primary-400));
         font-family: var(--ff-secondary);
         margin-bottom: 1rem;
+        text-transform: capitalize;
     }
     &__price {
         color: hsl(var(--clr-primary-400));

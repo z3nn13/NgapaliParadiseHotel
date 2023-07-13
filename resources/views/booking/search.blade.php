@@ -33,6 +33,8 @@
                 </select>
             </div>
         </header>
-        <x-room-result></x-room-result>
+        @foreach ($roomTypes as $roomType)
+            <x-room-result :roomType=$roomType></x-room-result>
+        @endforeach
     </section>
 </x-layout>

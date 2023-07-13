@@ -34,7 +34,7 @@
     'booking__form',
     'booking__form--' . $type,
     'container--search',
-]) method="GET" action="/booking/search">
+]) method="GET" action="{{ route('booking.search') }}">
     <div class="booking__form__field-wrapper">
         @foreach ($input_fields as $field)
             <div class="booking__form__field">
