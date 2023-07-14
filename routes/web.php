@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomTypeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
-Route::get('/booking/search', [RoomTypeController::class, 'index'])->name('booking.search');
+Route::get('/booking/search', [ReservationController::class, 'index'])->name('booking.search');
 
 Route::get('/booking/billing', function () {
     return view('booking.billing');

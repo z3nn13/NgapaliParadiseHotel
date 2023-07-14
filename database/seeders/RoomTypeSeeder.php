@@ -9,6 +9,7 @@ use App\Models\RoomType;
 use App\Models\Reservation;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class RoomTypeSeeder extends Seeder
 {
@@ -40,13 +41,21 @@ class RoomTypeSeeder extends Seeder
         foreach ($roomTypes as $roomType) {
             RoomType::create($roomType);
             Room::create(["room_type_id" => $roomType["id"]]);
+            Room::create(["room_type_id" => $roomType["id"]]);
+            Room::create(["room_type_id" => $roomType["id"]]);
             RoomDeal::factory(3)->create(["room_type_id" => $roomType["id"]]);
-            Reservation::factory(3)->create(
+            Reservation::factory()->create(
                 [
                     "user_id" => 1,
                     "deal_id" => 1,
                 ]
             );
         }
+        DB::table('reservations_rooms')->insert(
+            [
+                'room_id' => 1,
+                'reservation_id' => 1,
+            ]
+        );
     }
 }

@@ -19,6 +19,6 @@ class Room extends Model
     //  Get Reservations to this Room.
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->belongsToMany(Reservation::class, 'reservations_rooms');
     }
 }

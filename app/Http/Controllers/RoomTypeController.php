@@ -2,41 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\RoomType;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoomTypeRequest;
 use App\Http\Requests\UpdateRoomTypeRequest;
-use App\Models\Reservation;
-use Illuminate\Http\Request;
 
 class RoomTypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of resource
      */
     public function index(Request $request)
     {
-
-        $checkInDate = $request['arrivalDate'];
-        $checkOutDate = $request['departureDate'];
-        $periodOfStay = [$checkInDate, $checkOutDate];
-
-        $roomTypes = RoomType::all();
-        // sql = """SELECT RoomTypeID, COUNT(*)
-        // FROM room
-        // WHERE NOT EXISTS (
-        //     -- room is booked on the requested dates (...not)
-        //     SELECT 1
-        //     FROM reservedRoom
-        //     JOIN bookings ON reservedRoom.bookingID = bookings.bookingID
-        //     WHERE reservedRoom.roomID = room.roomID
-        //     AND '2018-02-09' > checkIndate
-        //     AND '2018-02-08' < checkOutDate
-        // )
-        // GROUP BY RoomTypeID}
-
-        return view('booking.search', [
-            'roomTypes' => $roomTypes
-        ]);
+        // 
     }
 
     /**

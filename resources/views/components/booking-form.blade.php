@@ -55,7 +55,7 @@
             Book a stay
         </button>
     @elseif ($type == 'search')
-        <a class="booking__form__button button button--special">
+        <a href="{{ route('home') }}"class="booking__form__button button button--special">
             Edit
         </a>
     @endif

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,8 @@ class ReservationFactory extends Factory
     {
         return [
             'num_guests' => fake()->numberBetween(1, 10),
-            'check_in_date' => fake()->date(),
-            'check_out_date' => fake()->date(),
+            'check_in_date' => Carbon::now(),
+            'check_out_date' => Carbon::now()->addDays(2),
             'special_request' => fake()->text(),
             'status' => 'active',
         ];
