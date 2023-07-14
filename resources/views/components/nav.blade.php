@@ -7,9 +7,6 @@
         <li class="nav__item"><a class="nav__link" href="/gallery">gallery</a></li>
         <li class="nav__item"><a class="nav__link" href="/about">about</a></li>
     </ul>
-    <div class="nav__cta nav__item">
-        {{ $slot }}
-    </div>
 
     @auth
         <!-- Authentication -->
@@ -17,6 +14,11 @@
             @csrf
             <button type="submit">Logout</button>
         </form>
+    @else
+        <div class="nav__cta nav__item">
+            {{ $slot }}
+        </div>
+
     @endauth
     <img class="nav__menu" src="images/svg/nav-burger.svg" alt="" />
 </nav>

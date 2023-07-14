@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('room_types', function (Blueprint $table) {
             $table->id();
             $table->string("room_type_name");
+            $table->string("room_image")->nullable();
             $table->integer("occupancy");
             $table->string("view");
             $table->string("bedding");
-            $table->text("description");
+            $table->text("description")->nullable();
             $table->timestamps();
         });
     }

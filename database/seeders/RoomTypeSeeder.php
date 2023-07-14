@@ -22,6 +22,7 @@ class RoomTypeSeeder extends Seeder
             [
                 "id" => 1,
                 "room_type_name" => "Beachfront View King Bed",
+                "room_image" => "images/rooms/room1.png",
                 "occupancy" => "3",
                 "view" => "Full Sea",
                 "bedding" => "1 King Bed",
@@ -30,6 +31,7 @@ class RoomTypeSeeder extends Seeder
             [
                 "id" => 2,
                 "room_type_name" => "Partial Sea View King Bed",
+                "room_image" => "images/rooms/room2.png",
                 "occupancy" => "2",
                 "view" => "Partial Sea",
                 "bedding" => "1 King Bed",

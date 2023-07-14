@@ -39,7 +39,7 @@
     &__select,
     &__select:focus {
         border: 2px solid hsl(var(--clr-primary-400) / 0.5);
-        border-radius: 0.5rem;
+        border-radius: 5px;
         color: hsl(var(--clr-primary-400));
         appearance: none;
 
@@ -48,11 +48,13 @@
         padding: 0.5rem;
         overflow: hidden;
 
-        font-family: var(--ff-primary);
+        font-family: var(--ff-secondary);
         text-transform: uppercase;
 
         & option {
-            border-radius: 1rem;
+            border-radius: 2rem;
+            border: 1px solid black;
+            overflow: hidden;
             background-color: hsl(var(--clr-primary-100));
 
             margin: 1rem;
@@ -80,25 +82,43 @@
         font-size: var(--fs-600);
     }
 
-    --padding: 1rem;
+    --padding: 2rem;
     &__container {
         border-radius: 1rem;
         background-color: hsl(var(--clr-neutral-100));
+        box-shadow: 1px 6px 17px -6px rgba(0, 0, 0, 0.75);
 
+        position: relative;
         display: flex;
         flex-direction: column;
-        width: max-content;
+        min-width: fit-content;
+
         margin: auto;
         margin-bottom: var(--margin-size);
         padding: var(--padding);
-        box-shadow: 1px 6px 17px -6px rgba(0, 0, 0, 0.75);
+        overflow: visible;
     }
 
+    &__available-rooms {
+        border-radius: 3px;
+        position: absolute;
+        top: -2rem;
+        z-index: -1;
+        padding: 0.5rem;
+        white-space: nowrap;
+        text-transform: uppercase;
+        background-color: hsl(var(--clr-sun-400));
+        color: white;
+        font-family: var(--ff-secondary);
+        font-size: var(--fs-300);
+        font-weight: 600;
+    }
     &__card {
         border-radius: 1rem;
         overflow: hidden;
         margin-bottom: var(--padding);
         display: flex;
+        flex: 1;
         flex-direction: column;
 
         &-image {
@@ -133,7 +153,6 @@
         border-top: 2px solid hsl(var(--clr-primary-400) / 0.1);
     }
     &__deals {
-        // border: 2px solid lime;
         margin: var(--padding);
     }
 
@@ -204,9 +223,6 @@
         &__container {
             flex-direction: row;
         }
-        // &__card {
-        //     margin-right: 1rem;
-        // }
 
         &__separator {
             margin-left: 1rem;
@@ -214,10 +230,7 @@
             border-left: 2px solid hsl(var(--clr-primary-400) / 0.1);
         }
         &__deals {
-            // border-left: 2px solid hsl(var(--clr-primary-400) / 0.1);
-            // padding-left: 1rem;
-            // padding-left: 1rem;
-            margin: 0;
+            margin-right: 3rem;
             padding: 0;
         }
     }

@@ -10,6 +10,33 @@ class RoomType extends Model
 
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id',
+        'room_type_name',
+        'room_image',
+        'occupancy',
+        'view',
+        'bedding',
+        'description',
+        'available_rooms'
+    ];
+
+
+    public function highest_price()
+    {
+        return $this->room_deals()->max('deal_mmk');
+    }
+
+    public function lowest_price()
+    {
+        return $this->room_deals()->min('deal_mmk');
+    }
+
     // The room deals that are related to this room type
     public function room_deals()
     {
@@ -20,10 +47,5 @@ class RoomType extends Model
     public function rooms()
     {
         return $this->hasMany(Room::class);
-    }
-
-    public function available_rooms($checkin, $checkout)
-    {
-        // 
     }
 }

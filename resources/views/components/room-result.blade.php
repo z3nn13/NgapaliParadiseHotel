@@ -1,8 +1,10 @@
 @props(['roomType'])
-
 <div class="room-result container--search">
     <h2 class="room-result__title">"{{ $roomType->room_type_name }}"</h2>
     <div class="room-result__container container--search">
+        <p class="room-result__available-rooms">
+            {{ $roomType->available_rooms }} Rooms Left
+        </p>
         <div class="room-result__card">
             <img src="/images/booking/card-image.png " class="room-result__card-image">
             <div class="room-result__card-body">

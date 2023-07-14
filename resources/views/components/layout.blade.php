@@ -21,6 +21,7 @@
         rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
 
 
