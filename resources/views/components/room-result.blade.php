@@ -1,7 +1,7 @@
 @props(['roomType'])
 
 <div class="room-result container--search">
-    <h2 class="room-result__title">{{ $roomType->room_type_name }}</h2>
+    <h2 class="room-result__title">"{{ $roomType->room_type_name }}"</h2>
     <div class="room-result__container container--search">
         <div class="room-result__card">
             <img src="/images/booking/card-image.png " class="room-result__card-image">
