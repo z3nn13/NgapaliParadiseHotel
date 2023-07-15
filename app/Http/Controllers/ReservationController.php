@@ -22,23 +22,43 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new booking.
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->has("goBack")) {
+            return view('booking.create');
+        }
+
+        $dealChoice = RoomDeal::find($request->input("roomDealID"));
+        $roomChoice = RoomType::find($request->input("roomTypeID"));
+        $request->session()->put('dealChoice', $dealChoice);
+        $request->session()->put('roomChoice', $roomChoice);
         return view('booking.create');
+    }
+
+    /**
+     * Show the form for creating a new booking.
+     */
+    public function confirm(Request $request)
+    {
+        return view('booking.confirm');
     }
 
     /**
      * Process of checking out the .
      */
-    public function checkout(Request $request)
+    public function payment(Request $request)
     {
         $stripe = new \Stripe\StripeClient(config('stripe.sk'));
 
-        $roomsBooked = [];
-        foreach ($request->room_ids as $room_type_id) {
-            $roomsBooked[] = RoomType::find($room_type_id);
-        }
-        $deal = RoomDeal::find($request->deal_id);
+        $roomTypes = [session('roomChoice')];
+        $roomDeal = session('roomDeal');
+
+        $checkIn = \Carbon\Carbon::parse(session('checkInDate'));
+        $checkOut = \Carbon\Carbon::parse(session('checkOutDate'));
+        $numNights = $checkIn->diffInDays($checkOut);
+        $totalAmount = $roomDeal->deal_mmk * $numNights;
+
+        $roomsBooked = $roomTypes;
         foreach ($roomsBooked as $room) {
             $lineItems = [
                 [
@@ -48,7 +68,7 @@ class ReservationController extends Controller
                             'name' => $room->room_type_name,
                             "description" => $room->description,
                         ],
-                        'unit_amount' => $deal->deal__mmk,
+                        'unit_amount_decimal' => $totalAmount * 100,
                     ],
                     'quantity' => 1,
                 ]
@@ -68,9 +88,10 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function success()
+    public function success(Request $request)
     {
-        return view('index');
+        $request->session()->flush();
+        return view('booking.success');
     }
 
 

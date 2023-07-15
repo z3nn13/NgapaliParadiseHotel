@@ -4,7 +4,7 @@
     $input_fields = [
         [
             'label' => 'Arrival Date',
-            'name' => 'arrivalDate',
+            'name' => 'checkInDate',
             'type' => 'date',
             'min' => now()->toDateString(),
             'max' => '',
@@ -12,7 +12,7 @@
         ],
         [
             'label' => 'Departure Date',
-            'name' => 'departureDate',
+            'name' => 'checkOutDate',
             'type' => 'date',
             'min' => now()->toDateString(),
             'max' => '',

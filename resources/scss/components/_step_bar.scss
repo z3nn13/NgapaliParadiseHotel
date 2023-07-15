@@ -18,7 +18,7 @@
     }
 
     --text-color: hsl(var(--clr-sun-500) / 0.5);
-    --circle-fill-color: hsl(var(--clr-neutral-100));
+    --circle-fill-color: hsl(var(--clr-primary-100));
     --circle-text-color: var(--text-color);
     --line-color: hsl(var(--clr-sun-400) / 0.3);
     --circle-border: 2px solid hsl(var(--clr-sun-400) / 0.3);
@@ -31,21 +31,21 @@
         align-items: center;
         flex: 1;
 
+        &--active,
         &--completed {
             --text-color: hsl(var(--clr-sun-500));
-            --circle-fill-color: hsl(var(--clr-sun-400));
+            --circle-border: 2px solid hsl(var(--clr-sun-400));
+            --circle-text-color: hsl(var(--clr-sun-500));
             --line-color: hsl(var(--clr-sun-400));
+
+            font-weight: 500;
+        }
+
+        &--completed {
+            --circle-fill-color: hsl(var(--clr-sun-400));
             i {
                 color: hsl(var(--clr-neutral-100));
             }
-        }
-
-        &--active {
-            font-weight: 500;
-            --text-color: hsl(var(--clr-sun-500));
-            --circle-text-color: hsl(var(--clr-neutral-100));
-            --circle-fill-color: hsl(var(--clr-sun-400));
-            --line-color: hsl(var(--clr-sun-400));
         }
 
         &:not(:first-child)::before {

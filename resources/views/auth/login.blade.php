@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <x-nav type="landing"></x-nav>
 
     <div class="background">
@@ -34,4 +34,4 @@
         </div>
     </div>
 
-</x-layout>
+</x-app-layout>

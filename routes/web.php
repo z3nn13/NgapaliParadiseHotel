@@ -23,8 +23,10 @@ Route::get('/', function () {
 
 
 Route::get('/booking', [ReservationController::class, 'index'])->name('booking.index');
-Route::get('/booking/create', [ReservationController::class, 'create'])->name('booking.create');
-Route::post('/booking/checkout', [ReservationController::class, 'checkout'])->name('booking.checkout');
+Route::POST('/booking/create', [ReservationController::class, 'create'])->name('booking.create');
+Route::POST('/booking/add-room', [ReservationController::class, 'add-room'])->name('booking.add-room');
+Route::post('/booking/confirm', [ReservationController::class, 'confirm'])->name('booking.confirm');
+Route::post('/booking/payment', [ReservationController::class, 'payment'])->name('booking.payment');
 Route::get('/booking/success', [ReservationController::class, 'success'])->name('booking.success');
 
 

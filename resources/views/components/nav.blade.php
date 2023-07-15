@@ -16,9 +16,11 @@
         </form>
     @else
         <div class="nav__cta nav__item">
-            {{ $slot }}
+            <a class="nav__button button button--special" href="/register">
+                Join Membership
+            </a>
+            <span class="nav__span">Get discounts up to 20%</span>
         </div>
-
     @endauth
-    <img class="nav__menu" src="images/svg/nav-burger.svg" alt="" />
+    <img class="nav__menu" src="images/svg/nav-burger.svg" alt="nav-burger" />
 </nav>

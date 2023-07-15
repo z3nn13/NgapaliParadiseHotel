@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <x-nav type="primary"></x-nav>
 
-</x-layout>
+</x-app-layout>

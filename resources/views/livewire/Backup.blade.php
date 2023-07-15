@@ -1,4 +1,3 @@
-{{-- <livewire:sort-select :roomTypes="$roomTypes" /> --}}
 <x-app-layout>
     <x-nav></x-nav>
 

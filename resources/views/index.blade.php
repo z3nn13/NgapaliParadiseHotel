@@ -1,8 +1,5 @@
-<x-layout>
-    <x-nav type="landing">
-        <a class="nav__button button button--special" href="/register">Join Membership</a>
-        <span class="nav__span">Get discounts up to 20%</span>
-    </x-nav>
+<x-app-layout>
+    <x-nav type="landing"></x-nav>
 
     {{-- Hero Section --}}
     <section class="hero">
@@ -83,4 +80,4 @@
             <img class="room-section__image room-section__image--bottom-right" src="/images/home/room_3.png">
         </div>
     </section>
-</x-layout>
+</x-app-layout>

@@ -36,7 +36,11 @@
         <div class="room-result__deals">
             <h3 class="room-result__deals-title">Choose a deal from below</h3>
             @foreach ($roomType->room_deals as $roomDeal)
-                <x-room-deal :roomDeal=$roomDeal></x-room-deal>
+                <form action="{{ route('booking.create') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="roomTypeID" value="{{ $roomType->id }}">
+                    <x-room-deal :roomDeal=$roomDeal></x-room-deal>
+                </form>
             @endforeach
         </div>
     </div>

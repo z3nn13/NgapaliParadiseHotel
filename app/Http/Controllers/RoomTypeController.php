@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreRoomTypeRequest;
 use App\Http\Requests\UpdateRoomTypeRequest;
+use Carbon\Carbon;
 
 class RoomTypeController extends Controller
 {
@@ -45,8 +46,8 @@ class RoomTypeController extends Controller
             GROUP BY room_type_id
         */
 
-        $checkInDate = $request['arrivalDate'];
-        $checkOutDate = $request['departureDate'];
+        $checkInDate = $request['checkInDate'];
+        $checkOutDate = $request['checkOutDate'];
         $periodOfStay = [$checkInDate, $checkOutDate];
 
         // Get Room types that aren't reserved.
@@ -75,8 +76,13 @@ class RoomTypeController extends Controller
                 $roomTypes[] = $roomType;
             }
         }
+        $checkIn = \Carbon\Carbon::parse($checkInDate);
+        $checkOut = \Carbon\Carbon::parse($checkOutDate);
+        $numNights = $checkIn->diffInDays($checkOut);
+
 
         $request->session()->put($request->query());
+        $request->session()->put('numNights', $numNights);
         return view('room-types.search', [
             'roomTypes' => $roomTypes
         ]);
@@ -87,7 +93,7 @@ class RoomTypeController extends Controller
      */
     public function sort(Request $request)
     {
-        $sortBy = $request->sortSelectValue; // Default to ascending order if not provided
+        $sortBy = $request->sortSelectValue;
         $roomTypesArray = json_decode($request->roomTypes);
         $roomTypes = collect($roomTypesArray)->map(function ($item) {
             return new RoomType((array) $item);
