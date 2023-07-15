@@ -29,7 +29,7 @@ Route::get('/booking/success', [ReservationController::class, 'success'])->name(
 
 
 Route::get('/room-types/search', [RoomTypeController::class, 'search'])->name('room-types.search');
-Route::post('/room-types/sort', [RoomTypeController::class, 'sort'])->name('room-types.sort');
+Route::POST('/room-types/sort', [RoomTypeController::class, 'sort'])->name('room-types.sort');
 
 
 Route::get('/dashboard', function () {

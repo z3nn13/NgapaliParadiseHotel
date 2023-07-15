@@ -104,7 +104,7 @@ class RoomTypeController extends Controller
 
         return view('room-types.search', [
             'roomTypes' => $sortedRoomTypes,
-            'selected' => $sortBy
+            'sortSelectValue' => $sortBy
         ]);
     }
 

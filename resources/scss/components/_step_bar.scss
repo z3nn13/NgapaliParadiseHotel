@@ -7,18 +7,21 @@
     margin-bottom: calc(var(--margin-size) / 2);
 
     &__title {
+        color: hsl(Var(--clr-sun-400));
         width: 100%;
         margin-top: var(--margin-size);
-        margin-bottom: var(--margin-size);
+        margin-bottom: calc(var(--margin-size) / 2);
+
         text-align: center;
-        font-size: var(--fs-600);
+        font-size: var(--fs-700);
         font-family: var(--ff-special);
     }
 
-    --circle-fill-color: hsl(var(--clr-primary-100));
-    --circle-border: 2px solid hsl(var(--clr-primary-400) / 0.3);
-    --after-color: hsl(var(--clr-neutral-800) / 0.1);
-    --text-color: hsl(var(--clr-primary-500) / 0.5);
+    --text-color: hsl(var(--clr-sun-500) / 0.5);
+    --circle-fill-color: hsl(var(--clr-neutral-100));
+    --circle-text-color: var(--text-color);
+    --line-color: hsl(var(--clr-sun-400) / 0.3);
+    --circle-border: 2px solid hsl(var(--clr-sun-400) / 0.3);
     --circle-height: 3rem;
 
     &__item {
@@ -28,9 +31,26 @@
         align-items: center;
         flex: 1;
 
+        &--completed {
+            --text-color: hsl(var(--clr-sun-500));
+            --circle-fill-color: hsl(var(--clr-sun-400));
+            --line-color: hsl(var(--clr-sun-400));
+            i {
+                color: hsl(var(--clr-neutral-100));
+            }
+        }
+
+        &--active {
+            font-weight: 500;
+            --text-color: hsl(var(--clr-sun-500));
+            --circle-text-color: hsl(var(--clr-neutral-100));
+            --circle-fill-color: hsl(var(--clr-sun-400));
+            --line-color: hsl(var(--clr-sun-400));
+        }
+
         &:not(:first-child)::before {
             content: "";
-            border-bottom: 2px solid hsl(var(--clr-neutral-800) / 0.1);
+            border-bottom: 2px solid var(--line-color);
             position: absolute;
             top: calc(var(--circle-height) / 2);
             left: -50%;
@@ -39,36 +59,18 @@
         }
         &_:not(:last-child)::after {
             content: "";
-            border-bottom: 2px solid hsl(var(--clr-neutral-800) / 0.1);
+            border-bottom: 2px solid var(--line-color);
             position: absolute;
             top: calc(var(--circle-height) / 2);
             left: 50%;
             z-index: 2;
             width: 100%;
         }
-
-        &--completed {
-            --circle-fill-color: hsl(var(--clr-primary-400));
-            --text-color: hsl(var(--clr-primary-500));
-            --after-color: hsl(var(--clr-neutral-800));
-            i {
-                color: hsl(var(--clr-neutral-100));
-            }
-        }
-
-        &--active {
-            font-weight: 500;
-            --circle-border: 2px solid hsl(var(--clr-primary-400));
-            --text-color: hsl(var(--clr-primary-500));
-            &:before {
-                border-bottom: 2px solid hsl(var(--after-color));
-            }
-        }
     }
 
     &__circle {
         font-family: var(--ff-secondary);
-        color: var(--text-color);
+        color: var(--circle-text-color);
         background: var(--circle-fill-color);
         border: var(--circle-border);
         border-radius: 50%;
