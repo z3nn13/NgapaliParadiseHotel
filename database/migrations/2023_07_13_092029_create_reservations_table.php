@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('deal_id');
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('deal_id')->constrained('room_deals');
             $table->integer('num_guests');
             $table->date('check_in_date');
             $table->date('check_out_date');
-            $table->text('special_request');
+            $table->text('special_request')->nullable();
             $table->string('status');
             $table->timestamps();
         });

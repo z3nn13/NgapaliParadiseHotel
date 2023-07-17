@@ -1,0 +1,105 @@
+.text-sun-400 {
+    color: hsl(var(--clr-sun-400));
+}
+
+.billing-grid {
+    background-color: hsl(var(--clr-neutral-100));
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    padding: 3rem;
+    margin: var(--margin-size);
+    box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: var(--ff-secondary);
+}
+
+.billing-summary {
+    border-radius: 15px;
+    border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+    margin-right: 3rem;
+    font-weight: 500;
+    padding: 1.5rem;
+
+    & > * {
+        margin-bottom: 21px;
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    &__room-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 21px;
+
+        &--left {
+            background: #000;
+            grid-row: span 2;
+        }
+    }
+    &__room-detail {
+        margin-bottom: 2rem;
+    }
+    &__room-image {
+        margin-right: 0.5rem;
+        width: 90%;
+        border-radius: 7px;
+        object-position: top left;
+    }
+
+    &__room-heading {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2.375rem;
+        &--left {
+            width: 15ch;
+        }
+    }
+
+    &__room-price {
+        display: flex;
+        justify-content: end;
+        color: hsl(var(--clr-sun-400));
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    &__room-deal {
+        margin-bottom: 0.625rem;
+    }
+    &__row {
+        display: flex;
+        justify-content: space-between;
+
+        &--right {
+            border-bottom: 2.5px solid hsl(var(--clr-primary-400) / 0.2);
+            justify-content: end;
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+        }
+    }
+
+    &__coupon-input,
+    &__coupon-input:focus {
+        border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+        width: 15ch;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        text-align: center;
+    }
+    &__total-value {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+}
+
+.icon {
+    &__angle-down {
+        color: black;
+        width: 10px;
+    }
+}

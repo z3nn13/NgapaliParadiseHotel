@@ -23,7 +23,7 @@ class SortSelect extends Component
             $sortedRoomTypes = $roomTypes->sortByDesc(function ($roomType) {
                 return $roomType->highest_price();
             });
-        } else {
+        } else if ($sortOption === 'asc') {
             $sortedRoomTypes = $roomTypes->sortBy(function ($roomType) {
                 return $roomType->lowest_price();
             });

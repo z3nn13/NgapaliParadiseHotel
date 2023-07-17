@@ -1,13 +1,15 @@
 <x-app-layout>
-    <x-nav type="landing"></x-nav>
+    <x-nav type="auth"></x-nav>
 
     <div class="background">
         <div class="grid-layout">
 
             {{-- Perk Section --}}
             <section class="perks">
-                <h2 class="perks__title">Membership perks</h2>
-                <img src="images/svg/cocktail.svg" alt="cocktail image" />
+                <div class="perks__header">
+                    <h2 class="perks__title">Membership perks</h2>
+                    <img class="perks__icon" src="images/svg/cocktail.svg" alt="cocktail image" />
+                </div>
 
                 <ul class="perks__list">
                     <li class="perks__item">

@@ -9,6 +9,22 @@ class Reservation extends Model
 {
     use HasFactory;
 
+
+    /**
+     * The attributes that are mass assignable. 
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'deal_id',
+        'num_guests',
+        'check_in_date',
+        'check_out_date',
+        'special_request',
+        'status',
+    ];
+
     //  Get all of the rooms for the reservation.
     public function rooms()
     {

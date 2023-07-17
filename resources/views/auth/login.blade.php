@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-nav type="landing"></x-nav>
+    <x-nav type="auth"></x-nav>
 
     <div class="background">
         <div class="grid-layout">
@@ -15,7 +15,7 @@
 
                 <a href="">Forgot Password?</a>
                 <div class="register-form__checkbox-group">
-                    <input class="register-form__checkbox" type="checkbox" required>
+                    <input class="register-form__checkbox" type="checkbox">
                     <span class="register-form__checkbox-text"> Remember password on this device?</span>
                 </div>
                 <button class="register-form__button button" type="submit">

@@ -2,32 +2,37 @@
     <x-nav></x-nav>
     <x-step-bar :active=3></x-step-bar>
     <div class="confirmation-page">
-        <h2 class="confirmation-page__title">Invoice</h2>
         @php
             $roomType = session('roomChoice');
-            $roomDeal = session('roomDeal');
-            $checkIn = \Carbon\Carbon::parse(session('checkInDate'));
-            $checkOut = \Carbon\Carbon::parse(session('checkOutDate'));
-            $numNights = $checkIn->diffInDays($checkOut);
+            $roomDeal = session('dealChoice');
+            $numNights = session('numNights');
             $numGuest = session('numGuests');
-            $totalAmount = $roomDeal->deal_mmk * $numNights;
+            $unit = $billingData['currency'] == 'USD' ? "$" : 'MMK';
         @endphp
         <div class="invoice">
-            <div class="invoice__item">
-                <span class="invoice__label">Room Type:</span>
-                <span class="invoice__value">{{ $roomType }}</span>
-            </div>
-            <div class="invoice__item">
-                <span class="invoice__label">Deal Choice:</span>
-                <span class="invoice__value">{{ $roomDeal }}</span>
-            </div>
-            <div class="invoice__item">
-                <span class="invoice__label">Number of Nights:</span>
-                <span class="invoice__value">{{ $numNights }}</span>
-            </div>
-            <div class="invoice__item">
-                <span class="invoice__label">Total Amount:</span>
-                <span class="invoice__value">{{ $totalAmount }}</span>
+            <div class="invoice__container">
+
+                <h2 class="confirmation-page__title">Billing Info</h2>
+                <div class="invoice__item">
+                    <span class="invoice__label">Room 1:</span>
+                    <span class="invoice__value">{{ $roomType->room_type_name }}</span>
+                </div>
+                <div class="invoice__item">
+                    <span class="invoice__label">Room Deal:</span>
+                    <span class="invoice__value">{{ $roomDeal->deal_name }}</span>
+                </div>
+                <div class="invoice__item">
+                    <span class="invoice__label">Number of Nights:</span>
+                    <span class="invoice__value">{{ $numNights }}</span>
+                </div>
+                <div class="invoice__item">
+                    <span class="invoice__label">Payment Method:</span>
+                    <span class="invoice__value">$ {{ $billingData['payment_method'] }}</span>
+                </div>
+                <div class="invoice__item">
+                    <span class="invoice__label">Total Amount:</span>
+                    <span class="invoice__value">$ {{ $billingData['totalAmount'] }}</span>
+                </div>
             </div>
         </div>
 
@@ -35,12 +40,14 @@
             <form action="{{ route('booking.create') }}" method="post">
                 @csrf
                 <input type="hidden" name="goBack" value="true">
-                <button type="submit" class="confirmation-page__button confirmation-page__button--back">Go
+                <button type="submit" class="confirmation-page__button button button--secondary">Go
                     Back</button>
             </form>
             <form action="{{ route('booking.payment') }}" method="post">
                 @csrf
-                <button type="submit" class="confirmation-page__button confirmation-page__button--payment">Send Payment
+                <input type="hidden" name="currency" value="{{ $billingData['currency'] }}">
+                <input type="hidden" name="totalAmount" value="{{ $billingData['totalAmount'] }}">
+                <button type="submit" class="confirmation-page__button button button--primary">Send Payment
                 </button>
             </form>
         </div>

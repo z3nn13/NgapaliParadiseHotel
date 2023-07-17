@@ -1,4 +1,10 @@
 <x-app-layout>
     <x-nav></x-nav>
-    Checkout Success
+    <p>
+        Checkout Success
+    </p>
+    <p>
+        Reservation Data:
+        {{ dd($reservation) }}
+    </p>
 </x-app-layout>

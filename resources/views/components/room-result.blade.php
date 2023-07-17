@@ -6,7 +6,7 @@
             {{ $roomType->available_rooms }} Rooms Left
         </p>
         <div class="room-result__card">
-            <img src="/images/booking/card-image.png " class="room-result__card-image">
+            <img src="{{ asset($roomType->room_image) }}" class="room-result__card-image">
             <div class="room-result__card-body">
                 <ul class="room-result__tags">
                     <li class="room-result__tag">

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_deals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_type_id');
+            $table->foreignId('room_type_id')->constrained('room_types');
             $table->string('deal_name');
             $table->integer('deal_mmk');
             $table->float('deal_usd');

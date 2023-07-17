@@ -40,7 +40,7 @@ class ReservationController extends Controller
      */
     public function confirm(Request $request)
     {
-        return view('booking.confirm');
+        return view('booking.confirm', ['billingData' => $request->all()]);
     }
 
     /**
@@ -48,27 +48,24 @@ class ReservationController extends Controller
      */
     public function payment(Request $request)
     {
+
         $stripe = new \Stripe\StripeClient(config('stripe.sk'));
-
         $roomTypes = [session('roomChoice')];
-        $roomDeal = session('roomDeal');
+        $roomDeal = session('dealChoice');
+        $description = "Room Deal: " . $roomDeal->deal_name . "\n" . session('numNights') . ' Nights ' . session('numGuests') . ' Guests';
 
-        $checkIn = \Carbon\Carbon::parse(session('checkInDate'));
-        $checkOut = \Carbon\Carbon::parse(session('checkOutDate'));
-        $numNights = $checkIn->diffInDays($checkOut);
-        $totalAmount = $roomDeal->deal_mmk * $numNights;
 
         $roomsBooked = $roomTypes;
         foreach ($roomsBooked as $room) {
             $lineItems = [
                 [
                     'price_data' => [
-                        'currency' => 'mmk',
+                        'currency' => $request->currency,
                         'product_data' => [
                             'name' => $room->room_type_name,
-                            "description" => $room->description,
+                            "description" => $description,
                         ],
-                        'unit_amount_decimal' => $totalAmount * 100,
+                        'unit_amount' => $request->totalAmount * 100,
                     ],
                     'quantity' => 1,
                 ]
@@ -78,23 +75,12 @@ class ReservationController extends Controller
         $session = $stripe->checkout->sessions->create([
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('booking.success'),
+            'success_url' => route('booking.store'),
             'cancel_url' => route('booking.index'),
         ]);
 
         return redirect($session->url);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function success(Request $request)
-    {
-        $request->session()->flush();
-        return view('booking.success');
-    }
-
-
 
 
     /**
@@ -102,7 +88,28 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        //
+        $checkIn = \Carbon\Carbon::parse(session("checkInDate"));
+        $checkOut = \Carbon\Carbon::parse(session("checkOutDate"));
+        $reservation = Reservation::create(
+            [
+                'user_id' => auth()->id(),
+                'deal_id' => session("dealChoice")->id,
+                'num_guests' => session("numGuests"),
+                'check_in_date' => $checkIn,
+                'check_out_date' => $checkOut,
+                'special_request' => $request->specialRequest,
+                'status' => 'Active',
+            ]
+        );
+        $reservation->rooms->attach($request->session("roomChoice"));
+
+        $request->session()->forget("checkInDate");
+        $request->session()->forget("checkOutDate");
+        $request->session()->forget("numGuests");
+        $request->session()->forget("numNights");
+        $request->session()->forget("roomChoice");
+        $request->session()->forget("dealChoice");
+        return view('booking.success', ['reservation' => $reservation]);
     }
 
 

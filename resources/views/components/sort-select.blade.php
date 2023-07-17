@@ -6,10 +6,10 @@
         <select onchange="this.form.submit()" class="result-section__select result-section__select--sort"
             name="sortSelectValue" id="sortSelectValue">
             <option value="" disabled selected hidden>Sort By</option>
-            <option value="asc" @if (isset($sortSelectValue) && $sortSelectValue == 'asc') selected @endif>
+            <option value="desc" @if (isset($sortSelectValue) && $sortSelectValue == 'desc') selected @endif>
                 Price: High to Low
             </option>
-            <option value="desc" @if (isset($sortSelectValue) && $sortSelectValue == 'desc') selected @endif>
+            <option value="asc" @if (isset($sortSelectValue) && $sortSelectValue == 'asc') selected @endif>
                 Price: Low to High</option>
         </select>
     </form>

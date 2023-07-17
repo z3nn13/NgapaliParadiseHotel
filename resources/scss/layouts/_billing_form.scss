@@ -1,0 +1,57 @@
+.billing-form {
+    font-weight: 600;
+    color: hsl(var(--clr-neutral-900) / 0.5);
+    &__title {
+        color: hsl(var(--clr-neutral-900));
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    &__subtitle {
+        margin-left: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    &__payment-group {
+        margin-bottom: 2rem;
+    }
+    &__group-title {
+        color: hsl(var(--clr-neutral-900) / 0.7);
+        font-size: 1.5625rem;
+        margin-bottom: 1rem;
+    }
+    &__group-layout {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__group-label {
+        margin-bottom: 1rem;
+    }
+    &__group-input,
+    &__group-input:focus {
+        outline: none;
+        background-color: hsl(var(--clr-primary-100));
+        border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+        border-radius: 10px;
+        padding: 1rem 2rem;
+    }
+
+    &__button--submit {
+        background-color: hsl(var(--clr-sun-400));
+        border: none;
+        border-radius: 30px;
+        padding: 1rem 4rem;
+    }
+}
+.center {
+    display: flex;
+    justify-content: center;
+}

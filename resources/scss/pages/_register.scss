@@ -3,6 +3,7 @@
     background-image: url("../../../public/images/auth/auth_bg.png");
     background-position: center;
     background-attachment: fixed;
+    background-size: cover;
     background-repeat: no-repeat;
     display: grid;
     place-items: center;
@@ -20,14 +21,25 @@
 }
 
 .perks {
-    --padding-left: 3rem;
+    --padding-left: 0;
     background-color: hsl(var(--clr-cta-400));
     flex: 1;
     padding: 2rem;
     color: hsl(var(--clr-neutral-100));
-    &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__header {
+        display: flex;
+        align-items: center;
         margin-bottom: 2rem;
         padding-left: var(--padding-left);
+    }
+
+    &__icon {
+        width: 3rem;
+    }
+    &__title {
         font-family: var(--ff-special);
         font-size: var(--fs-500);
     }

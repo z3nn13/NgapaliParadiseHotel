@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Livewire\RoomTypeSearch;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +23,15 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::get('/booking', [ReservationController::class, 'index'])->name('booking.index');
-Route::POST('/booking/create', [ReservationController::class, 'create'])->name('booking.create');
-Route::POST('/booking/add-room', [ReservationController::class, 'add-room'])->name('booking.add-room');
+Route::post('/booking/create', [ReservationController::class, 'create'])->name('booking.create');
+Route::post('/booking/add-room', [ReservationController::class, 'add-room'])->name('booking.add-room');
 Route::post('/booking/confirm', [ReservationController::class, 'confirm'])->name('booking.confirm');
 Route::post('/booking/payment', [ReservationController::class, 'payment'])->name('booking.payment');
-Route::get('/booking/success', [ReservationController::class, 'success'])->name('booking.success');
+Route::get('/booking/store', [ReservationController::class, 'store'])->name('booking.store');
 
 
-Route::get('/room-types/search', [RoomTypeController::class, 'search'])->name('room-types.search');
-Route::POST('/room-types/sort', [RoomTypeController::class, 'sort'])->name('room-types.sort');
+Route::get('/room-types/search', RoomTypeSearch::class)->name('room-types.search');
+Route::post('/room-types/sort', [RoomTypeController::class, 'sort'])->name('room-types.sort');
 
 
 Route::get('/dashboard', function () {

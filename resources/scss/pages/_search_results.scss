@@ -96,6 +96,7 @@
         margin: auto;
         margin-bottom: var(--margin-size);
         padding: var(--padding);
+        padding-top: 3rem;
         overflow: visible;
     }
 
@@ -116,13 +117,13 @@
     &__card {
         border-radius: 1rem;
         overflow: hidden;
-        margin-bottom: var(--padding);
         display: flex;
         flex: 1;
         flex-direction: column;
 
         &-image {
             min-width: 10rem;
+            height: 100%;
         }
 
         &-body {
@@ -153,7 +154,7 @@
         border-top: 2px solid hsl(var(--clr-primary-400) / 0.1);
     }
     &__deals {
-        margin: var(--padding);
+        margin: 0 var(--padding) var(--padding) var(--padding);
     }
 
     &__deals-title {
@@ -224,9 +225,11 @@
             flex-direction: row;
         }
 
+        &__card {
+            margin-bottom: var(--padding);
+        }
+
         &__separator {
-            margin-left: 1rem;
-            margin-right: 1rem;
             border-left: 2px solid hsl(var(--clr-primary-400) / 0.1);
         }
         &__deals {

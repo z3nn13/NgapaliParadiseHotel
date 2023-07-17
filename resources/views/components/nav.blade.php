@@ -12,15 +12,17 @@
         <!-- Authentication -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit">Logout</button>
+            <button class="nav__button button button--special" type="submit">Logout</button>
         </form>
     @else
-        <div class="nav__cta nav__item">
-            <a class="nav__button button button--special" href="/register">
-                Join Membership
-            </a>
-            <span class="nav__span">Get discounts up to 20%</span>
-        </div>
+        @if ($type !== 'auth')
+            <div class="nav__cta nav__item">
+                <a class="nav__button button button--special" href="/register">
+                    Join Membership
+                </a>
+                <span class="nav__span">Get discounts up to 20%</span>
+            </div>
+        @endif
     @endauth
-    <img class="nav__menu" src="images/svg/nav-burger.svg" alt="nav-burger" />
+    <img class="nav__menu" src="/images/svg/nav-burger.svg" alt="nav-burger" />
 </nav>
