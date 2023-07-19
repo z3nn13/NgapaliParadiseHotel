@@ -12,7 +12,7 @@ class CreateUserCouponTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('coupon_id')->constrained('coupons');
             $table->integer('uses')->default(0);
-            $table->integer('limit_reached')->default(0);
+            $table->boolean('limit_reached')->default(false);
             $table->timestamps();
             $table->primary(['user_id', 'coupon_id']);
         });

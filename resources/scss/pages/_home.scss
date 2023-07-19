@@ -128,15 +128,15 @@
     }
 
     &__image-layout {
-        border-radius: 3rem;
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: var(--margin-size);
-        gap: 0.5em;
+        gap: 1.4375rem;
         overflow: hidden;
     }
 
     &__image {
+        border-radius: 0.9375rem;
         width: 100%;
         height: 100%;
         object-fit: cover;

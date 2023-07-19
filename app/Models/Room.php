@@ -9,12 +9,13 @@ class Room extends Model
 {
     use HasFactory;
 
+
     public function scopeAvailableRoomTypes($query, $checkInDate, $checkOutDate)
     {
         $periodOfStay = [$checkInDate, $checkOutDate];
 
         return $query->select('room_type_id')
-            ->selectRaw('COUNT(*) as available_rooms')
+            ->selectRaw('GROUP_CONCAT(id) as room_ids')
             ->whereDoesntHave('reservations', function ($subQuery) use ($periodOfStay) {
                 $subQuery->whereBetween('check_in_date', $periodOfStay)
                     ->orWhereBetween('check_out_date', $periodOfStay);

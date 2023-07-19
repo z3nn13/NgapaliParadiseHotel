@@ -7,8 +7,6 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreRoomTypeRequest;
 use App\Http\Requests\UpdateRoomTypeRequest;
 

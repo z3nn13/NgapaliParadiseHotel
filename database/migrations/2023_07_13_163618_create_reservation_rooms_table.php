@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations_rooms', function (Blueprint $table) {
+        Schema::create('reservation_rooms', function (Blueprint $table) {
             $table->foreignId('reservation_id')->constrained()->onde;
             $table->foreignId('room_id')->constrained();
         });
@@ -22,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('reservations_rooms');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 };
