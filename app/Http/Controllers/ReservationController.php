@@ -11,13 +11,6 @@ use App\Http\Requests\UpdateReservationRequest;
 
 class ReservationController extends Controller
 {
-    /*
-     * Display rooms to be reserved.
-     */
-    public function index(Request $request)
-    {
-        // 
-    }
 
     /**
      * Show the form for creating a new booking.

@@ -14,5 +14,3 @@
         </select>
     </form>
 </div>
-{{-- <select class="result-section__select result-section__select--sort" name="sortSelect" id="sortSelect"
-        data-room-types="{{ json_encode($roomTypes) }}"> --}}

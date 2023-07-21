@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Http\Request;
 
-class RoomTypeSearch extends Component
+class ReservationSearch extends Component
 {
     public $availableRoomTypes;
     public $availableRoomIds; // Separate property to retain the availableRoomIds
@@ -61,8 +61,8 @@ class RoomTypeSearch extends Component
 
     public function render()
     {
-        return view('livewire.room-type-search')
-            ->extends('room-types.search')
+        return view('livewire.reservation-search')
+            ->extends('booking.search')
             ->section('room-list');
     }
 }
