@@ -32,6 +32,6 @@ class Room extends Model
     //  Get Reservations to this Room.
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class, 'reservations_rooms')->withPivot("room_deal_id");
+        return $this->belongsToMany(Reservation::class, 'reservation_rooms')->withPivot("room_deal_id");
     }
 }

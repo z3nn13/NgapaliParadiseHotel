@@ -12,7 +12,7 @@ class ReservationSearch extends Component
     public $availableRoomTypes;
     public $availableRoomIds; // Separate property to retain the availableRoomIds
 
-    protected $listeners = ['optionSelected' => 'sortRoomTypes'];
+    protected $listeners = ['option_selected' => 'sort_room_types'];
 
     public function mount(Request $request)
     {
@@ -21,7 +21,6 @@ class ReservationSearch extends Component
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
         $request->session()->put($request->query());
         $request->session()->put('numNights', $numNights);
-        $count = rand(1, 5);
         $availableRooms = Room::availableRoomTypes($checkInDate, $checkOutDate)
             ->with('room_type')
             ->get();
@@ -37,7 +36,7 @@ class ReservationSearch extends Component
         $this->availableRoomTypes = $availableRoomTypes;
     }
 
-    public function sortRoomTypes($selectedSortOption)
+    public function sort_room_types($selectedSortOption)
     {
         $roomTypes = $this->availableRoomTypes;
 

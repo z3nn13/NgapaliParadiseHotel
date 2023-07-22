@@ -17,7 +17,6 @@ class Reservation extends Model
      */
     protected $fillable = [
         'user_id',
-        'deal_id',
         'num_guests',
         'check_in_date',
         'check_out_date',
@@ -28,7 +27,7 @@ class Reservation extends Model
     //  Get all of the rooms for the reservation.
     public function rooms()
     {
-        return $this->belongsToMany(Room::class, 'reservations_rooms')->withPivot('room_deal_id');
+        return $this->belongsToMany(Room::class, 'reservation_rooms')->withPivot('room_deal_id');
     }
 
     //  Get room deal for this reservation.

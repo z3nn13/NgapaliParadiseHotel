@@ -43,6 +43,11 @@ class RoomType extends Model
         return $this->hasMany(RoomDeal::class);
     }
 
+    public function scopeBelongsToCategory($query, $categoryId)
+    {
+        return $query->where('room_category_id', $categoryId)->get();
+    }
+
     // The rooms that are related to this room type
     public function rooms()
     {

@@ -3,7 +3,7 @@
         <h2 class="result-section__title">Select Room</h2>
         <span class="result-section__found-text">Found {{ count($availableRoomTypes) }} Rooms</span>
 
-        <livewire:sort-select :roomTypes="$availableRoomTypes" />
+        @livewire('sort-select')
         <div class="result-section__box result-section__box--filter">
             <select class="result-section__select result-section__select--filter" name="filterSelectValue"
                 id="filterSelectValue">

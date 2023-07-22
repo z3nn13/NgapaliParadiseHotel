@@ -1,5 +1,5 @@
 <div class="result-section__box result-section__box--sort">
-    <select wire:model="selectedSortOption" wire:change="optionSelected"
+    <select wire:model="selectedSortOption" wire:change="option_selected"
         class="result-section__select result-section__select--sort" name="sortSelectValue" id="sortSelectValue">
         <option value="" selected hidden>Sort By</option>
         <option value="desc">Price: High to Low</option>

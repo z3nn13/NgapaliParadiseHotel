@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RoomController;
-use App\Http\Livewire\ReservationSearch;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 
@@ -22,7 +20,7 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::get('/booking/search', ReservationSearch::class)->name('booking.search');
+Route::get('/booking/search', App\Http\Livewire\ReservationSearch::class)->name('booking.search');
 Route::post('/booking/create', [ReservationController::class, 'create'])->name('booking.create');
 Route::post('/booking/add-room', [ReservationController::class, 'add-room'])->name('booking.add-room');
 Route::post('/booking/confirm', [ReservationController::class, 'confirm'])->name('booking.confirm');
@@ -30,7 +28,7 @@ Route::post('/booking/payment', [ReservationController::class, 'payment'])->name
 Route::get('/booking/store', [ReservationController::class, 'store'])->name('booking.store');
 
 
-Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
+Route::get('/rooms', App\Http\Livewire\RoomsIndex::class)->name('rooms.index');
 
 
 Route::get('/dashboard', function () {
