@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_deals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_type_id')->constrained('room_types');
+            $table->foreignId('room_type_id')->constrained('room_types')->onDelete("cascade");
             $table->string('deal_name');
             $table->integer('deal_mmk');
             $table->float('deal_usd');
@@ -27,6 +27,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('room_deals', function (Blueprint $table) {
+            $table->dropForeign(['room_id']);
+        });
         Schema::dropIfExists('room_deals');
     }
 };

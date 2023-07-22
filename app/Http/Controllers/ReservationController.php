@@ -6,6 +6,7 @@ use App\Models\RoomDeal;
 use App\Models\RoomType;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 
@@ -83,26 +84,31 @@ class ReservationController extends Controller
     {
         $checkIn = \Carbon\Carbon::parse(session("checkInDate"));
         $checkOut = \Carbon\Carbon::parse(session("checkOutDate"));
-        $reservation = Reservation::create(
-            [
-                'user_id' => auth()->id(),
-                'deal_id' => session("dealChoice")->id,
-                'num_guests' => session("numGuests"),
-                'check_in_date' => $checkIn,
-                'check_out_date' => $checkOut,
-                'special_request' => $request->specialRequest,
-                'status' => 'Active',
-            ]
-        );
-        $reservation->rooms->attach($request->session("roomChoice"));
 
-        $request->session()->forget("checkInDate");
-        $request->session()->forget("checkOutDate");
-        $request->session()->forget("numGuests");
-        $request->session()->forget("numNights");
-        $request->session()->forget("roomChoice");
-        $request->session()->forget("dealChoice");
-        return view('booking.success', ['reservation' => $reservation]);
+        DB::transaction(function () use ($checkIn, $checkOut) {
+            $reservation = Reservation::create(
+                [
+                    'user_id' => auth()->id(),
+                    'num_guests' => session("numGuests"),
+                    'check_in_date' => $checkIn,
+                    'check_out_date' => $checkOut,
+                    'special_request' => session("specialRequest"),
+                    'status' => 'Active',
+                ]
+            );
+            $room_to_deal_array = session("room_to_deal_array");
+            foreach ($room_to_deal_array as $room => $deal) {
+                $reservation->rooms->attach($room, ["room_deal_id" => $deal]);
+            }
+            session()->forget("checkInDate");
+            session()->forget("checkOutDate");
+            session()->forget("numGuests");
+            session()->forget("numNights");
+            session()->forget("roomChoice");
+            session()->forget("dealChoice");
+        });
+
+        return redirect('booking.success')->with('success', "Reservation created successfully");
     }
 
 

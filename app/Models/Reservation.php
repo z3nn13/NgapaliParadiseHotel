@@ -28,7 +28,7 @@ class Reservation extends Model
     //  Get all of the rooms for the reservation.
     public function rooms()
     {
-        return $this->belongsToMany(Room::class, 'reservations_rooms');
+        return $this->belongsToMany(Room::class, 'reservations_rooms')->withPivot('room_deal_id');
     }
 
     //  Get room deal for this reservation.

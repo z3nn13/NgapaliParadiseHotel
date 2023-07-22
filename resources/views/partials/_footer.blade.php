@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer set-bg" data-set-bg="{{ asset('/images/home/footer.jpg') }}">
     <div class="footer__wrapper">
         <img class=" footer__logo" src="/images/logos/white_text.png" alt="logo">
         <div class="footer__details">

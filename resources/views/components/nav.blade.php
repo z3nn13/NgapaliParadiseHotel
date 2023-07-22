@@ -1,8 +1,8 @@
 @props(['type' => 'primary'])
 <nav {{ $attributes->merge(['class' => 'nav nav--' . $type]) }}>
     <ul class="nav__list">
-        <a class="nav__link--home" href="\"><img class="nav__logo" src="/images/logos/white_text.png" alt="logo"
-            width="100"></a>
+        <a class="nav__link--home" href="\"><img class="nav__logo" src="/images/logos/trial.png" alt="logo"
+            width="90"></a>
         <li class="nav__item"><a class="nav__link" href="/rooms">rooms</a></li>
         <li class="nav__item"><a class="nav__link" href="/gallery">gallery</a></li>
         <li class="nav__item"><a class="nav__link" href="/about">about</a></li>

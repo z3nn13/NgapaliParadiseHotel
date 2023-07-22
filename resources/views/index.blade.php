@@ -2,11 +2,11 @@
     <x-nav type="landing"></x-nav>
 
     {{-- Hero Section --}}
-    <section class="hero">
+    <section class="hero hero--landing">
         <div class="hero__content">
             <div class="hero__content--wrapper">
-                <h2 class="hero__heading">Come Experience</h2>
-                <h2 class="hero__title">
+                <h2 class="hero__title">Come Experience</h2>
+                <h2 class="hero__subtitle">
                     Coastal<br>
                     Luxury At<br>
                     Its Finest<br>

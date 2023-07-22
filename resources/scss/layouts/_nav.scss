@@ -6,19 +6,19 @@
     z-index: 1000;
     display: flex;
     justify-content: space-between;
+    padding-left: var(--margin-size);
+    padding-right: var(--margin-size);
 
     &--auth {
         position: absolute;
         left: 0;
         right: 0;
-        padding: 1.5rem var(--margin-size);
         color: hsl(var(--clr-primary-400));
     }
     &--primary {
         background-color: hsl(var(--clr-cta-400));
         color: hsl(var(--clr-neutral-100));
         align-items: center;
-        padding: 1.5rem var(--margin-size);
     }
 
     &--landing {

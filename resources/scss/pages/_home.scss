@@ -1,46 +1,5 @@
 @use "../abstract/mixins" as m;
 
-// Hero Section
-.hero {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin: 0;
-    padding: 0;
-    position: relative;
-
-    &__content {
-        background-color: hsl(var(--clr-cta-400));
-        display: flex;
-        align-items: center;
-        padding-left: var(--margin-size);
-    }
-
-    &__heading {
-        color: hsl(var(--clr-cta-100));
-        font-weight: 100;
-        font-family: var(--ff-special);
-        font-size: var(--fs-600);
-    }
-
-    &__title {
-        color: hsl(var(--clr-neutral-100));
-        font-weight: 500;
-        font-size: var(--fs-600);
-        margin-bottom: 2rem;
-    }
-
-    &__span {
-        font-size: var(--fs-300);
-        color: hsl(var(--clr-primary-200));
-        opacity: 0.7;
-    }
-
-    &__image {
-        width: 100%;
-        object-fit: cover;
-    }
-}
-
 // Wave Section
 .wave-section {
     display: grid;

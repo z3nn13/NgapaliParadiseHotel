@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->foreignId('deal_id')->constrained('room_deals');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->integer('num_guests');
             $table->date('check_in_date');
             $table->date('check_out_date');
@@ -29,6 +28,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::dropIfExists('reservations');
     }
 };
