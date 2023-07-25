@@ -8,10 +8,9 @@
         grid-template-columns: 1fr 1fr;
         grid-auto-rows: 2;
         gap: 1rem;
-        margin-top: calc(var(--margin-size) / 2);
+        margin-top: calc(var(--margin-size) * 1.3);
         padding-bottom: 2rem;
         margin-bottom: var(--margin-size);
-        padding-left: var(--margin-size);
     }
     &__title {
         color: hsl(var(--clr-primary-400));
@@ -22,8 +21,8 @@
 
     &__found-text {
         color: hsl(var(--clr-primary-400));
-        font-family: var(--ff-secondary);
         font-size: 1rem;
+        text-transform: uppercase;
     }
 
     &__box {
@@ -39,20 +38,19 @@
     &__select,
     &__select:focus {
         border: 2px solid hsl(var(--clr-primary-400) / 0.5);
-        border-radius: 5px;
+        border-radius: 0.25rem;
         color: hsl(var(--clr-primary-400));
         appearance: none;
 
         width: min-content;
         height: min-content;
-        padding: 0.5rem;
+        padding: 1rem;
         overflow: hidden;
 
-        font-family: var(--ff-secondary);
         text-transform: uppercase;
 
         & option {
-            border-radius: 2rem;
+            border-radius: 1rem;
             border: 1px solid black;
             overflow: hidden;
             background-color: hsl(var(--clr-primary-100));
@@ -64,10 +62,11 @@
 
     &__select--filter,
     &__select--filter:focus {
-        --bg-color: hsl(var(--clr-primary-400));
+        --bg-color: hsl(var(--clr-cta-400));
         background-color: var(--bg-color);
         color: hsl(var(--clr-neutral-100));
-
+        border: none;
+        outline: none;
         & option {
             background-color: var(--bg-color);
         }
@@ -91,7 +90,7 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        min-width: fit-content;
+        min-width: min-content;
 
         margin: auto;
         margin-bottom: var(--margin-size);
@@ -109,7 +108,7 @@
         white-space: nowrap;
         text-transform: uppercase;
         background-color: hsl(var(--clr-sun-400));
-        color: white;
+        color: hsl(var(--clr-neutral-100));
         font-family: var(--ff-secondary);
         font-size: var(--fs-300);
         font-weight: 600;
@@ -209,7 +208,6 @@
     .result-section {
         &__header {
             display: flex;
-            padding-left: 0;
             align-items: center;
         }
         &__title {
@@ -231,12 +229,13 @@
 
         &__separator {
             border-left: 2px solid hsl(var(--clr-primary-400) / 0.1);
-        }
-        &__deals {
-            margin-right: 3rem;
             padding: 0;
         }
+        &__deals {
+            margin-left: 0;
+        }
     }
+
     .room-deal {
         border-radius: 0.5rem;
     }

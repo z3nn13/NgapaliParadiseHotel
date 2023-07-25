@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
 use App\Models\Reservation;
@@ -23,9 +24,16 @@ class ReservationController extends Controller
         }
 
         $dealChoice = RoomDeal::find($request->input("roomDealID"));
-        $roomChoice = RoomType::find($request->input("roomTypeID"));
-        $request->session()->put('dealChoice', $dealChoice);
-        $request->session()->put('roomChoice', $roomChoice);
+        $roomTypeChoice = RoomType::find($request->input("roomTypeID"));
+        $roomAssigned = Room::find($request->input("roomID"));
+
+        $reservation_room = [
+            'roomDeal' => $dealChoice,
+            'roomType' => $roomTypeChoice,
+            'roomAssigned' => $roomAssigned,
+        ];
+        session()->forget('reservation_rooms');
+        session()->push('reservation_rooms', $reservation_room);
         return view('booking.create');
     }
 
@@ -44,20 +52,19 @@ class ReservationController extends Controller
     {
 
         $stripe = new \Stripe\StripeClient(config('stripe.sk'));
-        $roomTypes = [session('roomChoice')];
-        $roomDeal = session('dealChoice');
-        $description = "Room Deal: " . $roomDeal->deal_name . "\n" . session('numNights') . ' Nights ' . session('numGuests') . ' Guests';
+        $roomsBooked = session('reservation_rooms');
 
 
-        $roomsBooked = $roomTypes;
         foreach ($roomsBooked as $room) {
+
+            // $description = "Room Deal: " . $roomDeal->deal_name . "\n" . session('numNights') . ' Nights ' . session('numGuests') . ' Guests';
             $lineItems = [
                 [
                     'price_data' => [
                         'currency' => $request->currency,
                         'product_data' => [
-                            'name' => $room->room_type_name,
-                            "description" => $description,
+                            'name' => $room["roomType"]->room_type_name,
+                            "description" => $room["roomDeal"]->deal_name,
                         ],
                         'unit_amount' => $request->totalAmount * 100,
                     ],
@@ -70,7 +77,7 @@ class ReservationController extends Controller
             'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('booking.store'),
-            'cancel_url' => route('booking.index'),
+            'cancel_url' => route('index'),
         ]);
 
         return redirect($session->url);
@@ -85,30 +92,31 @@ class ReservationController extends Controller
         $checkIn = \Carbon\Carbon::parse(session("checkInDate"));
         $checkOut = \Carbon\Carbon::parse(session("checkOutDate"));
 
-        DB::transaction(function () use ($checkIn, $checkOut) {
-            $reservation = Reservation::create(
-                [
-                    'user_id' => auth()->id(),
-                    'num_guests' => session("numGuests"),
-                    'check_in_date' => $checkIn,
-                    'check_out_date' => $checkOut,
-                    'special_request' => session("specialRequest"),
-                    'status' => 'Active',
-                ]
-            );
-            $room_to_deal_array = session("room_to_deal_array");
-            foreach ($room_to_deal_array as $room => $deal) {
-                $reservation->rooms->attach($room, ["room_deal_id" => $deal]);
-            }
-            session()->forget("checkInDate");
-            session()->forget("checkOutDate");
-            session()->forget("numGuests");
-            session()->forget("numNights");
-            session()->forget("roomChoice");
-            session()->forget("dealChoice");
-        });
+        $reservation = null;
+        DB::transaction(
+            function () use ($checkIn, $checkOut, &$reservation) {
+                $reservation = Reservation::create(
+                    [
+                        'user_id' => auth()->id(),
+                        'num_guests' => session("numGuests"),
+                        'check_in_date' => $checkIn,
+                        'check_out_date' => $checkOut,
+                        'special_request' => session("specialRequest"),
+                        'status' => 'active',
+                    ]
+                );
 
-        return redirect('booking.success')->with('success', "Reservation created successfully");
+                foreach (session('reservation_rooms') as $room) {
+                    $reservation->rooms()->attach($room["roomAssigned"]->id, ["room_deal_id" => $room["roomDeal"]->id]);
+                }
+                session()->forget("checkInDate");
+                session()->forget("checkOutDate");
+                session()->forget("numGuests");
+                session()->forget("numNights");
+                session()->forget("reservation_rooms");
+            }
+        );
+        return view('booking.success')->with('reservationData', $reservation);
     }
 
 

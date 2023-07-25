@@ -7,12 +7,14 @@
     text-transform: uppercase;
     border-radius: 0.5rem;
 
-    &--special {
+    &--special,
+    &--special:hover {
         border: 2px solid white;
         font-family: var(--ff-secondary);
     }
 
-    &--primary {
+    &--primary,
+    &--primary:hover {
         border: none;
         max-width: max-content;
         max-height: max-content;
@@ -21,7 +23,8 @@
         font-size: var(--fs-300);
     }
 
-    &--secondary {
+    &--secondary,
+    &--secondary:hover {
         border: 2px solid hsl(var(--clr-primary-400));
         color: hsl(var(--clr-primary-400));
     }

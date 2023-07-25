@@ -8,7 +8,14 @@
     ];
 @endphp
 
-<h1 class="step-bar__title">Booking Progress</h1>
+<h1 class="step-bar__title">
+    @if ($active == 4)
+        {{ $slot }}
+    @else
+        Booking Progress
+    @endif
+</h1>
+
 <section class="step-bar container--search">
     @foreach ($stepBarItems as $counter => $name)
         @php

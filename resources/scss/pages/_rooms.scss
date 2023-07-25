@@ -2,9 +2,9 @@
     &__container {
         position: absolute;
         left: 0;
-        top: -2.3rem;
         right: 0;
         z-index: 100;
+        transform: translateY(-50%);
 
         display: flex;
 

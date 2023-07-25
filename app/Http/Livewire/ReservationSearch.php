@@ -21,13 +21,17 @@ class ReservationSearch extends Component
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
         $request->session()->put($request->query());
         $request->session()->put('numNights', $numNights);
+
         $availableRooms = Room::availableRoomTypes($checkInDate, $checkOutDate)
             ->with('room_type')
             ->get();
-
         $availableRoomTypes = $availableRooms->map(function ($room) {
             $roomType = $room->room_type;
-            $roomType->availableRoomIds = $room->room_ids;
+            if ($room->room_ids !== "") {
+                $roomType->availableRoomIds = explode(',', $room->room_ids);
+            } else {
+                $roomType->availableRoomIds = [];
+            };
             return $roomType;
         });
 

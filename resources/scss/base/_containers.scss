@@ -8,9 +8,8 @@
             margin-right: auto;
         }
         &--search {
-            width: calc(100% - (var(--margin-size) * 4));
-            margin-left: auto;
-            margin-right: auto;
+            padding-right: calc(var(--margin-size) * 2);
+            padding-left: calc(var(--margin-size) * 2);
         }
     }
 }

@@ -1,27 +1,32 @@
 @use "../abstract/mixins" as m;
+
 .step-bar {
-    // border: 0.5rem solid lime;
-    color: hsl(var(--clr-primary-300));
+    background-color: hsl(var(--clr-cta-400));
     display: flex;
     justify-content: space-between;
-    margin-bottom: calc(var(--margin-size) / 2);
+    position: relative;
+    padding-left: calc(var(--margin-size) * 2);
+    padding-bottom: calc(var(--margin-size) / 2 + 1.5rem);
+    padding-right: calc(var(--margin-size) * 2);
 
     &__title {
-        color: hsl(Var(--clr-sun-400));
+        background-color: hsl(var(--clr-cta-400));
+
+        color: hsl(Var(--clr-neutral-100));
         width: 100%;
-        margin-top: var(--margin-size);
-        margin-bottom: calc(var(--margin-size) / 2);
+        padding-top: var(--margin-size);
+        padding-bottom: calc(var(--margin-size) / 2);
 
         text-align: center;
         font-size: var(--fs-700);
         font-family: var(--ff-special);
     }
 
-    --text-color: hsl(var(--clr-sun-500) / 0.5);
-    --circle-fill-color: hsl(var(--clr-primary-100));
-    --circle-text-color: var(--text-color);
-    --line-color: hsl(var(--clr-sun-400) / 0.3);
-    --circle-border: 2px solid hsl(var(--clr-sun-400) / 0.3);
+    --line-color: hsl(var(--clr-neutral-100));
+    --text-color: hsl(var(--clr-neutral-100));
+    --circle-fill-color: hsl(var(--clr-cta-400));
+    --circle-text-color: hsl(var(--clr-neutral-100));
+    --circle-border: 2px solid hsl(var(--clr-neutral-100));
     --circle-height: 3rem;
 
     &__item {
@@ -33,18 +38,15 @@
 
         &--active,
         &--completed {
-            --text-color: hsl(var(--clr-sun-500));
-            --circle-border: 2px solid hsl(var(--clr-sun-400));
-            --circle-text-color: hsl(var(--clr-sun-500));
-            --line-color: hsl(var(--clr-sun-400));
+            --line-color: hsl(var(--clr-neutral-100));
+            --text-color: hsl(var(--clr-neutral-100));
+            --circle-border: 2px solid hsl(var(--clr-neutral-100));
+            --circle-fill-color: hsl(var(--clr-neutral-100));
+            --circle-text-color: hsl(var(--clr-cta-400));
 
             font-weight: 500;
-        }
-
-        &--completed {
-            --circle-fill-color: hsl(var(--clr-sun-400));
             i {
-                color: hsl(var(--clr-neutral-100));
+                color: hsl(var(--clr-cta-400));
             }
         }
 
@@ -69,25 +71,31 @@
     }
 
     &__circle {
-        font-family: var(--ff-secondary);
         color: var(--circle-text-color);
         background: var(--circle-fill-color);
         border: var(--circle-border);
         border-radius: 50%;
-        position: relative;
+
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 5;
+        position: relative;
+
         width: var(--circle-height);
         height: var(--circle-height);
         margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+        font-weight: 500;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
     }
 
     &__name {
         color: var(--text-color);
         white-space: nowrap;
-        font-family: var(--ff-secondary);
         text-transform: uppercase;
+        font-size: 1.25rem;
+        font-weight: 500;
+        text-shadow: 2px 2px hsl(var(--clr-neutral-900) / 0.2);
     }
 }

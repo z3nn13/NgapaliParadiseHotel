@@ -1,12 +1,13 @@
 @props(['roomType'])
 <div class="room-result container--search">
     <h2 class="room-result__title">"{{ $roomType->room_type_name }}"</h2>
-    <div class="room-result__container container--search">
+    <div class="room-result__container">
         <p class="room-result__available-rooms">
-            {{ count(explode(',', $roomType->availableRoomIds)) }} Rooms Left
+            {{ count($roomType->availableRoomIds) }} Rooms Left
         </p>
         <div class="room-result__card">
-            <img src="{{ asset($roomType->room_image) }}" class="room-result__card-image">
+            <img class="room-result__card-image"
+                src="{{ asset($roomType->room_image) }}">
             <div class="room-result__card-body">
                 <ul class="room-result__tags">
                     <li class="room-result__tag">
@@ -26,7 +27,8 @@
                         <p class="room-result__tag-value">Free</p>
                     </li>
                 </ul>
-                <a class="room-result__link" href="/room/1">
+                <a class="room-result__link"
+                    href="/room/1">
                     + See More Details
                 </a>
             </div>
@@ -36,9 +38,16 @@
         <div class="room-result__deals">
             <h3 class="room-result__deals-title">Choose a deal from below</h3>
             @foreach ($roomType->room_deals as $roomDeal)
-                <form action="{{ route('booking.create') }}" method="post">
+                <form action="{{ route('booking.create') }}"
+                    method="post">
                     @csrf
-                    <input type="hidden" name="roomTypeID" value="{{ $roomType->id }}">
+                    <input name="roomTypeID"
+                        type="hidden"
+                        value="{{ $roomType->id }}">
+                    <input name="roomID"
+                        type="hidden"
+                        value="{{ $roomType->availableRoomIds[array_rand($roomType->availableRoomIds)] }}">
+
                     <x-room-deal :roomDeal=$roomDeal></x-room-deal>
                 </form>
             @endforeach

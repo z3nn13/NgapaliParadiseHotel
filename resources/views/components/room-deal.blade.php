@@ -6,7 +6,11 @@
         <p class="room-deal__price--usd">EST USD {{ number_format((float) $roomDeal->deal_usd, 2, '.', '') }}</p>
     </div>
     <div class="room-deal__button-wrapper">
-        <input type="hidden" name="roomDealID" value={{ $roomDeal->id }}>
-        <button type="submit" class="room-deal__button button button--primary">Reserve</button>
+
+        <input name="roomDealID"
+            type="hidden"
+            value={{ $roomDeal->id }}>
+        <button class="room-deal__button button button--primary"
+            type="submit">Reserve</button>
     </div>
 </div>

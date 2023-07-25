@@ -33,7 +33,7 @@ class RoomTypeSeeder extends Seeder
     {
 
         /* Create Room Deals Data */
-        $deal_usd =  rand(30, 60);
+        $deal_usd =  rand(20, 35);
         $roomType->room_deals()->createMany([
             [
                 "room_type_id" => $roomType["id"],
@@ -45,15 +45,15 @@ class RoomTypeSeeder extends Seeder
             [
                 "room_type_id" => $roomType["id"],
                 "deal_name" => "Breakfast + Bed",
-                "deal_mmk" => ($deal_usd + 10) * 2000,
-                "deal_usd" => $deal_usd,
+                "deal_mmk" => ($deal_usd + 5) * 2000,
+                "deal_usd" => $deal_usd  + 5,
                 "is_active" => true,
             ],
             [
                 "room_type_id" => $roomType["id"],
                 "deal_name" => "Extrabed + All Inclusive",
-                "deal_mmk" => ($deal_usd + 30) * 2000,
-                "deal_usd" => $deal_usd,
+                "deal_mmk" => ($deal_usd + 15) * 2000,
+                "deal_usd" => $deal_usd  + 15,
                 "is_active" => true,
             ],
         ]);
@@ -79,8 +79,8 @@ class RoomTypeSeeder extends Seeder
         return [
             [
                 "id" => 1,
-                "room_type_name" => "Beachfront Sea View Queen",
-                "room_image" => "/images/rooms/room_2.jpg",
+                "room_type_name" => "Beachfront Sea View Queen Bed",
+                "room_image" => "/images/rooms/room_card_1.png",
                 "occupancy" => 3,
                 "view" => "Beach",
                 "bedding" => "1 Queen Bed",
@@ -90,7 +90,7 @@ class RoomTypeSeeder extends Seeder
             [
                 "id" => 2,
                 "room_type_name" => "Partial Sea View King Bed",
-                "room_image" => "/images/rooms/room_7.webp",
+                "room_image" => "/images/rooms/room_card_2.png",
                 "occupancy" => 2,
                 "view" => "Partial Sea",
                 "bedding" => "1 Double Bed",
@@ -100,7 +100,7 @@ class RoomTypeSeeder extends Seeder
             [
                 "id" => 3,
                 "room_type_name" => "Beachfront Sea View King Bed",
-                "room_image" => "/images/rooms/room_7.webp",
+                "room_image" => "/images/rooms/room_card_3.png",
                 "occupancy" => 2,
                 "view" => "Beach",
                 "bedding" => "1 King Bed",

@@ -1,41 +1,44 @@
 @use "../abstract/mixins" as m;
 // Booking form
+
+.position-relative {
+    position: relative;
+}
+
 .booking__form {
     --padding: 1.5rem;
     --label-color: hsl(var(--clr-primary-400));
-    // --input-border-bottom: 1px solid hsl(var(--clr-neutral-300));
 
     display: none;
     border-radius: 0.8rem;
     padding: var(--padding);
+    min-width: min-content;
 
     @include m.mq(medium) {
-        &--landing {
-            // Form Layout Desktop
+        background-color: hsl(var(--clr-neutral-100));
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        transform: translateY(-50%);
+        filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.25));
 
-            background-color: hsl(var(--clr-neutral-100));
-
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            display: flex;
-            min-width: min-content;
-            transform: translateY(50%);
-            filter: drop-shadow(1px 7px 4px rgba(0, 0, 0, 0.25));
-
-            width: calc(100% - (var(--margin-size) * 4));
-            margin: auto;
-        }
+        width: calc(100% - (var(--margin-size) * 4));
+        margin: auto;
 
         &--search {
-            --label-color: hsl(var(--clr-neutral-100));
+            --label-color: hsl(var(--clr-neutral-900));
             --input-border-bottom: none;
-
-            background-color: hsl(var(--clr-cta-400));
             display: flex;
-            min-width: min-content;
-            margin-top: calc(var(--margin-size) / 2);
+
+            .booking__form__button {
+                background-color: hsl(var(--clr-sun-400));
+            }
+            .booking__form__button:hover {
+                color: white;
+                background-color: hsl(var(--clr-sun-400) / 0.8);
+            }
         }
 
         &__field-wrapper {
@@ -54,7 +57,7 @@
             padding-right: var(--padding);
 
             &:not(:last-child) {
-                border-right: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+                border-right: 1px solid hsl(var(--clr-neutral-900) / 0.1);
             }
         }
 

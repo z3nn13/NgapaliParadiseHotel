@@ -29,6 +29,8 @@ Route::get('/booking/store', [ReservationController::class, 'store'])->name('boo
 
 
 Route::get('/rooms', App\Http\Livewire\RoomsIndex::class)->name('rooms.index');
+Route::view('/gallery', 'layouts.gallery')->name('gallery.index');
+Route::view('/about', 'layouts.about')->name('about.index');
 
 
 Route::get('/dashboard', function () {

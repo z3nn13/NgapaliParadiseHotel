@@ -1,0 +1,30 @@
+.gallery {
+    padding-top: var(--margin-size);
+
+    &__title {
+        color: hsl(var(--clr-primary-400));
+        text-align: center;
+        font-size: var(--fs-600);
+        font-weight: 400;
+        margin-bottom: 3rem;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(300px, 1fr));
+        gap: 1rem;
+        width: min-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: var(--margin-size);
+    }
+    &__image {
+        max-width: 300px;
+        border-radius: 15px;
+        transition: transform 300ms ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
