@@ -19,6 +19,7 @@ class ReservationSearch extends Component
         $checkInDate = $request->input('checkInDate');
         $checkOutDate = $request->input('checkOutDate');
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
+
         $request->session()->put($request->query());
         $request->session()->put('numNights', $numNights);
 

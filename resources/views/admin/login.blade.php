@@ -1,7 +1,6 @@
-<x-admin-layout>
+<x-app-layout>
 
     <div class="container container__admin-login">
-
         <img class="admin-login__logo"
             src="{{ asset('images/logos/no_text.png') }}"
             alt="logo of Ngapali Paradise Hotel"
@@ -65,5 +64,4 @@
         </form>
     </div>
 
-
-</x-admin-layout>
+</x-app-layout>

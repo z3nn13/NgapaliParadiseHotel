@@ -13,7 +13,8 @@ class CreateInvoicesTable extends Migration
             $table->foreignId('reservation_id')->constrained('reservations')->onDelete("cascade");
             $table->foreignId('pay_type_id')->nullable()->constrained('pay_types');
             $table->foreignId('coupon_id')->nullable()->constrained('coupons');
-            $table->decimal('total_amount', 10, 2);
+            $table->integer('total_paid_mmk');
+            $table->string('preferred_currency');
             $table->timestamps();
         });
     }

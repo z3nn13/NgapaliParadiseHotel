@@ -6,6 +6,7 @@
         $reservation_rooms = session('reservation_rooms');
         $subTotal = 0;
     @endphp
+
     <div class="container__booking--create">
         <div class="green__background">
         </div>
@@ -23,7 +24,7 @@
                                 x-show="open">
                             <div class="billing-summary__room-heading">
                                 <div class="billing-summary__room-heading--left">
-                                    <p class="billing-summary__room-index text-sun-400">Room 1:</p>
+                                    <p class="billing-summary__room-index text-sun-400">Room {{ $loop->index + 1 }}:</p>
                                     <p class="billing-summary__room-name">{{ $room['roomType']->room_type_name }}
                                     </p>
                                 </div>
@@ -83,21 +84,10 @@
                                 alt=""> Back</button>
                     </form>
 
-                    <form action="{{ route('booking.payment') }}"
-                        method="POST">
-                        @csrf
-                        <input name="currency"
-                            type="hidden"
-                            value="{{ $billingData['currency'] }}">
-                        <input name="totalAmount"
-                            type="hidden"
-                            value="{{ $billingData['totalAmount'] }}">
-                        <button class="billing-summary__button billing-summary__button--confirm"
-                            type="submit"
-                            <button>
-                            I Confirm
-                        </button>
-                    </form>
+                    <a class="billing-summary__button billing-summary__button--confirm"
+                        href="{{ route('booking.payment') }}">
+                        I Confirm
+                    </a>
 
                 </div>
             </div>

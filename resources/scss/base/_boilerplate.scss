@@ -12,7 +12,7 @@ body {
     text-rendering: optimizeSpeed;
     margin: 0;
     padding: 0;
-    font-family: var(--ff--primary);
+    font-family: var(--ff-primary);
     background-color: hsl(var(--clr-primary-100));
     color: hsl(var(--clr-neutral-900));
     line-height: 1.1;
@@ -20,9 +20,6 @@ body {
 body.admin {
     background-color: hsl(var(--clr-neutral-900) / 0.1);
 }
-
-a,
-a:hover,
-a:active {
-    color: inherit;
+.swal2-popup {
+    font-family: var(--ff-secondary);
 }

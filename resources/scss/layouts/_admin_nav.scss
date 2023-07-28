@@ -1,0 +1,116 @@
+@use "../abstract/_mixins.scss" as m;
+.admin-layout {
+    display: flex;
+}
+
+.admin-sidebar {
+    display: none;
+}
+.admin-main {
+    flex: 1;
+    flex-shrink: 0;
+}
+.admin-nav {
+    z-index: 100;
+    background-color: hsl(var(--clr-neutral-100));
+    display: flex;
+    justify-content: space-between;
+    height: min-content;
+    padding: 1rem 2rem;
+    top: 0;
+
+    &__hamburger {
+        cursor: pointer;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__username {
+        text-transform: capitalize;
+        font-family: var(--ff-secondary);
+        font-weight: 600;
+    }
+}
+
+.profile__picture {
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 3rem;
+}
+
+@include m.mq(small) {
+    .admin-sidebar {
+        background-color: hsl(var(--clr-cta-500));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100vh;
+        padding: 0.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        &__logo {
+            max-width: 3.75rem;
+            aspect-ratio: 1.1/1;
+            margin-bottom: 5rem;
+            margin-inline: auto;
+        }
+        &__list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        &__item {
+            color: hsl(var(--clr-neutral-100));
+            background: none;
+            outline: none;
+            border: none;
+
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            padding: 0.6rem 1.5rem;
+
+            border-radius: 9px;
+            margin: 0;
+
+            cursor: pointer;
+            transition: color 0.3s ease, background-color 0.3s ease,
+                fill 0.3s ease;
+
+            &--active,
+            &:hover {
+                background-color: hsl(var(--clr-neutral-100));
+
+                .admin-sidebar__link {
+                    color: hsl(var(--clr-cta-500));
+                }
+                .admin-sidebar__icon > path {
+                    fill: hsl(var(--clr-cta-500));
+                }
+            }
+        }
+
+        &__link {
+            color: hsl(var(--clr-neutral-100));
+            cursor: pointer;
+
+            font-size: 0.9375rem;
+            font-weight: 600;
+            font-family: var(--ff-secondary);
+        }
+
+        &__icon {
+            fill: white !important;
+            width: 1.5rem;
+            height: min-content;
+        }
+    }
+}

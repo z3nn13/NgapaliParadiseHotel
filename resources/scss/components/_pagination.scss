@@ -1,0 +1,43 @@
+// Custom Pagination Styles
+.custom-pagination {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.page-btn,
+.prev-btn,
+.next-btn {
+    border-radius: 5px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.page-btn:hover,
+.prev-btn:hover,
+.next-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.page-btn.active {
+    background-color: hsl(var(--clr-admin-100));
+    color: #000;
+}
+
+.page-btn.disabled,
+.prev-btn.disabled,
+.next-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dots {
+    padding: 8px 12px;
+    margin: 0 4px;
+    color: #999;
+}

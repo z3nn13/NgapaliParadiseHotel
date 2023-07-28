@@ -10,7 +10,7 @@ class CreatePayTypesTable extends Migration
     {
         Schema::create('pay_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('pay_type_name');
             $table->text('description')->nullable();
             $table->timestamps();
         });

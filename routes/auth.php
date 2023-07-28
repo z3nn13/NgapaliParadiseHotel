@@ -12,7 +12,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [App\Http\Controllers\AdminAuth\AuthenticatedSessionController::class, 'create'])->name('admin.login');
+    Route::get('/login', [App\Http\Controllers\AdminAuth\AuthenticatedSessionController::class, 'create'])->name('admin.login')->middleware('guest');
     Route::post('/login', [App\Http\Controllers\AdminAuth\AuthenticatedSessionController::class, 'store']);
     Route::post('/logout', [App\Http\Controllers\AdminAuth\AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });

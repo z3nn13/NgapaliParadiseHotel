@@ -19,6 +19,11 @@ return new class extends Migration
             $table->date('check_out_date');
             $table->text('special_request')->nullable();
             $table->string('status');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone_no')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

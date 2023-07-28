@@ -46,7 +46,7 @@
                 @endforeach
 
                 <div class="billing-summary__row billing-summary__row--right">
-                    <a href="{{ route('booking.add-room') }}">+ Add Room</a>
+                    <a href="{{ route('booking.search') }}">+ Add Room</a>
                 </div>
 
                 <div class="billing-summary__row billing-summary__row--divider">

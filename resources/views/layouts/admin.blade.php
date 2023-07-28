@@ -1,3 +1,4 @@
+@props(['active'])
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,18 +27,20 @@
     <link href="https://fonts.gstatic.com"
         rel="preconnect"
         crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Sacramento&family=Newsreader:wght@200;300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Sacramento&family=Newsreader:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
     <script defer
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer
         src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
 
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
     @livewireStyles
 
 </head>
@@ -45,13 +48,15 @@
 <body class="admin">
 
     <!-- Main Content -->
-    <main>
+    <x-admin-nav :active=$active>
         {{ $slot }}
-    </main>
+    </x-admin-nav>
+
+
+    @livewireScripts
 
     <!-- Scripts -->
     @yield('scripts')
-    @livewireScripts
 </body>
 
 </html>

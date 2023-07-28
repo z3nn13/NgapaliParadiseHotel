@@ -17,5 +17,9 @@ class UserSeeder extends Seeder
             'role_id' => 1,
             'email' => 'test@example.com',
         ]);
+        User::factory()->create([
+            'role_id' => 2,
+            'email' => 'admin@example.com',
+        ]);
     }
 }

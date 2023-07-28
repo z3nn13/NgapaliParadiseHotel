@@ -1,0 +1,25 @@
+.booking__status {
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    display: block;
+    text-align: center;
+    width: min-content;
+    font-size: 0.9375rem;
+
+    &--upcoming {
+        background-color: #c7f7cb;
+    }
+
+    &--cancelling {
+        background-color: #fff8b9;
+    }
+
+    &--cancelled {
+        background-color: #ffcfc0;
+    }
+
+    &--finished {
+        background-color: #dfffee;
+    }
+}

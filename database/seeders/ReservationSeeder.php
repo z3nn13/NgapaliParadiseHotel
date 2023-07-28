@@ -14,11 +14,7 @@ class ReservationSeeder extends Seeder
      */
     public function run(): void
     {
-        Reservation::factory()->create(
-            [
-                "user_id" => 1,
-            ]
-        );
+        Reservation::factory(20)->create();
         DB::table('reservation_rooms')->insert(
             [
                 'room_id' => 1,
