@@ -52,6 +52,10 @@
         margin-bottom: 2rem;
     }
 
+    &__input-error {
+        color: rgb(255, 130, 130);
+        font-size: 0.9rem;
+    }
     &__checkbox {
         appearance: none;
         padding: 0.5rem;
@@ -85,5 +89,17 @@
         padding: 1rem 3rem;
         margin-top: 1rem;
         margin-inline: auto;
+
+        &:hover {
+            background-color: hsl(var(--clr-cta-400) / 0.9);
+        }
+    }
+
+    &__link {
+        color: black;
+        transition: transform 300ms ease;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 }

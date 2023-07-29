@@ -12,5 +12,5 @@
     </x-booking-form>
 
 
-    @yield('room-list');
+    @yield('room-list')
 </x-app-layout>

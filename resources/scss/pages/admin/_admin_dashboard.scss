@@ -1,5 +1,5 @@
 .container__admin-dashboard {
-    width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
     margin-inline: auto;
 }
 .dashboard-heading {
@@ -35,7 +35,6 @@
 
 .dashboard-report {
     margin-top: 3rem;
-    margin-bottom: 2rem;
 
     &__list {
         display: flex;

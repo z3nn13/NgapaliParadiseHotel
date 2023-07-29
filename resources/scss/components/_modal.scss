@@ -1,0 +1,90 @@
+// Styles for the modal
+.modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000;
+    font-family: var(--ff-secondary);
+    overflow-y: scroll;
+
+    &__content {
+        position: absolute;
+        background-color: hsl(var(--clr-neutral-100));
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        width: min-content;
+        height: max-content;
+    }
+    &__title {
+        font-size: var(--fs-400);
+        font-weight: 700;
+        margin-bottom: 2rem;
+    }
+
+    &__form {
+        display: flex;
+        gap: 2rem;
+    }
+
+    &__input-group {
+        display: flex;
+        flex-direction: column;
+        width: 25ch;
+        font-size: 0.9rem;
+    }
+
+    &__label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: hsl(var(--clr-neutral-900) / 0.8);
+    }
+    &__select {
+        margin-bottom: 1rem;
+    }
+
+    &__input {
+        padding: 1rem;
+        color: hsl(var(--clr-neutral-900) / 0.8);
+        border: 1px solid hsl(var(--clr-neutral-900) / 0.8);
+        border-radius: 4px;
+        margin-bottom: 16px;
+    }
+
+    &__cta-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    &__cta-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        color: hsl(var(--clr-neutral-100));
+        cursor: pointer;
+        outline: none;
+        border: none;
+
+        &--save {
+            background-color: hsl(var(--clr-cta-400));
+        }
+        &--cancel {
+            background-color: hsl(var(--clr-sun-400));
+            margin-right: 16px;
+        }
+
+        &:hover {
+            filter: brightness(1.2);
+        }
+    }
+
+    &__error {
+        color: red;
+    }
+}

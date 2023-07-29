@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use App\Http\Livewire\Traits\WithSorting;
 use App\Models\RoomType;
 
+use function Termwind\render;
+
 class AdminRoomIndex extends Component
 {
 
@@ -14,17 +16,31 @@ class AdminRoomIndex extends Component
     use WithSorting;
 
     public $sortField = "id";
-    public $searchQuery = '';
+    public $searchQuery = ""; // Default search query
+
+    protected $listeners = ['deleteRoomType' => 'deleteRoomType', 'roomUpdated' => 'render'];
+
+    public function deleteRoomType($roomTypeId)
+    {
+        $roomType = RoomType::find($roomTypeId);
+        if (!$roomType) {
+            return;
+        }
+
+        $roomType->delete();
+        $this->emit('dataDeleted', 'Room Type', $roomTypeId);
+    }
 
     public function render()
     {
+        $trimmedSearchQuery = trim($this->searchQuery);
+        if ($trimmedSearchQuery !== "") {
+            $roomTypes = RoomType::searchBy($trimmedSearchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
+        } else {
+            $roomTypes = RoomType::orderBy($this->sortField, $this->sortDirection)->paginate(6);
+        }
 
-        return view(
-            'livewire.admin-room-index',
-            [
-                'rooms' => RoomType::paginate(6),
-            ]
-        )
+        return view('livewire.admin-room-index', compact('roomTypes'))
             ->layout('layouts.admin', ['active' => "Rooms"]);
     }
 }

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\Coupon;
-use App\Models\Invoice;
-use App\Models\PayType;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
 use App\Models\Reservation;
@@ -66,7 +64,6 @@ class ReservationController extends Controller
         $lineItems = [];
 
 
-
         foreach ($roomsBooked as $room) {
             $price = $currency == "USD" ? $room['roomDeal']->deal_usd : $room['roomDeal']->deal_mmk;
 
@@ -95,7 +92,7 @@ class ReservationController extends Controller
             'customer_email' => $billingData['email'],
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('booking.store'),
+            'success_url' => route('booking.success'),
             'cancel_url' => route('booking.confirm'),
         ]);
 

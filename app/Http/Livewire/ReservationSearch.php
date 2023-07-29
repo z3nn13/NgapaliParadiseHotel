@@ -14,6 +14,10 @@ class ReservationSearch extends Component
 
     protected $listeners = ['option_selected' => 'sort_room_types'];
 
+    function is_additional_room(Request $request)
+    {
+        return $request->session()->has('reservation_rooms');
+    }
     public function mount(Request $request)
     {
         $checkInDate = $request->input('checkInDate');

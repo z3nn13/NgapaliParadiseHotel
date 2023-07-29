@@ -23,3 +23,11 @@ body.admin {
 .swal2-popup {
     font-family: var(--ff-secondary);
 }
+
+[x-cloak] {
+    display: none !important;
+}
+input:read-only {
+    color: grey;
+    cursor: default;
+}

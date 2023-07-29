@@ -31,23 +31,34 @@ class Reservation extends Model
     ];
 
 
-    public function scopeSearchByName($query, $searchQuery)
+    public function scopeSearchBy($query, $searchQuery)
     {
         $nameParts = explode(' ', $searchQuery);
         $firstName = $nameParts[0] ?? '';
         $lastName = $nameParts[1] ?? '';
+
+        if ($this->hasLeadingZeros($searchQuery)) {
+            $trimmedQuery = ltrim($searchQuery, '0');
+
+            if ($trimmedQuery === "") {
+                return $query;
+            }
+
+            return $query->where('id', 'LIKE', '%' . $trimmedQuery  . '%');
+        }
 
         if (count($nameParts) === 2) {
             return $query->where(function ($query) use ($firstName, $lastName) {
                 $query->where('first_name', 'LIKE', "%$firstName%")
                     ->Where('last_name', 'LIKE', "%$lastName%");
             });
-        } else {
-            return $query->where(function ($query) use ($searchQuery) {
-                $query->where('first_name', 'LIKE', "%$searchQuery%")
-                    ->orWhere('last_name', 'LIKE', "%$searchQuery%");
-            });
         };;
+        return $query->where(function ($query) use ($searchQuery) {
+            $query->where('first_name', 'LIKE', "%$searchQuery%")
+                ->orWhere('last_name', 'LIKE', "%$searchQuery%")
+                ->orWhere('id', 'LIKE', "%$searchQuery%")
+                ->orWhere('status', 'LIKE', "%$searchQuery%");
+        });
     }
 
     /**
@@ -63,7 +74,11 @@ class Reservation extends Model
     }
 
 
-
+    // Use a regular expression to check for leading zeros
+    function hasLeadingZeros($string)
+    {
+        return preg_match('/^0{1,3}/', $string) === 1;
+    }
 
     //  Get the user for the reservation.    
     public function user()

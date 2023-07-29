@@ -1,2 +1,0 @@
-@props(['room'])
-hi

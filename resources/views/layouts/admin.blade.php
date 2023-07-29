@@ -1,4 +1,4 @@
-@props(['active'])
+@props(['active', 'title' => 'Admin'])
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible"
         content="ie=edge">
-    <title>Admin | Ngapali Paradise Hotel</title>
+    <title>{{ $title }} | Ngapali Paradise Hotel</title>
 
 
     <!-- Cdns -->
@@ -31,6 +31,9 @@
         rel="stylesheet">
 
     <!-- Scripts -->
+    <script defer
+        src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
     <script defer
@@ -39,7 +42,6 @@
         src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer
         src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
     @livewireStyles
 
@@ -54,9 +56,20 @@
 
 
     @livewireScripts
+    @livewire('livewire-ui-modal')
 
     <!-- Scripts -->
     @yield('scripts')
+    <script>
+        Livewire.on('dataDeleted', (dataName, dataId) => {
+            const paddedDataId = dataId.toString().padStart(4, '0');
+            Swal.fire(
+                'Deleted!',
+                dataName + 'ID #' + paddedDataId + ' has been deleted.',
+                'success'
+            )
+        });
+    </script>
 </body>
 
 </html>

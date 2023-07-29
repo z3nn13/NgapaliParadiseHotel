@@ -5,8 +5,7 @@
 
         @livewire('sort-select')
         <div class="result-section__box result-section__box--filter">
-            <select class="result-section__select result-section__select--filter" name="filterSelectValue"
-                id="filterSelectValue">
+            <select class="result-section__select result-section__select--filter" id="filterSelectValue" name="filterSelectValue">
                 <option value="" disabled selected hidden>Filter By</option>
                 <option value="1">Bed</option>
                 <option value="1">View</option>
@@ -14,7 +13,9 @@
         </div>
     </header>
 
-    @foreach ($availableRoomTypes as $roomType)
+    @forelse ($availableRoomTypes as $roomType)
         <x-room-result :wire:key="'room-type-'.$roomType->id" :roomType=$roomType></x-room-result>
-    @endforeach
+    @empty
+        <p>No rooms available for these dates</p>
+    @endforelse
 </section>

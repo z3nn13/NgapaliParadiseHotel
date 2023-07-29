@@ -3,16 +3,20 @@
     font-family: var(--ff-secondary);
     border-collapse: collapse;
     flex-shrink: 0;
+    z-index: 1;
 
     &__wrapper {
         background-color: hsl(var(--clr-neutral-100));
         border-radius: 15px;
         padding: 2.5rem;
+        margin-top: 2rem;
         margin-bottom: 2rem;
     }
 
     &__container {
         max-width: 100%;
+        overflow-x: auto;
+        z-index: 2;
     }
 
     /* ----- Table Title ----- */
@@ -71,7 +75,7 @@
 
     /* ----- Table Heading ----- */
     &__head {
-        color: hsl(var(--clr-neutral-900) / 0.3);
+        color: hsl(var(--clr-neutral-900) / 0.4);
         text-align: left;
         font-size: 0.9375rem;
     }
@@ -81,6 +85,7 @@
         // border: 1px solid black;
         padding: 1rem;
         vertical-align: middle;
+        font-size: 0.875rem;
 
         &--bolded {
             font-weight: 600;
@@ -88,8 +93,9 @@
     }
     &__heading {
         &--active {
-            color: black;
-            // color: hsl(var(--clr-cta-500));
+            // color: black;
+            font-weight: 600;
+            color: hsl(var(--clr-sun-400));
         }
     }
 
@@ -97,6 +103,11 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+    }
+    /* ----- Pagination ----- */
+    &__image {
+        max-width: 6rem;
+        border-radius: 10px;
     }
 
     /* ----- Pagination ----- */
@@ -110,11 +121,12 @@
 
     /* ----- Dropdown ----- */
 
-    &__actions {
-        cursor: pointer;
+    &__dropdown {
         width: max-content;
         position: relative;
-        &--active {
+        cursor: pointer;
+
+        &-trigger--active {
             background-color: hsl(var(--clr-neutral-300) / 0.2);
             border-radius: 5px;
         }
@@ -131,9 +143,6 @@
 
         position: absolute;
         bottom: 0;
-        left: 0;
-        z-index: 100;
-        transform: translate(5%, 100%);
     }
 
     &__dropdown-option {
@@ -147,6 +156,7 @@
         padding: 1rem;
         white-space: nowrap;
         cursor: pointer;
+
         &--mark {
             color: hsl(var(--clr-cta-500));
         }
@@ -162,4 +172,11 @@
             background-color: hsl(var(--clr-neutral-300) / 0.1);
         }
     }
+}
+
+.right-100 {
+    right: 100%;
+}
+.left-100 {
+    left: 100%;
 }

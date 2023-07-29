@@ -18,6 +18,7 @@ class RoomType extends Model
     protected $fillable = [
         'id',
         'room_type_name',
+        'room_category_id',
         'room_image',
         'occupancy',
         'view',
@@ -26,6 +27,38 @@ class RoomType extends Model
         'available_rooms'
     ];
 
+
+    /**
+     * Scope function to search room types by name.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $searchQuery
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchBy($query, $searchQuery)
+    {
+        if ($this->hasLeadingZeros($searchQuery)) {
+            $trimmedQuery = ltrim($searchQuery, '0');
+
+            if ($trimmedQuery === "") {
+                return $query;
+            }
+
+            return $query->where('id', 'LIKE', '%' . $trimmedQuery  . '%');
+        }
+
+        return $query->where('room_type_name', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('id', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('occupancy', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('view', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('bedding', 'LIKE', '%' . $searchQuery . '%');
+    }
+
+    // Use a regular expression to check for leading zeros
+    function hasLeadingZeros($string)
+    {
+        return preg_match('/^0{1,3}/', $string) === 1;
+    }
 
     public function highest_price()
     {
@@ -56,6 +89,6 @@ class RoomType extends Model
 
     public function category()
     {
-        return $this->belongsTo(RoomCategory::class);
+        return $this->belongsTo(RoomCategory::class, 'room_category_id');
     }
 }

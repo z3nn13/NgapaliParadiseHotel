@@ -26,26 +26,23 @@ class AdminDashboard extends Component
         }
 
         $booking->delete();
-        $this->emit('bookingDeleted', $bookingId);
+        $this->emit('dataDeleted', 'Booking', $bookingId);
     }
 
     public function render()
     {
-        if ($this->searchQuery) {
-            $bookings = Reservation::searchByName($this->searchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
+        $trimmedSearchQuery = ltrim($this->searchQuery, ' ');
+        if ($trimmedSearchQuery !== "") {
+            $bookings = Reservation::searchBy($trimmedSearchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
         } else {
             $bookings = Reservation::orderBy($this->sortField, $this->sortDirection)->paginate(6);
         }
-        return view(
-            'livewire.admin-dashboard',
-            [
-                'bookings' => $bookings,
-                'reports' => [
-                    "totalRevenueToday" => Invoice::totalRevenueToday(),
-                    "totalReservationsToday" => Reservation::totalReservationsToday(),
-                ],
-            ]
-        )
+        $reports =  [
+            "totalRevenueToday" => Invoice::totalRevenueToday(),
+            "totalReservationsToday" => Reservation::totalReservationsToday(),
+        ];
+
+        return view('livewire.admin-dashboard', compact('bookings', 'reports'))
             ->layout('layouts.admin', ['active' => "Dashboard"]);
     }
 }

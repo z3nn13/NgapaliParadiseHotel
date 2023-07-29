@@ -5,9 +5,11 @@
 
     <select class="category-select__select select2" id="selectedRoomCategory" wire:model="selectedRoomCategory">
         <option></option>
-        @foreach ($roomCategories as $category)
+        @forelse ($roomCategories as $category)
             <option value="{{ $category->id }}">{{ $category->room_category_name }}</option>
-        @endforeach
+        @empty
+            <option disabled> -- No Results Found --</option>
+        @endforelse
     </select>
     <script>
         $(document).ready(function() {
