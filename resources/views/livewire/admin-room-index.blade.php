@@ -6,7 +6,6 @@
             <p class="dashboard-heading__subtitle">Rooms > All Room Types</p>
         </div>
         <div class="heading__buttons">
-            <button onclick='Livewire.emit("openModal", "edit-room-type-modal")'>Add Room Type</button>
             <button class="dashboard-heading__export-button"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +27,8 @@
                 <div class="table__title-bar">
                     <h2 class="table__caption">Room Types</h2>
                     <div class="table__options">
-                        <div class="table__filters">
+                        <button class="table__option table__option--add"
+                            onclick='Livewire.emit("openModal", "edit-room-type-modal")'>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
@@ -46,8 +46,8 @@
                                         d="M24 16v16m-8-8h16" />
                                 </g>
                             </svg>
-                            <p>Add Room</p>
-                        </div>
+                        </button>
+
                         <input class="table__search-input"
                             name="roomType_search"
                             type="search"
