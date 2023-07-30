@@ -28,7 +28,7 @@ class AdminRoomIndex extends Component
         }
 
         $roomType->delete();
-        $this->emit('dataDeleted', 'Room Type', $roomTypeId);
+        $this->emit('dataChanged', 'Room Type', $roomTypeId, 'deleted');
     }
 
     public function render()

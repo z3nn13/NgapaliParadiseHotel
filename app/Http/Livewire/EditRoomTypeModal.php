@@ -10,15 +10,14 @@ use LivewireUI\Modal\ModalComponent;
 class EditRoomTypeModal extends ModalComponent
 {
     use WithFileUploads;
+
     public RoomType $roomType;
     public $roomImage;
 
     public function mount(RoomType $roomType)
     {
         $this->roomType = $roomType;
-        if ($roomType->room_image) {
-            $this->roomImage = $roomType->room_image;
-        }
+        $this->roomImage =  $roomType->room_image ?: '';
     }
 
     public function render()
@@ -36,22 +35,26 @@ class EditRoomTypeModal extends ModalComponent
     {
         $this->validate();
 
+        $path = $this->roomImage->store('images/rooms', 'public');
+
+        $this->roomType->room_image = $path;
         $this->roomType->save();
 
         $this->closeModalWithEvents([
             AdminRoomIndex::getName() => 'roomUpdated'
         ]);
+        $this->emit('dataChanged', 'Room Type', $this->roomType->id, 'saved');
     }
     protected function rules(): array
     {
         return [
             'roomType.room_type_name' => 'required|min:3|max:50',
             'roomType.room_category_id' => 'required|exists:room_categories,id',
-            'roomType.room_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'roomType.occupancy' => 'required|integer|min:1',
             'roomType.view' => 'required|string|max:255',
             'roomType.bedding' => 'required|string|max:255',
             'roomType.description' => 'nullable|string|max:1000',
+            'roomImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

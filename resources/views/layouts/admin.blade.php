@@ -61,11 +61,13 @@
     <!-- Scripts -->
     @yield('scripts')
     <script>
-        Livewire.on('dataDeleted', (dataName, dataId) => {
+        Livewire.on('dataChanged', (dataName, dataId, action) => {
+            const capitalizedAction = action.charAt(0).toUpperCase() + action.slice(1);
             const paddedDataId = dataId.toString().padStart(4, '0');
+
             Swal.fire(
-                'Deleted!',
-                dataName + 'ID #' + paddedDataId + ' has been deleted.',
+                capitalizedAction + '!',
+                `${dataName} ID #${paddedDataId} has been ${action} successfully.`,
                 'success'
             )
         });

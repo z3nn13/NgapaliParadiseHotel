@@ -30,7 +30,8 @@
                             wire:model="roomType.room_category_id">
                             <!-- Populate the options with room categories -->
                             @forelse ($roomCategories as $roomCategory)
-                                <option value="{{ $roomCategory->id }}">{{ $roomCategory->room_category_name }}</option>
+                                <option value="{{ $roomCategory->id }}"
+                                    selected>{{ $roomCategory->room_category_name }}</option>
                             @empty
                                 <option disabled
                                     selected>--No room categories found--</option>
@@ -45,18 +46,28 @@
                     <div class="modal__input-group">
                         <label class="modal__label"
                             for="room_image">Room Image:</label>
-                        @if (is_string($roomImage))
-                            <img class="modal__image"
-                                src="{{ asset($roomType->room_image) }}">
-                        @else
-                            <img src="{{ $roomImage->temporaryUrl() }}">
+
+                        @php
+                            $roomImageExists = $roomImage;
+                            $roomImageIsUrl = is_string($roomImage);
+                            $hasNoErrors = empty($errors->get('roomImage'));
+                        @endphp
+                        @if ($roomImageExists && $hasNoErrors)
+                            @if ($roomImageIsUrl)
+                                <img class="modal__image"
+                                    src="{{ asset($roomImage) }}">
+                            @elseif(is_array($roomImage))
+                                @dd($roomImage)
+                            @else
+                                <img src="{{ $roomImage->temporaryUrl() }}">
+                            @endif
                         @endif
                         <input class="modal__file"
                             id="room_image"
                             name="room_image"
                             type="file"
                             wire:model="roomImage">
-                        @error('roomType.room_image')
+                        @error('roomImage')
                             <span class="modal__error">{{ $message }}</span>
                         @enderror
                     </div>

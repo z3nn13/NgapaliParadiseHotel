@@ -26,7 +26,7 @@ class AdminDashboard extends Component
         }
 
         $booking->delete();
-        $this->emit('dataDeleted', 'Booking', $bookingId);
+        $this->emit('dataChanged', 'Booking', $bookingId, 'deleted');
     }
 
     public function render()

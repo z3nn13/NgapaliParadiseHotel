@@ -7,7 +7,6 @@
         </div>
         <div class="heading__buttons">
             <button onclick='Livewire.emit("openModal", "edit-room-type-modal")'>Add Room Type</button>
-            <button>Add Room</button>
             <button class="dashboard-heading__export-button"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +29,24 @@
                     <h2 class="table__caption">Room Types</h2>
                     <div class="table__options">
                         <div class="table__filters">
-                            <p>Filters</p>
-                            <img src="{{ asset('images/svgs/table-filter.svg') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 48 48">
+                                <g fill="none"
+                                    stroke="currentColor"
+                                    stroke-linejoin="round"
+                                    stroke-width="4">
+                                    <rect width="36"
+                                        height="36"
+                                        x="6"
+                                        y="6"
+                                        rx="3" />
+                                    <path stroke-linecap="round"
+                                        d="M24 16v16m-8-8h16" />
+                                </g>
+                            </svg>
+                            <p>Add Room</p>
                         </div>
                         <input class="table__search-input"
                             name="roomType_search"
