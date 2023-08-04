@@ -7,7 +7,8 @@
         </div>
         <div class="heading__buttons">
             <button class="dashboard-heading__export-button"
-                type="submit">
+                type="submit"
+                wire:click="export">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -29,26 +30,13 @@
                     <div class="table__options">
                         <button class="table__option table__option--add"
                             onclick='Livewire.emit("openModal", "edit-room-type-modal")'>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 48 48">
-                                <g fill="none"
-                                    stroke="currentColor"
-                                    stroke-linejoin="round"
-                                    stroke-width="4">
-                                    <rect width="36"
-                                        height="36"
-                                        x="6"
-                                        y="6"
-                                        rx="3" />
-                                    <path stroke-linecap="round"
-                                        d="M24 16v16m-8-8h16" />
-                                </g>
-                            </svg>
+
+                            +
+                            Add
+                            Room
                         </button>
 
-                        <input class="table__search-input"
+                        <input class="table__option table__option--search"
                             name="roomType_search"
                             type="search"
                             spellcheck="false"
@@ -60,6 +48,10 @@
                 <!------- Table Head ------->
                 <thead class="table__head"
                     x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
+                    <th class="table__heading">
+                        <input type="checkbox"
+                            wire:model="selectAll">
+                    </th>
                     <x-sortable-table-heading :sortDirection="$sortDirection"
                         sortField="id">Room No</x-sortable-table-heading>
                     <th class="table__heading">Room Image</th>
@@ -80,7 +72,8 @@
                 <!------- Table Body ------->
                 <tbody class="table__body">
                     @forelse  ($roomTypes as $roomType)
-                        <x-room-type-table-row :roomType=$roomType></x-room-type-table-row>
+                        <x-room-type-table-row wire:model.defer="selectAll"
+                            :roomType=$roomType></x-room-type-table-row>
                     @empty
                         <td class="table__cell">No Results Found.</td>
                     @endforelse

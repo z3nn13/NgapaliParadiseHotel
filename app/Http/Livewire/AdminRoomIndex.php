@@ -3,11 +3,12 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
-use App\Http\Livewire\Traits\WithSorting;
 use App\Models\RoomType;
-
-use function Termwind\render;
+use Livewire\WithPagination;
+use App\Exports\RoomTypesExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Livewire\Traits\WithSorting;
+use \Illuminate\Support\Collection;
 
 class AdminRoomIndex extends Component
 {
@@ -15,32 +16,82 @@ class AdminRoomIndex extends Component
     use WithPagination;
     use WithSorting;
 
+    public Collection $selectedRoomTypes;
+    public $selectAll = false;
+
     public $sortField = "id";
-    public $searchQuery = ""; // Default search query
+    public $searchQuery = "";
+    public $paginatedRoomTypes;
 
     protected $listeners = ['deleteRoomType' => 'deleteRoomType', 'roomUpdated' => 'render'];
 
+    public function mount()
+    {
+        $this->selectedRoomTypes = new Collection();
+    }
+
+    /*
+    *
+    * Render the Livewire component.
+    *
+    */
+    public function render()
+    {
+        $roomTypes = RoomType::when($this->searchQuery, function ($query) {
+            return $query->searchBy(trim($this->searchQuery));
+        })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(6);
+
+        return view('livewire.admin-room-index', compact('roomTypes'))
+            ->layout('layouts.admin', ['active' => 'Rooms']);
+    }
+
+    /*
+    *
+    * Delete a specific room type.
+    *
+    */
     public function deleteRoomType($roomTypeId)
     {
-        $roomType = RoomType::find($roomTypeId);
-        if (!$roomType) {
-            return;
-        }
-
-        $roomType->delete();
+        RoomType::findOrFail($roomTypeId)->delete();
         $this->emit('dataChanged', 'Room Type', $roomTypeId, 'deleted');
     }
 
-    public function render()
+    /*
+    *
+    * Handle the "select all" checkbox toggle event.
+    *
+    */
+    public function updatedSelectAll()
     {
-        $trimmedSearchQuery = trim($this->searchQuery);
-        if ($trimmedSearchQuery !== "") {
-            $roomTypes = RoomType::searchBy($trimmedSearchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
+        if ($this->selectAll) {
+            $this->selectedRoomTypes = collect(array_map(function ($roomType) {
+                return $roomType['id'];
+            }, $this->paginatedRoomTypes));
         } else {
-            $roomTypes = RoomType::orderBy($this->sortField, $this->sortDirection)->paginate(6);
+            $this->selectedRoomTypes = new Collection();
         }
+        dd($this->selectedRoomTypes);
+    }
 
-        return view('livewire.admin-room-index', compact('roomTypes'))
-            ->layout('layouts.admin', ['active' => "Rooms"]);
+    /*
+    *
+    * Get the IDs of the selected room types.
+    *
+    */
+    public function getSelectedRoomTypes()
+    {
+        return $this->selectedRoomTypes->filter(fn ($p) => $p)->keys();
+    }
+
+    /*
+    *
+    * Export selected room types to an Excel file.
+    *
+    */
+    public function export()
+    {
+        return Excel::download(new RoomTypesExport($this->getSelectedRoomTypes()), 'RoomTypes.xlsx');
     }
 }

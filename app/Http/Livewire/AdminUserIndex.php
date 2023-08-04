@@ -16,6 +16,19 @@ class AdminUserIndex extends Component
     public $sortField = "id";
     public $searchQuery = ""; // Default search query
 
+    protected $listeners = ['deleteUser' => 'deleteUser', 'userUpdated' => 'render'];
+
+    public function deleteUser($user_id)
+    {
+        $user = User::find($user_id);
+        if (!$user) {
+            return;
+        }
+
+        $user->delete();
+        $this->emit('dataChanged', 'User', $user_id, 'deleted');
+    }
+
     public function render()
     {
         $trimmedSearchQuery = trim($this->searchQuery);

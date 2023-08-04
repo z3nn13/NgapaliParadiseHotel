@@ -27,6 +27,9 @@ Route::view('/gallery', 'layouts.gallery')->name('gallery.index');
 Route::get('/rooms', RoomsIndex::class)->name('rooms.index');
 
 
+/*
+* Routes for Reservation controller methods
+*/
 
 Route::prefix('booking')->name('booking.')->group(function () {
     Route::get('/search', ReservationSearch::class)->name('search');
@@ -50,6 +53,10 @@ Route::middleware('auth')
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profzile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
+
+/*
+* Route handling for Admin-related 
+*/
 
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')

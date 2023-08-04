@@ -1,6 +1,12 @@
 @props(['roomType'])
 <tr class="table__row">
     <td class="table__cell">
+        <input type="checkbox"
+            wire:model='selectedRoomTypes.{{ $roomType->id }}'
+            {!! $attributes->wire('model')->value ? 'checked' : '' !!}>
+    </td>
+
+    <td class="table__cell">
         #{{ sprintf('%03d', $roomType->id) }}
     </td>
     <td class="table__cell">

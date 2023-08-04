@@ -5,7 +5,7 @@
 }
 
 .admin-nav {
-    z-index: 100;
+    z-index: 1;
     background-color: hsl(var(--clr-neutral-100));
     display: flex;
     justify-content: space-between;
@@ -60,7 +60,7 @@
         right: 0;
         width: max-content;
         height: 100vh;
-        z-index: 100;
+        z-index: 1;
 
         &__logo {
             max-width: 3.75rem;

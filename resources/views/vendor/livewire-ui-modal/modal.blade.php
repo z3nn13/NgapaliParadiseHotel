@@ -12,7 +12,7 @@
 
 
     <div class="fixed inset-0 z-10 overflow-y-auto"
-        {{-- style="display: none;" --}}
+        style="display: none;"
         x-data="LivewireUIModal()"
         x-init="init()"
         x-on:close.stop="setShowPropertyTo(false)"

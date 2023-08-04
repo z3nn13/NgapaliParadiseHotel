@@ -30,6 +30,16 @@
         padding: 0.5rem 1rem;
         background: hsl(var(--clr-admin-100));
         font-weight: 600;
+        transition: transform 300ms ease;
+        cursor: pointer;
+
+        &:active {
+            filter: brightness(1.2);
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
 

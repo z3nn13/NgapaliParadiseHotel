@@ -16,7 +16,7 @@ class AdminDashboard extends Component
     public $sortField = "id";
     public $searchQuery = ""; // Default search query
 
-    protected $listeners = ['deleteBooking' => 'deleteBooking'];
+    protected $listeners = ['deleteBooking' => 'deleteBooking', 'bookingUpdated' => 'render'];
 
     public function deleteBooking($bookingId)
     {

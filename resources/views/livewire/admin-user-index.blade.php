@@ -6,48 +6,34 @@
                 <div class="table__title-bar">
                     <h2 class="table__caption">Users</h2>
                     <div class="table__options">
-                        <div class="table__filters">
+                        <div class="table__option table__option--filter">
                             <p>Filters</p>
                             <img src="{{ asset('images/svgs/table-filter.svg') }}">
                         </div>
-                        <input
-                            class="table__search-input"
+                        <input class="table__option table__option--search"
                             name="user_search"
                             type="search"
                             spellcheck="false"
                             wire:model.debounce.300ms="searchQuery"
-                            placeholder="Search User"
-                        >
+                            placeholder="Search User">
                     </div>
                 </div>
 
                 <!------- Table Head ------->
-                <thead
-                    class="table__head"
-                    x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }"
-                >
-                    <x-sortable-table-heading
-                        :sortDirection="$sortDirection"
-                        sortField="id"
-                    >User ID</x-sortable-table-heading>
-                    <x-sortable-table-heading
-                        :sortDirection="$sortDirection"
-                        sortField="first_name"
-                    >Name</x-sortable-table-heading>
+                <thead class="table__head"
+                    x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
+                    <x-sortable-table-heading :sortDirection="$sortDirection"
+                        sortField="id">User ID</x-sortable-table-heading>
+                    <x-sortable-table-heading :sortDirection="$sortDirection"
+                        sortField="first_name">Name</x-sortable-table-heading>
 
 
-                    <x-sortable-table-heading
-                        :sortDirection="$sortDirection"
-                        sortField="role_id"
-                    >Role</x-sortable-table-heading>
-                    <x-sortable-table-heading
-                        :sortDirection="$sortDirection"
-                        sortField="email"
-                    >Email</x-sortable-table-heading>
-                    <x-sortable-table-heading
-                        :sortDirection="$sortDirection"
-                        sortField="phone_no"
-                    >Phone Number</x-sortable-table-heading>
+                    <x-sortable-table-heading :sortDirection="$sortDirection"
+                        sortField="role_id">Role</x-sortable-table-heading>
+                    <x-sortable-table-heading :sortDirection="$sortDirection"
+                        sortField="email">Email</x-sortable-table-heading>
+                    <x-sortable-table-heading :sortDirection="$sortDirection"
+                        sortField="phone_no">Phone Number</x-sortable-table-heading>
 
                     <th class="table__heading">Actions</th>
                 </thead>
@@ -71,3 +57,23 @@
     </section>
     <!------- User Table End ------->
 </div>
+
+@section('scripts')
+    <script>
+        function confirmDeleteUser(userId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('deleteUser', userId);
+                }
+            });
+        }
+    </script>
+@endsection

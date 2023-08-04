@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ReservationPaymentService;
 
 class ReservationController extends Controller
 {
@@ -50,53 +51,17 @@ class ReservationController extends Controller
     }
 
 
-    /**
-     * Process of checking out the reservation.
+    /*
+     * Process of checking out the reservation using stripe.
      */
-    public function payment(Request $request)
+    public function payment(ReservationPaymentService $reservationPaymentService)
     {
 
-        $stripe = new \Stripe\StripeClient(config('stripe.sk'));
         $roomsBooked = session('reservation_rooms');
         $billingData = session('billingData');
-        $currency = $billingData['currency'];
-        $couponID = $billingData['couponID'] ?? null;
-        $lineItems = [];
 
-
-        foreach ($roomsBooked as $room) {
-            $price = $currency == "USD" ? $room['roomDeal']->deal_usd : $room['roomDeal']->deal_mmk;
-
-            // Retrieve the coupon from the database
-            if ($couponID) {
-                $coupon = Coupon::find($couponID);
-                $price -= $price * $coupon->discount_amount;
-            }
-
-            $lineItems[] = [
-                'price_data' => [
-                    'currency' => $currency,
-                    'product_data' => [
-                        'name' => $room["roomType"]->room_type_name,
-                        "description" => $room["roomDeal"]->deal_name,
-                    ],
-                    'unit_amount' =>  $price * 100,
-                ],
-                'quantity' => 1,
-            ];
-        }
-
-
-        $session = $stripe->checkout->sessions->create([
-            'payment_method_types' => ['card'],
-            'customer_email' => $billingData['email'],
-            'line_items' => $lineItems,
-            'mode' => 'payment',
-            'success_url' => route('booking.success'),
-            'cancel_url' => route('booking.confirm'),
-        ]);
-
-        return redirect($session->url);
+        $paymentUrl = $reservationPaymentService->processPayment($roomsBooked, $billingData);
+        return redirect($paymentUrl);
     }
 
 
