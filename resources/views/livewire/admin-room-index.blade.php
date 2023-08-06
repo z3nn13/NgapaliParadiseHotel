@@ -52,9 +52,14 @@
                         <input type="checkbox"
                             wire:model="selectAll">
                     </th>
-                    <x-sortable-table-heading :sortDirection="$sortDirection"
-                        sortField="id">Room No</x-sortable-table-heading>
+
+                    <x-sortable-table-heading :sortDirection=$sortDirection
+                        sortField="id">
+                        #
+                    </x-sortable-table-heading>
+
                     <th class="table__heading">Room Image</th>
+
                     <x-sortable-table-heading :sortDirection="$sortDirection"
                         sortField="room_type_name">Room Name</x-sortable-table-heading>
 

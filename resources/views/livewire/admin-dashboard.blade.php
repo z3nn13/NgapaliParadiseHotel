@@ -73,9 +73,10 @@
                 <!------- Table Head ------->
                 <thead class="table__head"
                     x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
+
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="id">
-                        Booking ID
+                        #
                     </x-sortable-table-heading>
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
