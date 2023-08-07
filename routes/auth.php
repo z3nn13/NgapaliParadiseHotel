@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::prefix('admin')->group(function () {
     Route::get('/login', [App\Http\Controllers\AdminAuth\AuthenticatedSessionController::class, 'create'])->name('admin.login')->middleware('guest');
 
@@ -24,7 +23,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 });
+
+
 
 
 
