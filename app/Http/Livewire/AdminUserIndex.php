@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithBulkActions;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,33 +13,35 @@ class AdminUserIndex extends Component
 
     use WithPagination;
     use WithSorting;
+    use WithBulkActions;
 
-    public $sortField = "id";
-    public $searchQuery = ""; // Default search query
+    protected $listeners = ['deleteUsers' => 'deleteUsers', 'userUpdated' => 'render'];
 
-    protected $listeners = ['deleteUser' => 'deleteUser', 'userUpdated' => 'render'];
-
-    public function deleteUser($user_id)
-    {
-        $user = User::find($user_id);
-        if (!$user) {
-            return;
-        }
-
-        $user->delete();
-        $this->emit('dataChanged', 'User', $user_id, 'deleted');
-    }
 
     public function render()
     {
-        $trimmedSearchQuery = trim($this->searchQuery);
-        if ($trimmedSearchQuery !== "") {
-            $users = User::searchBy($trimmedSearchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
-        } else {
-            $users = User::orderBy($this->sortField, $this->sortDirection)->paginate(6);
-        }
+        $users = User::when($this->searchQuery, function ($query) {
+            return $query->searchBy(trim($this->searchQuery));
+        })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(6);
+
+        $this->paginatedModels = $users->items();
+
 
         return view('livewire.admin-user-index', compact('users'))
             ->layout('layouts.admin', ['active' => "Users"]);
+    }
+
+
+    public function deleteUsers(array $userIds)
+    {
+        $this->bulkDelete(User::class, $userIds);
+    }
+
+
+    public function exportClickListener()
+    {
+        return $this->bulkExport(UserExport::class, 'Users.xlsx');
     }
 }

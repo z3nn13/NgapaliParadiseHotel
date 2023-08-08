@@ -61,18 +61,28 @@
                                     fill="black" />
                             </svg>
                         </div>
-                        <input class="table__option--search"
-                            name="booking_search"
-                            type="search"
-                            spellcheck="false"
-                            wire:model.debounce.300ms="searchQuery"
-                            placeholder="Search Booking">
+                        <div class="table__option--searchbar">
+                            <input class="table__option--search"
+                                name="roomType_search"
+                                type="search"
+                                spellcheck="false"
+                                wire:model.debounce.300ms="searchQuery"
+                                placeholder="Search Booking">
+                            <img src="{{ asset('images/svgs/table-search.svg') }}"
+                                alt="">
+                        </div>
                     </div>
                 </div>
 
                 <!------- Table Head ------->
                 <thead class="table__head"
                     x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
+                    <th class="table__heading">
+                        <input class="table__checkbox"
+                            type="checkbox"
+                            @click="show = !show"
+                            wire:model="selectAll">
+                    </th>
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="id">
@@ -96,8 +106,9 @@
 
                 <!------- Table Body ------->
                 <tbody class="table__body">
-                    @forelse  ($bookings as $booking)
-                        <x-booking-table-row :booking=$booking></x-booking-table-row>
+                    @forelse  ($reservations as $reservation)
+                        <x-booking-table-row wire:model.defer="selectAll"
+                            :reservation="$reservation"></x-booking-table-row>
                     @empty
                         <td class="table__cell">No Results Found.</td>
                     @endforelse
@@ -108,30 +119,9 @@
 
         <!------- Table Pagination ------->
         <div class="table__pagination">
-            {{ $bookings->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
         </div>
     </section>
 
     <!------- Booking Table End ------->
 </div>
-
-
-@section('scripts')
-    <script>
-        function confirmDeleteBooking(bookingId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit('deleteBooking', bookingId);
-                }
-            });
-        }
-    </script>
-@endsection

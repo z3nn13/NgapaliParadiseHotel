@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithBulkActions;
 use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Reservation;
@@ -12,37 +13,41 @@ class AdminDashboard extends Component
 {
     use WithPagination;
     use WithSorting;
+    use WithBulkActions;
 
-    public $sortField = "id";
-    public $searchQuery = ""; // Default search query
+    public $reports;
+    protected $listeners = ['deleteReservations' => 'deleteReservations', 'bookingUpdated' => 'render'];
 
-    protected $listeners = ['deleteBooking' => 'deleteBooking', 'bookingUpdated' => 'render'];
-
-    public function deleteBooking($bookingId)
+    public function mount()
     {
-        $booking = Reservation::find($bookingId);
-        if (!$booking) {
-            return;
-        }
-
-        $booking->delete();
-        $this->emit('dataChanged', 'Booking', $bookingId, 'deleted');
+        $this->reports =  [
+            "totalRevenueToday" => Invoice::totalRevenueToday(),
+            "totalReservationsToday" => Reservation::totalReservationsToday(),
+        ];
     }
 
     public function render()
     {
-        $trimmedSearchQuery = ltrim($this->searchQuery, ' ');
-        if ($trimmedSearchQuery !== "") {
-            $bookings = Reservation::searchBy($trimmedSearchQuery)->orderBy($this->sortField, $this->sortDirection)->paginate(6);
-        } else {
-            $bookings = Reservation::orderBy($this->sortField, $this->sortDirection)->paginate(6);
-        }
-        $reports =  [
-            "totalRevenueToday" => Invoice::totalRevenueToday(),
-            "totalReservationsToday" => Reservation::totalReservationsToday(),
-        ];
+        $reservations = Reservation::when($this->searchQuery, function ($query) {
+            return $query->searchBy(trim($this->searchQuery));
+        })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(6);
 
-        return view('livewire.admin-dashboard', compact('bookings', 'reports'))
+        $this->paginatedModels = $reservations->items();
+
+        return view('livewire.admin-dashboard', compact('reservations'))
             ->layout('layouts.admin', ['active' => "Dashboard"]);
+    }
+
+    public function deleteReservations(array $reservationIds)
+    {
+        $this->bulkDelete(Reservation::class, $reservationIds);
+    }
+
+
+    public function exportClickListener()
+    {
+        return $this->bulkExport(ReservationExport::class, 'Reservations.xlsx');
     }
 }

@@ -4,24 +4,27 @@
     font-weight: 600;
     padding: 0.5rem 1rem;
     display: block;
-    text-align: center;
-    width: 12ch;
+    width: min-content;
     font-size: 0.9375rem;
     // box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.5);
 
     &--upcoming {
-        background-color: #c7f7cb;
+        background-color: hsl(124, 61%, 64%, 0.1);
+        color: hsl(124, 50%, 61%);
     }
 
     &--cancelling {
-        background-color: #fff7ae;
+        background-color: hsl(46, 100%, 73%, 0.1);
+        color: hsl(46, 91%, 52%);
     }
 
     &--cancelled {
-        background-color: #ffcfc0;
+        background-color: hsla(16, 100%, 71%, 0.1);
+        color: hsl(15, 100%, 66%);
     }
 
     &--finished {
-        background-color: hsl(151, 100%, 94%);
+        background-color: hsl(209, 100%, 64%, 0.1);
+        color: hsl(209, 100%, 64%);
     }
 }

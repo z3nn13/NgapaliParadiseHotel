@@ -31,10 +31,10 @@
         rel="stylesheet">
 
     <!-- Scripts -->
-    <script defer
-        src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
     <script defer
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer
@@ -60,16 +60,25 @@
     <!-- Scripts -->
     @yield('scripts')
     <script>
-        Livewire.on('dataChanged', (dataName, dataId, action) => {
-            const capitalizedAction = action.charAt(0).toUpperCase() + action.slice(1);
-            const paddedDataId = dataId.toString().padStart(4, '0');
-
-            Swal.fire(
-                capitalizedAction + '!',
-                `${dataName} ID #${paddedDataId} has been ${action} successfully.`,
-                'success'
-            )
+        Livewire.on('dataChanged', (title, message) => {
+            Swal.fire(title, message, 'success')
         });
+
+        function confirmDelete(modelName, modelIds) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#424242',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('delete' + modelName + 's', modelIds);
+                }
+            });
+        }
     </script>
 </body>
 

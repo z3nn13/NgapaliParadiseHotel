@@ -10,27 +10,46 @@ use Illuminate\Http\Request;
 class ReservationSearch extends Component
 {
     public $availableRoomTypes;
-    public $availableRoomIds; // Separate property to retain the availableRoomIds
+    public $availableRoomIds;
 
     protected $listeners = ['option_selected' => 'sort_room_types'];
 
-    function is_additional_room(Request $request)
-    {
-        return $request->session()->has('reservation_rooms');
-    }
     public function mount(Request $request)
     {
         $checkInDate = $request->input('checkInDate');
         $checkOutDate = $request->input('checkOutDate');
+        $this->storeDataToSession($checkInDate, $checkOutDate);
+        $this->availableRoomTypes = $this->getAvailableRooms($checkInDate, $checkOutDate);
+        $this->availableRoomIds = $this->availableRoomTypes->pluck('availableRoomIds', 'id')->toArray();
+    }
+
+    public function render()
+    {
+        return view('livewire.reservation-search')
+            ->extends('booking.search')
+            ->section('room-list');
+    }
+
+
+    public function storeDataToSession($checkInDate, $checkOutDate)
+    {
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
+        session()->put('numNights', $numNights);
+        session()->put('checkInDate', $checkInDate);
+        session()->put('checkOutDate', $checkOutDate);
+    }
 
-        $request->session()->put($request->query());
-        $request->session()->put('numNights', $numNights);
+    public function is_additional_room(Request $request)
+    {
+        return $request->session()->has('reservation_rooms');
+    }
 
+    public function getAvailableRooms($checkInDate, $checkOutDate)
+    {
         $availableRooms = Room::availableRoomTypes($checkInDate, $checkOutDate)
             ->with('room_type')
             ->get();
-        $availableRoomTypes = $availableRooms->map(function ($room) {
+        return $availableRooms->map(function ($room) {
             $roomType = $room->room_type;
             if ($room->room_ids !== "") {
                 $roomType->availableRoomIds = explode(',', $room->room_ids);
@@ -39,11 +58,9 @@ class ReservationSearch extends Component
             };
             return $roomType;
         });
-
-        // Store the available room ids in the separate property
-        $this->availableRoomIds = $availableRoomTypes->pluck('availableRoomIds', 'id')->toArray();
-        $this->availableRoomTypes = $availableRoomTypes;
     }
+
+
 
     public function sort_room_types($selectedSortOption)
     {
@@ -59,18 +76,10 @@ class ReservationSearch extends Component
                 return $roomType->lowest_price();
             });
         }
-
         // Restore the available room ids to each room type
         $this->availableRoomTypes = $sortedRoomTypes->map(function ($roomType) {
             $roomType->availableRoomIds = $this->availableRoomIds[$roomType->id];
             return $roomType;
         });
-    }
-
-    public function render()
-    {
-        return view('livewire.reservation-search')
-            ->extends('booking.search')
-            ->section('room-list');
     }
 }

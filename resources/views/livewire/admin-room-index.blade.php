@@ -8,7 +8,7 @@
         <div class="heading__buttons">
             <button class="dashboard-heading__export-button"
                 type="submit"
-                wire:click="export">
+                wire:click="exportClickListener">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -24,24 +24,46 @@
     <!------- Room Type Table Start ------->
     <section class="table__wrapper container__admin-dashboard">
         <div class="table__container">
-            <table class="table">
+            <table class="table"
+                x-data="{ show: false }">
                 <div class="table__title-bar">
                     <h2 class="table__caption">Room Types</h2>
                     <div class="table__options">
-                        <button class="table__option table__option--add"
-                            onclick='Livewire.emit("openModal", "edit-room-type-modal")'>
+                        <div class="table___option"
+                            x-show="show">
+                            <p class="table__option">Selected {{ $selectedModels->count() }} rows</p>
+                        </div>
+                        <div class="table__option table__option--bulk">
+                            Bulk
+                            Actions
+                            <button class="table__option table__option--add"
+                                onclick='confirmDelete(
+                                    "RoomType", @json($this->getSelectedModels()->values()->all())
+                                )'>
+                                Bulk Delete
+                            </button>
+                        </div>
 
+                        <button class="table__option table__option--add"
+                            onclick='Livewire.emit(
+                                "openModal", "edit-room-type-modal"
+                                )'>
                             +
                             Add
                             Room
                         </button>
 
-                        <input class="table__option table__option--search"
-                            name="roomType_search"
-                            type="search"
-                            spellcheck="false"
-                            wire:model.debounce.300ms="searchQuery"
-                            placeholder="Search Room">
+                        <div class="table__option--searchbar">
+                            <input class="table__option--search"
+                                name="roomType_search"
+                                type="search"
+                                spellcheck="false"
+                                wire:model.debounce.300ms="searchQuery"
+                                placeholder="Search Room">
+                            <img src="{{ asset('images/svgs/table-search.svg') }}"
+                                alt="">
+                        </div>
+
                     </div>
                 </div>
 
@@ -49,7 +71,9 @@
                 <thead class="table__head"
                     x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
                     <th class="table__heading">
-                        <input type="checkbox"
+                        <input class="table__checkbox"
+                            type="checkbox"
+                            @click="show = !show"
                             wire:model="selectAll">
                     </th>
 
@@ -80,6 +104,7 @@
                         <x-room-type-table-row wire:model.defer="selectAll"
                             :roomType=$roomType></x-room-type-table-row>
                     @empty
+                        <td></td>
                         <td class="table__cell">No Results Found.</td>
                     @endforelse
                 </tbody>
@@ -93,24 +118,3 @@
     </section>
     <!------- Room Type Table End ------->
 </div>
-
-
-@section('scripts')
-    <script>
-        function confirmDeleteRoomType(roomTypeId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit('deleteRoomType', roomTypeId);
-                }
-            });
-        }
-    </script>
-@endsection

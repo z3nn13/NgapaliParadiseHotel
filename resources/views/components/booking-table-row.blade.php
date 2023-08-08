@@ -1,16 +1,15 @@
-<!-- resources/views/bookings/booking_row.blade.php -->
-@props(['booking'])
+@props(['reservation'])
 
 @php
     // Format Check In Date
-    $check_in_date = date('jS M Y', strtotime($booking->check_in_date));
+    $check_in_date = date('jS M Y', strtotime($reservation->check_in_date));
     
     // Format Paid
     $amount = 30;
     $currency = 'MMK';
-    if ($booking->invoice) {
-        $currency = $booking->invoice->preferred_currency;
-        $amount = $currency === 'MMK' ? $booking->invoice->total_paid_mmk : $booking->invoice->total_paid_usd();
+    if ($reservation->invoice) {
+        $currency = $reservation->invoice->preferred_currency;
+        $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
     }
     $paid = $currency . ' ' . $amount;
 @endphp
@@ -18,15 +17,23 @@
 <!-- Table row -->
 <tr class="table__row">
 
-    <!-- Booking ID -->
+    <!-- Checkbox -->
     <td class="table__cell">
-        #{{ sprintf('%04d', $booking->id) }}
+        <input class="table__checkbox"
+            type="checkbox"
+            wire:model='selectedModels.{{ $reservation->id }}'
+            {!! $attributes->wire('model')->value ? 'checked' : '' !!}>
+    </td>
+
+    <!-- Reservation ID -->
+    <td class="table__cell">
+        #{{ sprintf('%04d', $reservation->id) }}
     </td>
 
     <!-- Guest Name -->
     <td class="table__cell">
-        {{ $booking->first_name }}<br>
-        {{ $booking->last_name }}
+        {{ $reservation->first_name }}<br>
+        {{ $reservation->last_name }}
     </td>
 
     <!-- Check-in Date -->
@@ -39,10 +46,10 @@
         {{ $paid }}<span>.00</span>
     </td>
 
-    <!-- Booking Status -->
+    <!-- reservation Status -->
     <td class="table__cell">
-        <span class="booking__status booking__status--{{ strtolower($booking->status) }}">
-            {{ ucfirst($booking->status) }}
+        <span class="booking__status booking__status--{{ strtolower($reservation->status) }}">
+            {{ ucfirst($reservation->status) }}
         </span>
     </td>
 
@@ -52,7 +59,7 @@
 
         <!-- Mark As Option -->
         <button class="table__dropdown-option table__dropdown-option--mark"
-            onclick="Livewire.emit('openModal', 'update-booking-status-modal', {{ json_encode(['reservation' => $booking->id]) }})">
+            onclick="Livewire.emit('openModal', 'update-reservation-status-modal', {{ json_encode(['reservation' => $reservation->id]) }})">
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -72,7 +79,7 @@
         </button>
 
         <!-- View Option -->
-        <form action="{{ route('admin.reservations.show', ['reservation' => $booking->id]) }}">
+        <form action="{{ route('admin.reservations.show', ['reservation' => $reservation->id]) }}">
             <button class="table__dropdown-option table__dropdown-option--view"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +100,7 @@
 
         <!-- Delete Option -->
         <button class="table__dropdown-option table__dropdown-option--delete"
-            @click.stop="confirmDeleteBooking({{ $booking->id }})">
+            onclick="confirmDelete('Reservation', @json([$reservation->id]))">
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"

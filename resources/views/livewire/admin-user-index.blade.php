@@ -10,18 +10,28 @@
                             <p>Filters</p>
                             <img src="{{ asset('images/svgs/table-filter.svg') }}">
                         </div>
-                        <input class="table__option table__option--search"
-                            name="user_search"
-                            type="search"
-                            spellcheck="false"
-                            wire:model.debounce.300ms="searchQuery"
-                            placeholder="Search User">
+                        <div class="table__option--searchbar">
+                            <input class="table__option--search"
+                                name="roomType_search"
+                                type="search"
+                                spellcheck="false"
+                                wire:model.debounce.300ms="searchQuery"
+                                placeholder="Search Booking">
+                            <img src="{{ asset('images/svgs/table-search.svg') }}"
+                                alt="">
+                        </div>
                     </div>
                 </div>
 
                 <!------- Table Head ------->
                 <thead class="table__head"
                     x-data="{ sortDirection: @entangle('sortDirection'), sortField: @entangle('sortField') }">
+                    <th class="table__heading">
+                        <input class="table__checkbox"
+                            type="checkbox"
+                            @click="show = !show"
+                            wire:model="selectAll">
+                    </th>
                     <x-sortable-table-heading :sortDirection="$sortDirection"
                         sortField="id">User ID</x-sortable-table-heading>
                     <x-sortable-table-heading :sortDirection="$sortDirection"
@@ -42,7 +52,8 @@
                 <!------- Table Body ------->
                 <tbody class="table__body">
                     @forelse  ($users as $user)
-                        <x-user-table-row :user=$user></x-user-table-row>
+                        <x-user-table-row wire:model.defer="selectAll"
+                            :user=$user></x-user-table-row>
                     @empty
                         <td class="table__cell">No Results Found.</td>
                     @endforelse
@@ -57,23 +68,3 @@
     </section>
     <!------- User Table End ------->
 </div>
-
-@section('scripts')
-    <script>
-        function confirmDeleteUser(userId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit('deleteUser', userId);
-                }
-            });
-        }
-    </script>
-@endsection
