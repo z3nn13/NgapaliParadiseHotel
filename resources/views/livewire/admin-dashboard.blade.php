@@ -86,12 +86,12 @@
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="id">
-                        #
+                        ID #
                     </x-sortable-table-heading>
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="first_name">
-                        Name
+                        Guest Name
                     </x-sortable-table-heading>
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
@@ -110,7 +110,10 @@
                         <x-booking-table-row wire:model.defer="selectAll"
                             :reservation="$reservation"></x-booking-table-row>
                     @empty
-                        <td class="table__cell">No Results Found.</td>
+                        <tr>
+                            <td class="table_cell"></td>
+                            <td class="table__cell">No Bookings Found</td>
+                        </tr>
                     @endforelse
                 </tbody>
 

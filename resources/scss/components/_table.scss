@@ -149,10 +149,24 @@
         display: flex;
         align-items: center;
     }
+
+    &__cell--profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
     /* ----- Pagination ----- */
     &__image {
         max-width: 6rem;
         border-radius: 10px;
+        object-fit: cover;
+    }
+
+    &__image--circle {
+        max-width: 3.125rem;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     /* ----- Pagination ----- */

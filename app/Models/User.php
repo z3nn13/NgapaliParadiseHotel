@@ -46,6 +46,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    public function scopeUsersCreatedBy($query, string $timePeriod)
+    {
+        $timePeriod;
+        return $query->whereDate('created_at', $timePeriod)->count();
+    }
+
     public function scopeSearchBy($query, $searchQuery)
     {
         $nameParts = explode(' ', $searchQuery);

@@ -15,7 +15,9 @@
         #{{ sprintf('%04d', $user->id) }}
     </td>
     <!-- Full Name -->
-    <td class="table__cell">
+    <td class="table__cell table__cell--profile">
+        <img class="table__image--circle"
+            src="{{ asset($user->user_image) ?? asset('images/misc/no-image.png') }}">
         {{ $user->first_name }}<br>{{ $user->last_name }}
     </td>
     <!-- User Role -->

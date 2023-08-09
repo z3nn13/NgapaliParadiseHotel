@@ -16,15 +16,8 @@ class AdminDashboard extends Component
     use WithBulkActions;
 
     public $reports;
-    protected $listeners = ['deleteReservations' => 'deleteReservations', 'bookingUpdated' => 'render'];
 
-    public function mount()
-    {
-        $this->reports =  [
-            "totalRevenueToday" => Invoice::totalRevenueToday(),
-            "totalReservationsToday" => Reservation::totalReservationsToday(),
-        ];
-    }
+    protected $listeners = ['deleteReservations' => 'deleteReservations', 'bookingUpdated' => 'render'];
 
     public function render()
     {

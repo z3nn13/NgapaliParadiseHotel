@@ -48,7 +48,7 @@
                     {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
                 </p>
                 <img class="admin-nav__profile-pic profile__picture"
-                    src="{{ asset('images/backgrounds/hero__room.png') }}"
+                    src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}"
                     alt="profile picture"
                     width="100">
             </div>

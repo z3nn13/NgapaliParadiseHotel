@@ -1,5 +1,5 @@
 <?php
-// app/Http/Livewire/EditRoomTypeModal.php
+
 namespace App\Http\Livewire;
 
 use App\Models\RoomType;
@@ -43,8 +43,10 @@ class EditRoomTypeModal extends ModalComponent
         $this->closeModalWithEvents([
             AdminRoomIndex::getName() => 'roomUpdated'
         ]);
-        $this->emit('dataChanged', 'Room Type', $this->roomType->id, 'saved');
+        $message = 'Room Type ID #' . sprintf('%04d', $this->roomType->id) . ' saved successfully.';
+        $this->emit('dataChanged', 'Saved', $message);
     }
+
     protected function rules(): array
     {
         return [

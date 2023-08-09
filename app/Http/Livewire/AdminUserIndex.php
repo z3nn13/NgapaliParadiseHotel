@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\WithBulkActions;
 use App\Models\User;
 use Livewire\Component;
+use App\Exports\UsersExport;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\WithSorting;
+use App\Http\Livewire\Traits\WithBulkActions;
 
 class AdminUserIndex extends Component
 {
@@ -39,9 +40,8 @@ class AdminUserIndex extends Component
         $this->bulkDelete(User::class, $userIds);
     }
 
-
     public function exportClickListener()
     {
-        return $this->bulkExport(UserExport::class, 'Users.xlsx');
+        return $this->bulkExport(UsersExport::class, 'Users.pdf');
     }
 }

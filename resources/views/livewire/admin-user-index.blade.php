@@ -1,4 +1,27 @@
 <div>
+    <!------- Dashboard Heading Start ------->
+    <section class="dashboard-heading container__admin-dashboard">
+        <div class="dashboard-heading__texts">
+            <h1 class="dashboard-heading__title">Users</h1>
+            <p class="dashboard-heading__subtitle">Dashboard > Users</p>
+        </div>
+        <div class="heading__buttons">
+            <button class="dashboard-heading__export-button"
+                type="submit"
+                wire:click="exportClickListener">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none">
+                    <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
+                        fill="black" />
+                </svg>
+                Export</button>
+        </div>
+    </section>
+
+
     <!------- User Table Start ------->
     <section class="table__wrapper container__admin-dashboard">
         <div class="table__container">

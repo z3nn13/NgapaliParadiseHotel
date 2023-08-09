@@ -4,13 +4,8 @@
     // Format Check In Date
     $check_in_date = date('jS M Y', strtotime($reservation->check_in_date));
     
-    // Format Paid
-    $amount = 30;
-    $currency = 'MMK';
-    if ($reservation->invoice) {
-        $currency = $reservation->invoice->preferred_currency;
-        $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
-    }
+    $currency = $reservation->invoice->preferred_currency;
+    $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
     $paid = $currency . ' ' . $amount;
 @endphp
 
@@ -31,7 +26,9 @@
     </td>
 
     <!-- Guest Name -->
-    <td class="table__cell">
+    <td class="table__cell table__cell--profile">
+        <img class="table__image--circle"
+            src="{{ asset($reservation->user->user_image) ?? asset('images/misc/no-image.png') }}">
         {{ $reservation->first_name }}<br>
         {{ $reservation->last_name }}
     </td>
