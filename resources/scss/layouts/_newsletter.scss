@@ -4,7 +4,12 @@
     flex-direction: column;
     justify-content: center;
     padding-top: 3rem;
-    padding-bottom: var(--margin-size);
+    padding-bottom: 3rem;
+
+    &--about {
+        padding-top: var(--margin-size);
+        padding-bottom: var(--margin-size);
+    }
 
     &__heading {
         text-align: center;
@@ -21,6 +26,7 @@
         margin: auto;
         color: hsl(var(--clr-primary-400));
         font-size: var(--fs-600);
+        font-weight: 500;
         margin-bottom: 2rem;
     }
 
@@ -36,7 +42,7 @@
 
     &-form__input,
     &-form__input:focus {
-        padding: 1.5rem 3rem;
+        padding: 1rem 2rem;
         outline: none;
         border: none;
     }
@@ -45,9 +51,13 @@
         border: none;
         background-color: hsl(var(--clr-cta-400));
         color: hsl(var(--clr-neutral-100));
-        padding: 2rem;
+        padding: 1rem;
         text-transform: uppercase;
         font-size: 1rem;
         font-weight: 600;
+    }
+
+    &__button {
+        align-self: center;
     }
 }

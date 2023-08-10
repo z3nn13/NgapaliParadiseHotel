@@ -4,9 +4,13 @@
     &__title {
         color: hsl(var(--clr-primary-400));
         text-align: center;
-        font-size: var(--fs-600);
+        font-size: var(--fs-500);
+        font-family: var(--ff-secondary);
         font-weight: 400;
         margin-bottom: 3rem;
+        &--bold {
+            font-weight: 600;
+        }
     }
 
     &__grid {

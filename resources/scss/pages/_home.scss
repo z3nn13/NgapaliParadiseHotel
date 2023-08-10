@@ -68,13 +68,16 @@
     &__title {
         font-family: var(--ff-primary);
         font-size: var(--fs-600);
+        font-weight: 500;
         color: hsl(var(--clr-primary-400));
+        margin-bottom: 1rem;
     }
 
     &__paragraph {
         text-align: center;
-        width: 34ch;
-        margin-bottom: 1rem;
+        width: 32ch;
+        margin-bottom: 2rem;
+        font-family: var(--ff-secondary);
     }
 
     &__button--primary {
