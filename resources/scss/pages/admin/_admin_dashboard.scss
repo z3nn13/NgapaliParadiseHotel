@@ -2,6 +2,7 @@
     max-width: calc(100% - 4rem);
     margin-inline: auto;
 }
+
 .dashboard-heading {
     display: flex;
     justify-content: space-between;
@@ -20,8 +21,15 @@
         font-weight: 400;
     }
 
-    &__export-button {
+    &__options {
         display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__option--export {
+        display: flex;
+        white-space: nowrap;
         align-items: center;
         height: min-content;
         border-radius: 15px;

@@ -1,46 +1,5 @@
 <div>
-    <!------- Dashboard Heading Start ------->
-    <section class="dashboard-heading container__admin-dashboard">
-        <div class="dashboard-heading__texts">
-            <h1 class="dashboard-heading__title">Hi, {{ auth()->user()->first_name }}</h1>
-            <p class="dashboard-heading__subtitle">Welcome back to your dashboard</p>
-        </div>
-        <button class="dashboard-heading__export-button"
-            type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none">
-                <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
-                    fill="black" />
-            </svg>
-            Export</button>
-    </section>
-    <!------- Dashboard Heading End ------->
-
-    <!------- Dashboard Report Start ------->
-    <section class="dashboard-report container__admin-dashboard">
-        <ul class="dashboard-report__list">
-            <div class="dashboard-report__item">
-                <h2 class="dashboard-report__title">${{ $reports['totalRevenueToday'] / 2000 }}.00</h2>
-                <p class="dashboard-report__subtitle">Total Revenue Today</p>
-            </div>
-            <div class="dashboard-report__item">
-                <h2 class="dashboard-report__title">{{ $reports['totalReservationsToday'] }}</h2>
-                <p class="dashboard-report__subtitle">Total Bookings Today</p>
-            </div>
-            <div class="dashboard-report__item">
-                <h2 class="dashboard-report__title">5</h2>
-                <p class="dashboard-report__subtitle">New Members Today</p>
-            </div>
-            <div class="dashboard-report__item">
-                <h2 class="dashboard-report__title">14</h2>
-                <p class="dashboard-report__subtitle">Rooms Booked Today</p>
-            </div>
-        </ul>
-    </section>
-    <!------- Dashboard Report End ------->
+    @livewire('admin-reports')
 
     <!------- Booking Table Start ------->
     <section class="table__wrapper container__admin-dashboard">

@@ -6,9 +6,9 @@
             <p class="dashboard-heading__subtitle">Dashboard > Users</p>
         </div>
         <div class="heading__buttons">
-            <button class="dashboard-heading__export-button"
+            <button class="dashboard-heading__option--export"
                 type="submit"
-                wire:click="exportClickListener">
+                wire:click="exportUsers">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"

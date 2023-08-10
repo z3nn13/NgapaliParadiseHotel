@@ -20,14 +20,7 @@ class AdminRoomIndex extends Component
 
     public function render()
     {
-
-        $roomTypes = RoomType::when($this->searchQuery, function ($query) {
-            return $query->searchBy(trim($this->searchQuery));
-        })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(6);
-
-        $this->paginatedModels = $roomTypes->items();
+        $roomTypes = $this->loadPageItems(RoomType::class, 6);
 
         return view('livewire.admin-room-index', compact('roomTypes'))
             ->layout('layouts.admin', ['active' => 'Rooms']);
@@ -38,7 +31,7 @@ class AdminRoomIndex extends Component
         $this->bulkDelete(RoomType::class, $roomTypeIds);
     }
 
-    public function exportClickListener()
+    public function exportRoomTypes()
     {
         return $this->bulkExport(RoomTypesExport::class, 'RoomTypes.xlsx',);
     }

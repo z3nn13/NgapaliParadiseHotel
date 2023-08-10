@@ -21,14 +21,7 @@ class AdminUserIndex extends Component
 
     public function render()
     {
-        $users = User::when($this->searchQuery, function ($query) {
-            return $query->searchBy(trim($this->searchQuery));
-        })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(6);
-
-        $this->paginatedModels = $users->items();
-
+        $users = $this->loadPageItems(User::class, 6);
 
         return view('livewire.admin-user-index', compact('users'))
             ->layout('layouts.admin', ['active' => "Users"]);
@@ -40,7 +33,7 @@ class AdminUserIndex extends Component
         $this->bulkDelete(User::class, $userIds);
     }
 
-    public function exportClickListener()
+    public function exportUsers()
     {
         return $this->bulkExport(UsersExport::class, 'Users.pdf');
     }

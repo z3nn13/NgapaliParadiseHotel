@@ -1,11 +1,6 @@
 <?php
 
 namespace App\Services;
-// app/Services/ReservationPaymentService.php
-/**
- * Class ReservationPaymentService
- * @package App\Services
- */
 
 use Stripe\StripeClient;
 use App\Models\Coupon;

@@ -21,13 +21,7 @@ class AdminDashboard extends Component
 
     public function render()
     {
-        $reservations = Reservation::when($this->searchQuery, function ($query) {
-            return $query->searchBy(trim($this->searchQuery));
-        })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(6);
-
-        $this->paginatedModels = $reservations->items();
+        $reservations = $this->loadPageItems(Reservation::class, 6);
 
         return view('livewire.admin-dashboard', compact('reservations'))
             ->layout('layouts.admin', ['active' => "Dashboard"]);
@@ -39,7 +33,7 @@ class AdminDashboard extends Component
     }
 
 
-    public function exportClickListener()
+    public function exportReservations()
     {
         return $this->bulkExport(ReservationExport::class, 'Reservations.xlsx');
     }
