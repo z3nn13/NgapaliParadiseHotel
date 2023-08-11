@@ -51,6 +51,40 @@
                     src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}"
                     alt="profile picture"
                     width="100">
+                <x-dropdown>
+                    <div class="dropdown">
+                        <x-slot name="trigger">
+                            <svg class="dropdown__trigger"
+                                aria-hidden="true"
+                                :class="{ 'dropdown__trigger--active': dropdown }"
+                                width="10"
+                                height="10"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 14 8">
+                                <path stroke="black"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1" />
+                            </svg>
+                        </x-slot>
+
+                        <ul class="dropdown__container"
+                            :class="dropdownPosition"
+                            x-cloak
+                            x-ref="container">
+                            <li class="dropdown__option">
+                                <form action="{{ route('logout') }}"
+                                    method="POST">
+                                    @csrf
+                                    <button class="dropdown__link"
+                                        type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </x-dropdown>
             </div>
         </nav>
         {{ $slot }}

@@ -618,14 +618,6 @@ a:active {
   background-color: hsl(var(--clr-neutral-300)/0.1);
 }
 
-.right-100 {
-  right: 100%;
-}
-
-.left-100 {
-  left: 100%;
-}
-
 .booking__status {
   border-radius: 25px;
   font-weight: 600;
@@ -818,6 +810,31 @@ a:active {
   }
 }
 
+.dropdown {
+  width: -moz-max-content;
+  width: max-content;
+  position: relative;
+  cursor: pointer;
+}
+.dropdown__container {
+  background-color: hsl(var(--clr-neutral-100));
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.right-100 {
+  right: 100%;
+}
+
+.left-100 {
+  left: 100%;
+}
+
 .hero {
   display: grid;
   margin: 0;
@@ -918,6 +935,9 @@ a:active {
 .nav__list {
   display: flex;
 }
+.nav__link {
+  color: inherit;
+}
 .nav__item {
   display: none;
 }
@@ -926,20 +946,21 @@ a:active {
     display: flex;
     padding: 1.31rem;
   }
-  .nav__link {
-    display: inline-block;
-    color: inherit;
-  }
   .nav__cta {
     flex-direction: column;
     align-items: center;
   }
-  .nav__span {
-    font-family: var(--ff-secondary);
-    margin-top: 1rem;
-  }
   .nav__menu {
     display: none;
+  }
+  .nav .dropdown-trigger {
+    transition: transform 300ms ease;
+  }
+  .nav .dropdown-trigger--active {
+    transform: rotate(-180deg);
+  }
+  .nav .dropdown-trigger:hover:not(.dropdown-trigger--active) {
+    transform: scale(1.5);
   }
 }
 
@@ -1540,23 +1561,23 @@ a:active {
 }
 .gallery__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
-  width: -moz-min-content;
-  width: min-content;
+  width: calc(100% - var(--margin-size) * 3);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: var(--margin-size);
 }
-.gallery__card {
+.gallery .gallery__card {
   height: 250px;
+  position: relative;
   border-radius: 15px;
   overflow: hidden;
-  position: relative;
   background-color: black;
   transition: transform 300ms ease;
 }
-.gallery__card-image {
+.gallery .gallery__card-image {
+  /* Styling Stuff */
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -1564,33 +1585,44 @@ a:active {
   opacity: 1;
   transition: opacity 300ms ease-in-out;
 }
-.gallery__card:hover, .gallery__card:focus-within {
+.gallery .gallery__card:hover, .gallery .gallery__card:focus-within {
   transform: scale(1.1);
 }
-.gallery__card:hover .gallery__card-image, .gallery__card:focus-within .gallery__card-image {
+.gallery .gallery__card:hover .gallery__card-image, .gallery .gallery__card:focus-within .gallery__card-image {
   opacity: 0.6;
 }
-.gallery__card::after {
+.gallery .gallery__card::before, .gallery .gallery__card::after {
   opacity: 0;
-  transform: scale(0, 1);
-  transition: transform 300ms ease, 300ms ease-in-out;
-}
-.gallery__card:hover::after, .gallery__card:focus-within::after {
-  opacity: 1;
-  transform: scale(1, 1);
-  border-top: 1px solid hsl(var(--clr-neutral-100));
-  border-bottom: 1px solid hsl(var(--clr-neutral-100));
-  color: hsl(var(--clr-neutral-100));
+  transition: transform 1s ease, opacity 1s ease-in-out;
+  content: "";
   position: absolute;
   inset: 1.25rem;
+  color: white;
+  border-radius: 15px;
+}
+.gallery .gallery__card::before {
+  transform: scale(1, 0);
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+.gallery .gallery__card::after {
+  transform: scale(0, 1);
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   pointer-events: none;
-  content: attr(data-category);
   text-transform: uppercase;
-  font-family: var(--ff-secondary);
+  font-family: "Open Sans", sans-serif;
   font-size: var(--fs-400);
+  white-space: pre;
+  content: attr(data-category);
+}
+.gallery .gallery__card:hover::before, .gallery .gallery__card:focus-within::before, .gallery .gallery__card:hover::after, .gallery .gallery__card:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .container__about {

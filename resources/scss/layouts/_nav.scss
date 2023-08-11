@@ -1,7 +1,6 @@
 @use "../abstract/mixins" as m;
 
 .nav {
-    // background-color: rgba(green, 0.5);
     color: hsl(var(--clr-neutral-100));
     z-index: 100;
     display: flex;
@@ -14,7 +13,6 @@
         left: 0;
         right: 0;
         padding: 1.5rem var(--margin-size) 1rem var(--margin-size);
-
         color: hsl(var(--clr-primary-400));
     }
     &--primary {
@@ -43,6 +41,10 @@
         display: flex;
     }
 
+    &__link {
+        color: inherit;
+    }
+
     &__item {
         display: none;
     }
@@ -53,22 +55,30 @@
             padding: 1.31rem;
         }
 
-        &__link {
-            display: inline-block;
-            color: inherit;
-        }
-
         &__cta {
             flex-direction: column;
             align-items: center;
         }
 
-        &__span {
-            font-family: var(--ff-secondary);
-            margin-top: 1rem;
-        }
         &__menu {
             display: none;
+        }
+
+        & .dropdown__container {
+            transform: translateY(50%);
+        }
+
+        & .dropdown__trigger {
+            transition: transform 300ms ease;
+
+            &--active {
+                // background-color: hsl(var(--clr-neutral-300) / 0.2);
+                transform: rotate(-180deg);
+            }
+
+            &:hover:not(.dropdown__trigger--active) {
+                transform: scale(1.5);
+            }
         }
     }
 }

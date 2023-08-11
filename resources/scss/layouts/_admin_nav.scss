@@ -13,6 +13,24 @@
     padding: 1rem 2rem;
     top: 0;
 
+    & .dropdown__container {
+        padding: 0 0.5rem;
+        transform: translateY(100%);
+    }
+
+    & .dropdown__trigger {
+        transition: transform 300ms ease;
+
+        &--active {
+            // background-color: hsl(var(--clr-neutral-300) / 0.2);
+            transform: rotate(-180deg);
+        }
+
+        &:hover:not(.dropdown__trigger--active) {
+            transform: scale(1.5);
+        }
+    }
+
     &__hamburger {
         cursor: pointer;
     }

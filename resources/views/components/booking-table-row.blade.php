@@ -56,7 +56,7 @@
 
         <!-- Mark As Option -->
         <button class="table__dropdown-option table__dropdown-option--mark"
-            onclick="Livewire.emit('openModal', 'update-reservation-status-modal', {{ json_encode(['reservation' => $reservation->id]) }})">
+            onclick="Livewire.emit('openModal', 'update-booking-status-modal', {{ json_encode(['reservation' => $reservation->id]) }})">
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
