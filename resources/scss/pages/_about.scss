@@ -6,7 +6,7 @@
     font-family: var(--ff-secondary);
 
     &__item {
-        margin-top: var(--margin-size);
+        margin-top: calc(var(--margin-size));
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
@@ -46,7 +46,7 @@
 
 .service-section {
     border-top: 3px solid hsl(var(--clr-primary-400) / 0.1);
-    margin-top: calc(var(--margin-size) / 2);
+    margin-top: calc(var(--margin-size));
     margin-bottom: calc(var(--margin-size) / 2);
     position: relative;
     font-family: var(--ff-secondary);
@@ -79,6 +79,15 @@
 
     &__item {
         width: fit-content;
+
+        $delay-step: 200ms;
+        $total-items: 3;
+
+        @for $i from 1 through $total-items {
+            &:nth-child(#{$i}) {
+                transition-delay: $i * $delay-step;
+            }
+        }
     }
 }
 

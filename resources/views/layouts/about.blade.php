@@ -13,7 +13,7 @@
     </section>
 
     <section class="about-section container__about">
-        <div class="about-section__item about-section__item--vertical">
+        <div class="about-section__item about-section__item--vertical animated-div from-bottom">
             <div class="about-content">
                 <h2 class="about-content__title about-content__title--large">
                     Our Story
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="about-section__item">
+        <div class="about-section__item animated-div from-right">
             <div class="about-content">
                 <h2 class="about-content__title">
                     Sustaining elegance.
@@ -43,7 +43,7 @@
                 alt="">
         </div>
 
-        <div class="about-section__item">
+        <div class="about-section__item animated-div from-left">
             <img class="about-content__image"
                 src="{{ asset('images/about/about-2.png') }}"
                 alt="">
@@ -62,7 +62,7 @@
 
     <section class="service-section">
         <div class="service-section__container">
-            <div class="service-section__item">
+            <div class="service-section__item animated-div from-left">
                 <img class="service-content__img"
                     src="{{ asset('images/about/service-1.png') }}"
                     alt="">
@@ -73,7 +73,7 @@
                         rental services have you covered.</p>
                 </div>
             </div>
-            <div class="service-section__item">
+            <div class="service-section__item animated-div from-left">
                 <img class="service-content__img"
                     src="{{ asset('images/about/service-2.png') }}"
                     alt="">
@@ -83,7 +83,7 @@
                         moments into cherished memories.</p>
                 </div>
             </div>
-            <div class="service-section__item">
+            <div class="service-section__item animated-div from-left">
                 <img class="service-content__img"
                     src="{{ asset('images/about/service-3.png') }}"
                     alt="">
@@ -96,10 +96,12 @@
         </div>
     </section>
 
-    <section class="newsletter newsletter--about">
+    <section class="newsletter newsletter--about animated-div">
         <h2 class="newsletter__title">Ready to Dive In? Book Your Stay Today</h2>
 
         <a class="newsletter__button button button--primary"
             href="{{ route('index') }}">Book Now</a>
     </section>
+
+
 </x-app-layout>
