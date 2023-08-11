@@ -15,11 +15,10 @@ class CategorySelect extends Component
         $this->roomCategories = RoomCategory::all();
     }
 
-
-    // public function updatedSelectedRoomCategory($value)
-    // {
-    //     $this->emit('category_selected', $this->selectedRoomCategory);
-    // }
+    public function updatedSelectedRoomCategory()
+    {
+        $this->emit('category_selected', $this->selectedRoomCategory);
+    }
 
     public function render()
     {

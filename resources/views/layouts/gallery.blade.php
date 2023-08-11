@@ -13,23 +13,7 @@
         </div>
     </section>
 
-    <section class="gallery">
-        <h2 class="gallery__title">Click one to <strong class="gallery__title--bold">embark</strong> your journey</h2>
-        <div class="gallery__grid">
-            <img class="gallery__image"
-                src={{ asset('images/gallery/featured-1.png') }}>
-            <img class="gallery__image"
-                src={{ asset('images/gallery/dining-1.png') }}>
-            <img class="gallery__image"
-                src={{ asset('images/gallery/local-attractions-1.png') }}>
-            <img class="gallery__image"
-                src={{ asset('images/gallery/public-areas-1.png') }}>
-            <img class="gallery__image"
-                src={{ asset('images/gallery/leisure-1.png') }}>
-            <img class="gallery__image"
-                src={{ asset('images/gallery/exterior-1.png') }}>
-        </div>
-    </section>
+    @livewire('gallery-lightbox')
 
 
     <section class="newsletter">

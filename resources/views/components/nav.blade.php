@@ -48,7 +48,7 @@
             @endif
         @endauth
         <div class="nav__menu"
-            x-data="{ is_open = true }">
+            x-data="{ is_open: true }">
             <x-hamburger></x-hamburger>
         </div>
 </nav>
