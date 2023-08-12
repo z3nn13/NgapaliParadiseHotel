@@ -68,26 +68,25 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ReservationPaymentService $reservationPaymentService)
     {
         $checkIn = \Carbon\Carbon::parse(session("checkInDate"));
         $checkOut = \Carbon\Carbon::parse(session("checkOutDate"));
         $billingData = session('billingData');
         $reservation = null;
 
-        $totalAmount = collect(session('reservation_rooms'))->sum(function ($room) {
-            return $room['roomDeal']->deal_mmk;
-        });
-        $coupon_id = $billingData['coupon_id'] ?? null;
-        if ($coupon_id) {
-            $coupon = Coupon::find($coupon_id);
-            $totalAmount -= $totalAmount * $coupon->discount_amount;
+
+        $totalPaid_MMK = $reservationPaymentService->calculateSubTotal($billingData['reservation_rooms'], 'MMK');
+        $coupon = isset($billingData['coupon']) ? json_decode(($billingData['coupon'])) : null;
+        if ($coupon) {
+            $totalPaid_MMK = $reservationPaymentService->applyCoupon($coupon, $totalPaid_MMK, 'MMK');
+            $coupon->useCoupon();
         }
 
         $invoiceData = [
-            'coupon_id' => $coupon_id,
+            'coupon_id' => $coupon->id,
+            'total_paid_mmk' => $totalPaid_MMK,
             'pay_type_id' => $billingData['payment_method'],
-            'total_paid_mmk' => $totalAmount,
             'preferred_currency' => $billingData['currency'],
         ];
 

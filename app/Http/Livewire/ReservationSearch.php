@@ -2,26 +2,29 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Room;
 use Carbon\Carbon;
+use App\Models\Room;
 use Livewire\Component;
+use App\Models\RoomDeal;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
+use App\Services\ReservationService;
 
 class ReservationSearch extends Component
 {
     public $availableRoomTypes;
     public $availableRoomIds;
 
-    protected $listeners = ['option_selected' => 'sort_room_types'];
+    protected $listeners = ['option_selected' => 'sortRoomTypes'];
 
-    public function mount(Request $request)
+    public function mount(Request $request, ReservationService $reservationService)
     {
         $checkInDate = $request->input('checkInDate');
         $checkOutDate = $request->input('checkOutDate');
-        $this->storeDataToSession($checkInDate, $checkOutDate);
-        $this->availableRoomTypes = $this->getAvailableRooms($checkInDate, $checkOutDate);
-        $this->availableRoomIds = $this->availableRoomTypes->pluck('availableRoomIds', 'id')->toArray();
+        $reservationService->initializeSessionData($checkInDate, $checkOutDate);
+        $this->loadAvailableRoomData($checkInDate, $checkOutDate, $reservationService);
     }
+
 
     public function render()
     {
@@ -30,56 +33,22 @@ class ReservationSearch extends Component
             ->section('room-list');
     }
 
-
-    public function storeDataToSession($checkInDate, $checkOutDate)
+    private function loadAvailableRoomData($checkInDate, $checkOutDate, ReservationService $reservationService)
     {
-        $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
-        session()->put('numNights', $numNights);
-        session()->put('checkInDate', $checkInDate);
-        session()->put('checkOutDate', $checkOutDate);
-    }
-
-    public function is_additional_room(Request $request)
-    {
-        return $request->session()->has('reservation_rooms');
-    }
-
-    public function getAvailableRooms($checkInDate, $checkOutDate)
-    {
-        $availableRooms = Room::availableRoomTypes($checkInDate, $checkOutDate)
-            ->with('room_type')
-            ->get();
-        return $availableRooms->map(function ($room) {
-            $roomType = $room->room_type;
-            if ($room->room_ids !== "") {
-                $roomType->availableRoomIds = explode(',', $room->room_ids);
-            } else {
-                $roomType->availableRoomIds = [];
-            };
-            return $roomType;
-        });
+        $data = $reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
+        $this->availableRoomTypes = $data['availableRoomTypes'];
+        $this->availableRoomIds = $data['availableRoomIds'];
     }
 
 
-
-    public function sort_room_types($selectedSortOption)
+    public function bookRoom(RoomType $roomType, RoomDeal $roomDeal, array $availableRoomIds, ReservationService $reservationService)
     {
-        $roomTypes = $this->availableRoomTypes;
+        $reservationService->storeRoomToSession($roomType, $roomDeal, $availableRoomIds);
+        return redirect()->route('booking.create');
+    }
 
-
-        if ($selectedSortOption === 'desc') {
-            $sortedRoomTypes = $roomTypes->sortByDesc(function ($roomType) {
-                return $roomType->highest_price();
-            });
-        } else if ($selectedSortOption === 'asc') {
-            $sortedRoomTypes = $roomTypes->sortBy(function ($roomType) {
-                return $roomType->lowest_price();
-            });
-        }
-        // Restore the available room ids to each room type
-        $this->availableRoomTypes = $sortedRoomTypes->map(function ($roomType) {
-            $roomType->availableRoomIds = $this->availableRoomIds[$roomType->id];
-            return $roomType;
-        });
+    public function sortRoomTypes($selectedSortOption, ReservationService $reservationService)
+    {
+        $this->availableRoomTypes = $reservationService->sortRoomTypes($this->availableRoomTypes, $selectedSortOption);
     }
 }

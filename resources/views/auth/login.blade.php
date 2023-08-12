@@ -17,7 +17,8 @@
                         type="password">Password</x-auth-input-field>
                 </div>
 
-                <a href="">Forgot Password?</a>
+                <a class="register-form__link"
+                    href="#">Forgot Password?</a>
                 <div class="register-form__checkbox-group">
                     <input class="register-form__checkbox"
                         name="remember"

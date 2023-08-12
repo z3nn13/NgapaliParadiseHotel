@@ -2,26 +2,25 @@
 
 namespace App\Services;
 
-use Stripe\StripeClient;
 use App\Models\Coupon;
+use App\Models\RoomDeal;
+use Stripe\StripeClient;
 
 class ReservationPaymentService
 {
-    /**
+    /*
      * Process the payment using Stripe checkout.
      *
-     * @param array     $roomsBooked    Array of booked rooms.
-     * @param array     $billingData    Array containing billing information like currency, email, and optional couponID.
-     *
-     * @return string                   The URL to redirect the customer to complete the payment.
      */
 
     public function processPayment(array $roomsBooked, array $billingData): string
     {
         $stripe = new StripeClient(config('stripe.sk'));
         $currency = $billingData['currency'];
-        $couponID = $billingData['couponID'] ?? null;
-        $lineItems = $this->buildLineItems($roomsBooked, $currency, $couponID);
+        $coupon = $this->checkCoupon($billingData);
+
+
+        $lineItems = $this->buildLineItems($roomsBooked, $currency, $coupon);
 
         $session = $stripe->checkout->sessions->create([
             'payment_method_types' => ['card'],
@@ -35,29 +34,39 @@ class ReservationPaymentService
         return $session->url;
     }
 
+    /*
+     * Check coupon from billing data.
+     *
+     */
+    private function checkCoupon(array $billingData): ?Coupon
+    {
+        $couponData = isset($billingData['coupon']) ? json_decode($billingData['coupon']) : null;
 
-    /**
+        if ($couponData) {
+            $coupon = new Coupon();
+            $coupon->fill((array)$couponData); // Fill the model attributes with JSON data
+            return $coupon;
+        }
+
+        return null;
+    }
+
+    /*
      * Build line items for Stripe checkout.
      *
-     * @param array     $roomsBooked    Array of booked rooms.
-     * @param string    $currency       The currency code (e.g., "USD" or "MMK").
-     * @param int|null  $couponID       The coupon ID, if available.
-     *
-     * @return array                    An array of line items.
      */
-    private function buildLineItems(array $roomsBooked, string $currency, ?int $couponID): array
+    private function buildLineItems(array $roomsBooked, string $currency, ?Coupon $coupon): array
     {
         $lineItems = [];
         foreach ($roomsBooked as $room) {
             $roomType = $room['roomType'];
             $roomDeal = $room['roomDeal'];
 
-            $price = $currency == "USD" ? $roomDeal->deal_usd : $roomDeal->deal_mmk;
-            $unitAmount = $price * 100;
-
-            if ($couponID) {
-                $price = $this->applyCouponDiscount($price, $couponID);
+            $price = $this->getRoomPrice($roomDeal, $currency);
+            if ($coupon) {
+                $price = $this->applyCoupon($price, $coupon, $currency);
             }
+            $unitAmount = $price * 100;
 
             $lineItems[] = [
                 'quantity' => 1,
@@ -76,22 +85,55 @@ class ReservationPaymentService
     }
 
 
-    /**
-     * Apply Coupon Discount to Price.
-     *
-     * @param float     $price  .
-     * @param int|null  $couponID       The coupon ID, if available.
-     *
-     * @return float                    An array of line items.
-     */
-    private function applyCouponDiscount(float $price, int $couponID): float
-    {
-        $coupon = Coupon::find($couponID);
 
-        if (!$coupon) {
-            return $price;
+    /*
+     * Retrieve a coupon by its code and check its validity.
+     *
+     */
+    public function retrieveCoupon(string $couponCode): ?Coupon
+    {
+        $couponCode = strtoupper(trim($couponCode));
+        if (!$couponCode) {
+            return null;
         }
 
-        return $price - $price * $coupon->discount_amount;
+        $coupon = Coupon::where('coupon_code', $couponCode)->first();
+
+        return $coupon && $coupon->isValid() ? $coupon : null;
+    }
+
+
+
+    /*
+     * Apply a coupon to a given price in the preferred currency.
+     *
+     */
+    public function applyCoupon($price, ?Coupon $coupon, string $preferredCurrency)
+    {
+        if ($coupon) {
+            return $coupon->applyCoupon($price, $preferredCurrency);
+        }
+
+        return $price;
+    }
+
+
+    public function calculateSubTotal($reservationRooms, $preferredCurrency)
+    {
+        return collect($reservationRooms)
+            ->map(fn ($room) => $this->getRoomPrice(
+                $room["roomDeal"],
+                $preferredCurrency
+            ))
+            ->sum();
+    }
+
+    /*
+     * Get the price of a room deal in the preferred currency.
+     *
+     */
+    public function getRoomPrice(RoomDeal $roomDeal, string $preferredCurrency): float
+    {
+        return $preferredCurrency === "MMK" ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
     }
 }

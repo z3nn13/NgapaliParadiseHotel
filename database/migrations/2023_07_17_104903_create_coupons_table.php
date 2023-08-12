@@ -14,8 +14,7 @@ class CreateCouponsTable extends Migration
             $table->string('coupon_name');
             $table->integer('uses');
             $table->integer('max_uses');
-            $table->integer('max_uses_per_user');
-            $table->decimal('discount_amount', 8, 2);
+            $table->integer('discount_percentage');
             $table->date('start_date');
             $table->date('expire_date');
             $table->boolean('is_expired')->default(false);
