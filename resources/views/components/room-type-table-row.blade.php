@@ -11,8 +11,12 @@
         #{{ sprintf('%03d', $roomType->id) }}
     </td>
     <td class="table__cell">
-        <img class="table__image"
-            src="{{ asset($roomType->room_image) }}">
+        <a data-lightbox="rooms"
+            data-title="Image of Room Type ID #{{ sprintf('%03d', $roomType->id) }}"
+            href="{{ asset($roomType->room_image) }}">
+            <img class="table__image"
+                src="{{ asset($roomType->room_image) }}" />
+        </a>
     </td>
     <td class="table__cell">
         {!! str_replace('View', 'View<br>', $roomType->room_type_name) !!}
