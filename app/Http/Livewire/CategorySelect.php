@@ -7,7 +7,7 @@ use App\Models\RoomCategory;
 
 class CategorySelect extends Component
 {
-    public $selectedRoomCategory;
+    public $selectedRoomCategory = "";
     public $roomCategories;
 
     public function mount()
@@ -15,9 +15,9 @@ class CategorySelect extends Component
         $this->roomCategories = RoomCategory::all();
     }
 
-    public function updatedSelectedRoomCategory()
+    public function updatedSelectedRoomCategory($value)
     {
-        $this->emit('category_selected', $this->selectedRoomCategory);
+        $this->emit('categorySelected', $this->selectedRoomCategory);
     }
 
     public function render()

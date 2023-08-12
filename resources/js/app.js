@@ -8,16 +8,6 @@ $(function () {
         $(this).css("background-image", "url(" + bg + ")");
     });
 
-    /*-------------------
-        Customize Select2
-    ---------------------*/
-
-    $(".select2").select2({
-        placeholder: "Please select a room category",
-        allowClear: true,
-        dropdownCssClass: "category-select__select",
-    });
-
     /*--------------------
         Customize Lightbox2
     ---------------------*/

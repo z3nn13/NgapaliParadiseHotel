@@ -8,7 +8,7 @@ use Livewire\Component;
 class RoomsIndex extends Component
 {
     public $roomTypes;
-    protected $listeners = ['category_selected' => 'sort_by_category'];
+    protected $listeners = ['categorySelected' => 'sortByCategory'];
 
 
     public function mount()
@@ -16,15 +16,14 @@ class RoomsIndex extends Component
         $this->roomTypes = RoomType::all();
     }
 
-    public function sort_by_category($selectedRoomCategory)
+    public function sortByCategory($selectedRoomCategoryID)
     {
-        if (!$selectedRoomCategory == "") {
-            $this->roomTypes = RoomType::belongsToCategory($selectedRoomCategory);
+        if (!empty($selectedRoomCategoryID)) {
+            $this->roomTypes = RoomType::belongsToCategory($selectedRoomCategoryID);
         } else {
             $this->roomTypes = RoomType::all();
         }
     }
-
     public function render()
     {
         return view('livewire.rooms-index')
