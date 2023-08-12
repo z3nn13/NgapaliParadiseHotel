@@ -2,15 +2,16 @@
 .custom-pagination {
     display: flex;
     align-items: center;
-    font-family: Arial, sans-serif;
+    font-family: var(--ff-secondary);
+    gap: 0.5rem;
 }
 
 .page-btn,
 .prev-btn,
 .next-btn {
-    border-radius: 5px;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
+    border-radius: 0.3125rem;
+    padding: 0.5rem 0.75rem;
+    border: 0.0625rem solid #ccc;
     background-color: #fff;
     color: #333;
     cursor: pointer;
@@ -18,6 +19,13 @@
     transition: background-color 0.3s ease;
 }
 
+.font-medium {
+    font-weight: 600;
+}
+
+.page-numbers {
+    display: flex;
+}
 .page-btn:hover,
 .prev-btn:hover,
 .next-btn:hover {
@@ -37,7 +45,7 @@
 }
 
 .dots {
-    padding: 8px 12px;
-    margin: 0 4px;
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.25rem;
     color: #999;
 }

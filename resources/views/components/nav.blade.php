@@ -47,36 +47,36 @@
                         x-cloak
                         x-ref="container">
                         <li class="dropdown__option">
-                            <svg class="admin-sidebar__icon dropdown__icon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1024"
-                                height="1024"
-                                viewBox="0 0 1024 1024">
-                                <path fill="black"
-                                    d="M288 320a224 224 0 1 0 448 0a224 224 0 1 0-448 0zm544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z" />
-                            </svg>
                             <a class="dropdown__link"
-                                href="{{ route('dashboard') }}">Dashboard</a>
+                                href="{{ route('dashboard') }}">
+                                <svg class="admin-sidebar__icon dropdown__icon"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1024"
+                                    height="1024"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="currentColor"
+                                        d="M288 320a224 224 0 1 0 448 0a224 224 0 1 0-448 0zm544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z" />
+                                </svg>
+                                Dashboard</a>
                         </li>
                         <li class="dropdown__option">
-                            <img src="{{ asset('images/svg/') }}"
-                                alt="">
-                            <svg class="admin-sidebar__icon dropdown__icon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="32"
-                                height="32"
-                                viewBox="0 0 32 32"
-                                fill="none">
-                                <path fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M4 6.66667C4 5.2 5.2 4 6.66667 4H17.3333V6.66667H6.66667V25.3333H17.3333V28H6.66667C5.2 28 4 26.8 4 25.3333V6.66667ZM22.9013 14.6667L19.52 11.2853L21.4053 9.4L28.0053 16L21.4053 22.6L19.52 20.7147L22.9013 17.3333H14.12V14.6667H22.9013Z"
-                                    fill="black" />
-                            </svg>
                             <form action="{{ route('logout') }}"
                                 method="POST">
                                 @csrf
                                 <button class="dropdown__link"
-                                    type="submit">Logout</button>
+                                    type="submit">
+                                    <svg class="admin-sidebar__icon dropdown__icon"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 32 32"
+                                        fill="none">
+                                        <path fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M4 6.66667C4 5.2 5.2 4 6.66667 4H17.3333V6.66667H6.66667V25.3333H17.3333V28H6.66667C5.2 28 4 26.8 4 25.3333V6.66667ZM22.9013 14.6667L19.52 11.2853L21.4053 9.4L28.0053 16L21.4053 22.6L19.52 20.7147L22.9013 17.3333H14.12V14.6667H22.9013Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    Logout</button>
                             </form>
                         </li>
                     </ul>

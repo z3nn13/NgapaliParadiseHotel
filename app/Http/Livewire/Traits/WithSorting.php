@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Traits;
 
 trait WithSorting
 {
-    public $searchQuery = "";
     public $sortField = "id";
     public $sortDirection = 'desc';
 

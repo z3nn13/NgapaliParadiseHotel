@@ -113,6 +113,9 @@
     }
 
     /* ----- Row Borders ----- */
+    &__cell--not-found {
+        padding-bottom: 3rem;
+    }
     &__head,
     &__row:not(:last-of-type) {
         border-bottom: 2px solid hsl(var(--clr-neutral-900) / 0.1);

@@ -37,6 +37,9 @@ input:read-only {
 .hidden {
     display: none;
 }
+.text-semi-bold {
+    font-weight: 600;
+}
 
 [x-cloak] {
     display: none !important;

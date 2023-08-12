@@ -66,8 +66,8 @@
                 <!------- Table Body ------->
                 <tbody class="table__body">
                     @forelse  ($reservations as $reservation)
-                        <x-booking-table-row wire:model.defer="selectAll"
-                            :reservation="$reservation"></x-booking-table-row>
+                        <x-admin-booking-table-row wire:model.defer="selectAll"
+                            :reservation="$reservation"></x-admin-booking-table-row>
                     @empty
                         <tr>
                             <td class="table_cell"></td>

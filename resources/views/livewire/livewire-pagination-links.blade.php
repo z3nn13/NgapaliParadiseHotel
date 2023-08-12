@@ -2,17 +2,18 @@
     <div class="custom-pagination">
 
         <p class="text-sm text-gray-700 leading-5">
+            Showing
             @if ($paginator->firstItem())
                 <span class="font-medium">{{ $paginator->firstItem() }}</span>
                 -
                 <span class="font-medium">{{ $paginator->lastItem() }}</span>
-                of
             @else
                 {{ $paginator->count() }}
-                of
             @endif
-            <span class="font-medium">{{ $paginator->total() }}</span>
-            results
+
+            </span>of
+            <span>
+                <span class="font-medium">{{ $paginator->total() }}</span>
         </p>
 
         {{-- Previous Page Link --}}

@@ -23,6 +23,13 @@ trait WithBulkActions
     public $selectAll = false;
 
     /**
+     * String to store search query inputs.
+     *
+     * @var bool
+     */
+    public $searchQuery = "";
+
+    /**
      * Collection to store paginated models.
      *
      * @var mixed

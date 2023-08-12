@@ -15,34 +15,37 @@
         z-index: 10;
     }
 
-    &__option {
-        border: none;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        width: 100%;
-        padding: 0.5rem;
-        white-space: nowrap;
-        cursor: pointer;
-    }
-
     &__link,
     &__link:hover,
     &__link:focus {
-        text-decoration: none;
         border: none;
         background: none;
+        text-decoration: none;
         color: hsl(var(--clr-primary-500));
+
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+
+        width: 100%;
+        padding: 0.5rem;
+
+        white-space: nowrap;
         font-family: var(--ff-secondary);
-        padding: 0;
+
+        cursor: pointer;
         transition: color 200ms ease;
     }
 
     &__link:hover {
         color: hsl(var(--clr-sun-400));
-        + &__icon > path {
-            fill: hsl(var(--clr-sun-400));
-        }
+    }
+    &__icon path {
+        fill: hsl(var(--clr-neutral-900));
+    }
+
+    &__link:hover &__icon path {
+        fill: hsl(var(--clr-sun-400));
     }
 }
 

@@ -818,13 +818,38 @@ a:active {
 }
 .dropdown__container {
   background-color: hsl(var(--clr-neutral-100));
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: absolute;
   padding: 1rem;
   z-index: 10;
+}
+.dropdown__option {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: 100%;
+  padding: 0.5rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.dropdown__link, .dropdown__link:hover, .dropdown__link:focus {
+  text-decoration: none;
+  border: none;
+  background: none;
+  color: hsl(var(--clr-primary-500));
+  font-family: var(--ff-secondary);
+  padding: 0;
+  transition: color 200ms ease;
+}
+.dropdown__link:hover {
+  color: hsl(var(--clr-sun-400));
+}
++ .dropdown__link:hover__icon > path {
+  fill: hsl(var(--clr-sun-400));
 }
 
 .right-100 {
@@ -953,13 +978,16 @@ a:active {
   .nav__menu {
     display: none;
   }
-  .nav .dropdown-trigger {
+  .nav .dropdown__container {
+    transform: translateY(50%);
+  }
+  .nav .dropdown__trigger {
     transition: transform 300ms ease;
   }
-  .nav .dropdown-trigger--active {
+  .nav .dropdown__trigger--active {
     transform: rotate(-180deg);
   }
-  .nav .dropdown-trigger:hover:not(.dropdown-trigger--active) {
+  .nav .dropdown__trigger:hover:not(.dropdown__trigger--active) {
     transform: scale(1.5);
   }
 }
@@ -1210,6 +1238,19 @@ a:active {
   height: min-content;
   padding: 1rem 2rem;
   top: 0;
+}
+.admin-nav .dropdown__container {
+  padding: 0 0.5rem;
+  transform: translateY(100%);
+}
+.admin-nav .dropdown__trigger {
+  transition: transform 300ms ease;
+}
+.admin-nav .dropdown__trigger--active {
+  transform: rotate(-180deg);
+}
+.admin-nav .dropdown__trigger:hover:not(.dropdown__trigger--active) {
+  transform: scale(1.5);
 }
 .admin-nav__hamburger {
   cursor: pointer;
@@ -2498,7 +2539,18 @@ a:active {
   opacity: 0.5;
 }
 
-/* Admin pages */ /* Main pages */
+/* Admin pages */
+.user-dashboard .table__wrapper {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.user-dashboard .table__dropdown-option {
+  border: 1px solid hsl(var(--clr-sun-400));
+  border-radius: 3.125rem;
+  padding: 0.5rem 0.8rem;
+  justify-content: center;
+}
+
+/* Main pages */
 /* Auth pages */
 /* Grouped pages */
 :root {
