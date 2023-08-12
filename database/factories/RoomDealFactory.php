@@ -20,7 +20,6 @@ class RoomDealFactory extends Factory
         return [
             'deal_name' => fake()->words($nb = 3, $asText = true),
             'deal_mmk' => $deal_mmk * 1000,
-            'deal_usd' => number_format((float)$deal_mmk, 2, '.', ''),
             'is_active' => true,
         ];
     }

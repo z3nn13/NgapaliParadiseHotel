@@ -15,7 +15,7 @@
     </ul>
 
     @auth
-        <div class="admin-nav__item"
+        <div class="admin-nav__item nav__item--auth"
             x-data="{ nav_dropdown: false }">
             <img class="admin-nav__profile-pic profile__picture"
                 src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}"

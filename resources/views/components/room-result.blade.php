@@ -5,8 +5,10 @@
         <p class="room-result__available-rooms">
             {{ count($roomType->availableRoomIds) }} Rooms Left
         </p>
+
         <div class="room-result__card">
-            <img class="room-result__card-image" src="{{ asset($roomType->room_image) }}">
+            <img class="room-result__card-image"
+                src="{{ asset($roomType->room_image) }}">
             <div class="room-result__card-body">
                 <ul class="room-result__tags">
                     <li class="room-result__tag">
@@ -26,7 +28,8 @@
                         <p class="room-result__tag-value">Free</p>
                     </li>
                 </ul>
-                <a class="room-result__link" href="/room/1">
+                <a class="room-result__link"
+                    href="/room/1">
                     + See More Details
                 </a>
             </div>
@@ -36,13 +39,10 @@
         <div class="room-result__deals">
             <h3 class="room-result__deals-title">Choose a deal from below</h3>
             @forelse ($roomType->room_deals as $roomDeal)
-                <form action="{{ route('booking.create') }}" method="post">
-                    @csrf
-                    <input name="roomTypeID" type="hidden" value="{{ $roomType->id }}">
-                    <input name="roomID" type="hidden" value="{{ $roomType->availableRoomIds[array_rand($roomType->availableRoomIds)] }}">
-
-                    <x-room-deal :roomDeal=$roomDeal></x-room-deal>
-                </form>
+                @csrf
+                <x-room-deal :roomType="$roomType"
+                    :availableRoomIds="$roomType->availableRoomIds"
+                    :roomDeal="$roomDeal"></x-room-deal>
             @empty
                 <p>No active deals</p>
             @endforelse

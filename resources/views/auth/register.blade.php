@@ -8,7 +8,9 @@
             <section class="perks">
                 <div class="perks__header">
                     <h2 class="perks__title">Membership perks</h2>
-                    <img class="perks__icon" src="images/svg/cocktail.svg" alt="cocktail image" />
+                    <img class="perks__icon"
+                        src="images/svg/cocktail.svg"
+                        alt="cocktail image" />
                 </div>
 
                 <ul class="perks__list">
@@ -30,27 +32,39 @@
 
 
             {{-- Register Form Section --}}
-            <form method="POST" class="register-form" action="\register">
+            <form class="register-form"
+                method="POST"
+                action="\register">
                 @csrf
                 <h2 class="register-form__title">Become a member</h2>
                 <div class="register-form__input-group">
-                    <x-auth-input-field type="text" name="first_name">First Name</x-auth-input-field>
-                    <x-auth-input-field type="text" name="last_name">Last Name</x-auth-input-field>
-                    <x-auth-input-field type="mail" name="email">Email Address</x-auth-input-field>
-                    <x-auth-input-field type="password" name="password">Password</x-auth-input-field>
-                    <x-auth-input-field type="tel" name="phone_no">Phone No.</x-auth-input-field>
+                    <x-auth-input-field name="first_name"
+                        type="text">First Name</x-auth-input-field>
+                    <x-auth-input-field name="last_name"
+                        type="text">Last Name</x-auth-input-field>
+                    <x-auth-input-field name="email"
+                        type="mail">Email Address</x-auth-input-field>
+                    <x-auth-input-field name="password"
+                        type="password">Password</x-auth-input-field>
+                    <x-auth-input-field name="phone_no"
+                        type="tel">Phone No.</x-auth-input-field>
                 </div>
 
                 <div class="register-form__checkbox-group">
-                    <input class="register-form__checkbox" type="checkbox" required>
+                    <input class="register-form__checkbox"
+                        type="checkbox"
+                        required>
                     <span class="register-form__checkbox-text"> I agree to the
-                        <a class="register-form__terms" href="/terms">Terms and Conditions</a>
+                        <a class="register-form__link register-form__link--terms"
+                            href="/terms">Terms and Conditions</a>
                     </span>
                 </div>
-                <button class="register-form__button button" type="submit">
+                <button class="register-form__button button"
+                    type="submit">
                     Join Now
                 </button>
-                <p class="register-form__footer">Already a member? <a href="/login">Sign In</a></p>
+                <p class="register-form__footer">Already a member? <a class="register-form__link"
+                        href="/login">Sign In</a></p>
             </form>
         </div>
     </div>

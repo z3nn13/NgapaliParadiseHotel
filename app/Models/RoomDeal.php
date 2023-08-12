@@ -9,6 +9,10 @@ class RoomDeal extends Model
 {
     use HasFactory;
 
+    public function deal_usd()
+    {
+        return $this->deal_mmk / 2000;
+    }
     // The room type this room deal belongs to
     public function room_type()
     {

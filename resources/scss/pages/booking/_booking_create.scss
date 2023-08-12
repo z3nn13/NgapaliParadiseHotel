@@ -1,3 +1,4 @@
+/* Colors */
 .text-sun-400 {
     color: hsl(var(--clr-sun-400));
 }
@@ -6,6 +7,7 @@
     color: hsl(var(--clr-sun-400));
 }
 
+/* Billing Grid */
 .billing-grid {
     background-color: hsl(var(--clr-neutral-100));
     border-radius: 15px;
@@ -18,11 +20,12 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         width: calc(100% - var(--margin-size) * 2);
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+        margin-bottom: 3rem;
     }
 }
 
+/* Billing Summary */
 .billing-summary {
     border-radius: 15px;
     border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
@@ -50,13 +53,15 @@
             grid-row: span 2;
         }
     }
+
     &__room-image {
         margin-right: 0.5rem;
         width: 90%;
         border-radius: 7px;
         object-position: top left;
     }
-    &__angle-down {
+
+    &__dropdown-trigger {
         color: black;
         width: 10px;
         cursor: pointer;
@@ -67,7 +72,11 @@
         background: none;
         border: none;
 
-        &:hover {
+        &--active {
+            transform: rotate(180deg);
+        }
+
+        &:hover:not(.billing-summary__dropdown-trigger--active) {
             transform: scale(1.5);
         }
     }
@@ -76,6 +85,7 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 2.375rem;
+
         &--left {
             width: 15ch;
         }
@@ -83,21 +93,24 @@
 
     &__room-price {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         color: hsl(var(--clr-sun-400));
         font-size: 1.5rem;
         font-weight: 600;
+        white-space: nowrap;
     }
 
     &__room-deal {
         margin-bottom: 0.625rem;
     }
-    &__row {
+
+    &__item {
         display: flex;
         justify-content: space-between;
+        white-space: nowrap;
 
         &--right {
-            justify-content: end;
+            justify-content: flex-end;
             text-transform: uppercase;
         }
 
@@ -107,6 +120,14 @@
         }
     }
 
+    &__coupon {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        text-align: right;
+        white-space: nowrap;
+    }
+
     &__coupon-input,
     &__coupon-input:focus {
         border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
@@ -114,9 +135,20 @@
         padding: 1rem 2rem;
         border-radius: 10px;
         text-align: center;
+        text-transform: uppercase;
     }
+
+    &__coupon-success {
+        color: hsl(var(--clr-cta-400));
+    }
+
+    &__coupon-error {
+        color: rgb(196, 57, 57);
+    }
+
     &__total-value {
         font-size: 2rem;
+        white-space: nowrap;
         font-weight: 600;
     }
 }

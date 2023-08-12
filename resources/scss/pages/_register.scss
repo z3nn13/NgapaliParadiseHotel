@@ -120,8 +120,14 @@
         font-weight: 500;
         font-size: 0.9375rem;
     }
-    &__terms {
-        color: inherit;
+    &__link,
+    &__link:visited {
+        color: hsl(var(--clr-primary-400));
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &__link--terms {
         text-decoration: underline;
     }
 }

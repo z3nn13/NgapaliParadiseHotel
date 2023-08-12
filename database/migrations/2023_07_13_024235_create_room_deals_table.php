@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('room_type_id')->constrained('room_types')->onDelete("cascade");
             $table->string('deal_name');
             $table->integer('deal_mmk');
-            $table->float('deal_usd');
             $table->string('is_active');
             $table->timestamps();
         });

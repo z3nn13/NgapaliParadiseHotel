@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Livewire\RoomsIndex;
+use App\Http\Livewire\UserDashboard;
 use App\Http\Livewire\AdminDashboard;
 use App\Http\Livewire\AdminRoomIndex;
 use App\Http\Livewire\AdminUserIndex;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\ReservationCreate;
 use App\Http\Livewire\ReservationSearch;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminReservationController;
-use App\Http\Livewire\UserDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +35,9 @@ Route::get('/rooms', RoomsIndex::class)->name('rooms.index');
 
 Route::prefix('booking')->name('booking.')->group(function () {
     Route::get('/search', ReservationSearch::class)->name('search');
-    Route::post('/create', [ReservationController::class, 'create'])->name('create');
 
     Route::match(['post', 'get'], '/confirm', [ReservationController::class, 'confirm'])->name('confirm')->middleware('booking.session');
+    Route::get('/create', ReservationCreate::class)->name('create')->middleware('booking.session');
     Route::get('/add-room', [ReservationController::class, 'add_room'])->name('add-room')->middleware('booking.session');
     Route::get('/payment', [ReservationController::class, 'payment'])->name('payment')->middleware('booking.session');
     Route::get('/success', [ReservationController::class, 'store'])->name('success')->middleware('booking.session');

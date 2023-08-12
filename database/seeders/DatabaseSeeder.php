@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ReservationSeeder::class,
             PayTypeSeeder::class,
             InvoiceSeeder::class,
+            CouponSeeder::class,
         ]);
     }
 }

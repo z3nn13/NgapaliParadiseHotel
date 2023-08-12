@@ -39,21 +39,18 @@ class RoomTypeSeeder extends Seeder
                 "room_type_id" => $roomType["id"],
                 "deal_name" => "Room Only",
                 "deal_mmk" => $deal_usd * 2000,
-                "deal_usd" => $deal_usd,
                 "is_active" => true,
             ],
             [
                 "room_type_id" => $roomType["id"],
                 "deal_name" => "Breakfast + Bed",
                 "deal_mmk" => ($deal_usd + 5) * 2000,
-                "deal_usd" => $deal_usd  + 5,
                 "is_active" => true,
             ],
             [
                 "room_type_id" => $roomType["id"],
                 "deal_name" => "Extrabed + All Inclusive",
                 "deal_mmk" => ($deal_usd + 15) * 2000,
-                "deal_usd" => $deal_usd  + 15,
                 "is_active" => true,
             ],
         ]);
