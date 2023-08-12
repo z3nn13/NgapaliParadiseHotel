@@ -31,10 +31,34 @@
         text-align: center;
     }
 
+    &__span {
+        line-height: normal;
+        color: inherit;
+        transition: transform 0.3s ease, color 0.3s ease;
+        &--clickable:hover {
+            transform: scale(1.1);
+            color: hsl(var(--clr-sun-400));
+        }
+    }
+
     &__socials {
         display: flex;
         gap: 1.5rem;
         list-style-type: none;
+    }
+
+    &__icon {
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+    &__icon path {
+        transition: fill 0.3s ease;
+    }
+
+    &__icon:hover path {
+        fill: hsl(var(--clr-sun-400));
     }
 
     &__nav {
@@ -44,8 +68,11 @@
         border-top: 1px solid hsl(var(--clr-neutral-100));
         border-bottom: 1px solid hsl(var(--clr-neutral-100));
 
-        .nav__item:first-of-type {
-            list-style-type: none;
+        .nav__item {
+            transition: color 0.3s ease;
+            &:hover {
+                color: hsl(var(--clr-sun-400));
+            }
         }
     }
 }
