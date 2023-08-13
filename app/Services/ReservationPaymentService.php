@@ -17,7 +17,7 @@ class ReservationPaymentService
     {
         $stripe = new StripeClient(config('stripe.sk'));
         $currency = $billingData['currency'];
-        $coupon = $this->checkCoupon($billingData);
+        $coupon = $this->checkForCoupon($billingData);
 
 
         $lineItems = $this->buildLineItems($roomsBooked, $currency, $coupon);
@@ -38,7 +38,7 @@ class ReservationPaymentService
      * Check coupon from billing data.
      *
      */
-    private function checkCoupon(array $billingData): ?Coupon
+    public function checkForCoupon(array $billingData): ?Coupon
     {
         $couponData = isset($billingData['coupon']) ? json_decode($billingData['coupon']) : null;
 

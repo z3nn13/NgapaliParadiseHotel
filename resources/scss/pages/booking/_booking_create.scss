@@ -18,9 +18,10 @@
 
     &--create {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: calc(100% - var(--margin-size) * 2);
-        margin: 0 auto;
+        grid-template-columns: auto 1fr;
+        width: fit-content;
+        transform: scale(0.9);
+        margin-inline: auto;
         margin-bottom: 3rem;
     }
 }
@@ -47,11 +48,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin-bottom: 21px;
-
-        &--left {
-            background: #000;
-            grid-row: span 2;
-        }
     }
 
     &__room-image {
@@ -59,6 +55,7 @@
         width: 90%;
         border-radius: 7px;
         object-position: top left;
+        grid-row: span 2;
     }
 
     &__dropdown-trigger {
@@ -85,7 +82,6 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 2.375rem;
-
         &--left {
             width: 15ch;
         }

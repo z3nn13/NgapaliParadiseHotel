@@ -73,13 +73,13 @@ class ReservationController extends Controller
         $checkIn = \Carbon\Carbon::parse(session("checkInDate"));
         $checkOut = \Carbon\Carbon::parse(session("checkOutDate"));
         $billingData = session('billingData');
-        $reservation = null;
 
 
-        $totalPaid_MMK = $reservationPaymentService->calculateSubTotal($billingData['reservation_rooms'], 'MMK');
-        $coupon = isset($billingData['coupon']) ? json_decode(($billingData['coupon'])) : null;
+        $totalPaid_MMK = $reservationPaymentService->calculateSubTotal(session('reservation_rooms'), 'MMK');
+        $coupon = $reservationPaymentService->checkForCoupon($billingData);
+
         if ($coupon) {
-            $totalPaid_MMK = $reservationPaymentService->applyCoupon($coupon, $totalPaid_MMK, 'MMK');
+            $totalPaid_MMK = $reservationPaymentService->applyCoupon($totalPaid_MMK, $coupon, 'MMK');
             $coupon->useCoupon();
         }
 
@@ -104,6 +104,8 @@ class ReservationController extends Controller
             'phone_no' => $billingData['phone_no'],
             'email' => $billingData['email'],
         ];
+
+        $reservation = null;
         DB::transaction(
             function () use (&$reservation, $invoiceData, $reservationData) {
                 $reservation = Reservation::create($reservationData);

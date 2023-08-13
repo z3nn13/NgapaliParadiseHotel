@@ -17,12 +17,19 @@ class ReservationSearch extends Component
 
     protected $listeners = ['option_selected' => 'sortRoomTypes'];
 
-    public function mount(Request $request, ReservationService $reservationService)
+    protected $reservationService;
+
+    public function boot(ReservationService $reservationService)
+    {
+        $this->reservationService = $reservationService;
+    }
+
+    public function mount(Request $request)
     {
         $checkInDate = $request->input('checkInDate');
         $checkOutDate = $request->input('checkOutDate');
-        $reservationService->initializeSessionData($checkInDate, $checkOutDate);
-        $this->loadAvailableRoomData($checkInDate, $checkOutDate, $reservationService);
+        $this->reservationService->initializeSessionData($request);
+        $this->loadAvailableRoomData($checkInDate, $checkOutDate);
     }
 
 
@@ -33,22 +40,22 @@ class ReservationSearch extends Component
             ->section('room-list');
     }
 
-    private function loadAvailableRoomData($checkInDate, $checkOutDate, ReservationService $reservationService)
+    private function loadAvailableRoomData($checkInDate, $checkOutDate)
     {
-        $data = $reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
+        $data = $this->reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
         $this->availableRoomTypes = $data['availableRoomTypes'];
         $this->availableRoomIds = $data['availableRoomIds'];
     }
 
 
-    public function bookRoom(RoomType $roomType, RoomDeal $roomDeal, array $availableRoomIds, ReservationService $reservationService)
+    public function bookRoom(RoomType $roomType, RoomDeal $roomDeal, array $availableRoomIds)
     {
-        $reservationService->storeRoomToSession($roomType, $roomDeal, $availableRoomIds);
+        $this->reservationService->storeRoomToSession($roomType, $roomDeal, $availableRoomIds);
         return redirect()->route('booking.create');
     }
 
-    public function sortRoomTypes($selectedSortOption, ReservationService $reservationService)
+    public function sortRoomTypes($selectedSortOption)
     {
-        $this->availableRoomTypes = $reservationService->sortRoomTypes($this->availableRoomTypes, $selectedSortOption);
+        $this->availableRoomTypes = $this->reservationService->sortRoomTypes($this->availableRoomTypes, $selectedSortOption);
     }
 }

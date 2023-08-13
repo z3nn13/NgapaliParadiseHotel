@@ -30,13 +30,17 @@ class ReservationService
      * @param string $checkOutDate
      * @return array
      */
-    public function initializeSessionData($checkInDate, $checkOutDate)
+    public function initializeSessionData($request)
     {
+        $checkInDate = $request->input('checkInDate');
+        $checkOutDate = $request->input('checkOutDate');
+        $numGuests = $request->input('numGuests');
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
         session()->put([
             'numNights' => $numNights,
             'checkInDate' => $checkInDate,
             'checkOutDate' => $checkOutDate,
+            'numGuests' => $numGuests,
         ]);
     }
 
