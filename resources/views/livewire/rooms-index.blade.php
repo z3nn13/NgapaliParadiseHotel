@@ -9,6 +9,8 @@
                 :reversed=true></x-room-card>
         @endif
     @empty
-        <p>No Rooms Found.<br> If you are a developer please run php artisan migrate --seed</p>
+        <div class="room-card">
+            <p class="room-card--text">No Rooms Found.<br> If you are a developer please run php artisan migrate --seed</p>
+        </div>
     @endforelse
 </section>
