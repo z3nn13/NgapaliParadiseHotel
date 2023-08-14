@@ -24,17 +24,17 @@ class ReservationController extends Controller
             return view('booking.create');
         }
 
-        $dealChoice = RoomDeal::find($request->input("roomDealID"));
-        $roomTypeChoice = RoomType::find($request->input("roomTypeID"));
-        $roomAssigned = Room::find($request->input("roomID"));
+        $dealChoice = RoomDeal::find($request->roomDealID);
+        $roomTypeChoice = RoomType::find($request->roomTypeID);
+        $roomAssigned = Room::find($request->roomID);
 
         $reservation_room = [
             'roomDeal' => $dealChoice,
             'roomType' => $roomTypeChoice,
             'roomAssigned' => $roomAssigned,
         ];
-        $request->session()->push('reservation_rooms', $reservation_room);
-        $request->session()->save();
+        session()->push('reservation_rooms', $reservation_room);
+        session()->save();
         return view('booking.create');
     }
 
@@ -45,7 +45,7 @@ class ReservationController extends Controller
     public function confirm(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $request->session()->put('billingData', $request->all());
+            session()->put('billingData', $request->all());
         }
         return view('booking.confirm');
     }
@@ -118,15 +118,15 @@ class ReservationController extends Controller
                 }
             }
         );
-        if (Auth::guest()) {
-            session()->flush();
-        } else {
-            session()->forget("checkInDate");
-            session()->forget("checkOutDate");
-            session()->forget("numGuests");
-            session()->forget("numNights");
-            session()->forget("reservation_rooms");
-        }
+        // if (Auth::guest()) {
+        //     session()->flush();
+        // } else {
+        //     session()->forget("checkInDate");
+        //     session()->forget("checkOutDate");
+        //     session()->forget("numGuests");
+        //     session()->forget("numNights");
+        //     session()->forget("reservation_rooms");
+        // }
         return view('booking.success')->with('reservationData', $reservation);
     }
 

@@ -36,7 +36,7 @@ class ReservationService
         $checkOutDate = $request->input('checkOutDate');
         $numGuests = $request->input('numGuests');
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
-        session()->put([
+        session([
             'numNights' => $numNights,
             'checkInDate' => $checkInDate,
             'checkOutDate' => $checkOutDate,
@@ -113,7 +113,7 @@ class RoomHelper
 {
     public function is_additional_room(Request $request)
     {
-        return $request->session()->has('reservation_rooms');
+        return session()->has('reservation_rooms');
     }
 
     /**

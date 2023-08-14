@@ -15,7 +15,7 @@ class CheckBookingSession
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->session()->has('reservation_rooms')) {
+        if (session()->has('reservation_rooms')) {
             return $next($request);
         }
         abort(403);

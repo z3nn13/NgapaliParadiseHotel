@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate("admin");
 
-        $request->session()->regenerate();
+        session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
     }
@@ -35,9 +35,9 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        session()->invalidate();
 
-        $request->session()->regenerateToken();
+        session()->regenerateToken();
 
         return redirect('/admin/login');
     }

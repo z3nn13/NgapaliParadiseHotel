@@ -26,8 +26,8 @@ class ReservationSearch extends Component
 
     public function mount(Request $request)
     {
-        $checkInDate = $request->input('checkInDate');
-        $checkOutDate = $request->input('checkOutDate');
+        $checkInDate = $request->checkInDate;
+        $checkOutDate = $request->checkOutDate;
         $this->reservationService->initializeSessionData($request);
         $this->loadAvailableRoomData($checkInDate, $checkOutDate);
     }
