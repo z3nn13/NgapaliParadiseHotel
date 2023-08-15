@@ -16,10 +16,10 @@ class RoomDealFactory extends Factory
      */
     public function definition(): array
     {
-        $deal_mmk = fake()->numberBetween(35, 90);
+        $deal_usd = rand(20, 35);
         return [
             'deal_name' => fake()->words($nb = 3, $asText = true),
-            'deal_mmk' => $deal_mmk * 1000,
+            'deal_mmk' => $deal_usd * 2000,
             'is_active' => true,
         ];
     }
