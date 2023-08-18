@@ -58,7 +58,7 @@
 
         <!-- Delete Option -->
         <button class="table__dropdown-option table__dropdown-option--delete"
-            onclick="confirmDelete('User', @json([$user->id]))">
+            wire:click="confirmDelete('User',  [{{ $user->id }}])">
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"

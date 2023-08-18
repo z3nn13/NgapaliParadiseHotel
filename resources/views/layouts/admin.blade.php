@@ -45,14 +45,16 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
     @livewireStyles
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+        rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css"
         rel="stylesheet"
         integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-        rel="stylesheet" />
 
 </head>
 
@@ -70,25 +72,44 @@
     <!-- Scripts -->
     @yield('scripts')
     <script>
-        Livewire.on('dataChanged', (title, message) => {
-            Swal.fire(title, message, 'success')
-        });
+        $(document).ready(function() {
 
-        function confirmDelete(modelName, modelIds) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#424242',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit('delete' + modelName + 's', modelIds);
-                }
+            /* Notification Sweet Alert */
+            $(window).on('swal:notification', function(event) {
+                const detail = event.detail;
+                Toast.fire({
+                    text: detail.text,
+                    icon: detail.type,
+                });
             });
-        }
+
+            $(window).on('swal:modal', function(event) {
+                const detail = event.detail;
+                Swal.fire({
+                    title: detail.title,
+                    text: detail.text,
+                    icon: detail.type,
+                });
+            });
+
+            $(window).on('swal:confirm', function(event) {
+                const detail = event.detail;
+                Swal.fire({
+                    title: detail.title,
+                    text: detail.text,
+                    icon: detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#424242',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!'
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        Livewire.emit(`delete${event.detail.modelName}s`, detail.ids);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
