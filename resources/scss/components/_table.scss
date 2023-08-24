@@ -120,6 +120,7 @@
     &__cell--not-found {
         padding-bottom: 3rem;
         text-align: center;
+        font-family: var(--ff-secondary);
     }
     &__head,
     &__row:not(:last-of-type) {

@@ -2,23 +2,40 @@
 
 namespace Tests\Feature\Reservation;
 
+use App\Http\Livewire\ReservationCreate;
 use Tests\TestCase;
+use App\Models\Room;
 use Livewire\Livewire;
+use App\Models\RoomDeal;
 use App\Models\RoomType;
+use App\Models\RoomCategory;
 use Illuminate\Http\Request;
 use Database\Seeders\RoomTypeSeeder;
 use App\Http\Livewire\ReservationSearch;
-use App\Models\Room;
-use App\Models\RoomDeal;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BookRoomTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     use RefreshDatabase;
+
+    // Properties to store testing objects
+    protected $roomCategory;
+    protected $roomType;
+    protected $room;
+    protected $roomDeal;
+
+    // Set up testing environment
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Create necessary objects for testing
+        $this->roomCategory = RoomCategory::factory()->create();
+        $this->roomType = RoomType::factory()->for($this->roomCategory)->create();
+        $this->room = Room::factory()->for($this->roomType)->create(['room_number' => "1A"]);
+        $this->roomDeal = RoomDeal::factory()->for($this->roomType)->create();
+    }
 
     // Helper method to get a valid date range
     private function getValidDateRange()
@@ -30,31 +47,38 @@ class BookRoomTest extends TestCase
         ];
     }
 
+    private function getMockReservationSession()
+    {
+        return ['booking.reservation_rooms' => [
+            [
+                'roomType' => RoomType::find($this->roomType->id),
+                'roomDeal' => RoomDeal::find($this->roomDeal->id),
+                'roomAssigned' => Room::find($this->room->id),
+            ]
+        ]];
+    }
+
+
     public function test_users_can_add_rooms_to_reservation(): void
     {
-        $this->seed(RoomTypeSeeder::class);
         $response = Livewire::withQueryParams($this->getValidDateRange())
             ->test(ReservationSearch::class)
-            ->call('bookRoom', 1, 1, [1]);
+            ->call('bookRoom', $this->roomType->id, $this->roomDeal->id, [$this->room->id]);
 
-
-        $expectedSessionValue = [
-            'booking.reservation_rooms' => [
-                [
-                    'roomType' => RoomType::find(1),
-                    'roomDeal' => RoomDeal::find(1),
-                    'roomAssigned' => Room::find(1),
-                ]
-            ]
-        ];
+        $expectedSessionValue = $this->getMockReservationSession();
 
         $response->assertOk()
             ->assertSessionHasAll($expectedSessionValue)
             ->assertRedirect(route('booking.create'));
     }
 
-
-
+    public function test_user_can_view_their_reservation_summary_and_billing_form()
+    {
+        session($this->getMockReservationSession());
+        Livewire::test(ReservationCreate::class)
+            ->assertStatus(200);
+        session()->forget('booking');
+    }
 
     public function test_users_can_apply_coupons(): void
     {

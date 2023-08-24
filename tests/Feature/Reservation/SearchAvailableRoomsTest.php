@@ -96,7 +96,7 @@ class SearchAvailableRoomsTest extends TestCase
         $response = Livewire::withQueryParams($this->getValidData())
             ->test(ReservationSearch::class)
             ->assertOk()
-            ->assertSee('No rooms available for these dates');
+            ->assertSee('There are no rooms available for these dates');
         $this->assertTrue($response->get('availableRoomTypes')->isEmpty());
     }
 

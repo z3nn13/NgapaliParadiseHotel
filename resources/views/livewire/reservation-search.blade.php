@@ -31,7 +31,9 @@
             <x-room-result :wire:key="'room-type-'.$roomType->id"
                 :roomType='$roomType'></x-room-result>
         @empty
-            <p>No rooms available for these dates</p>
+            <div class="room-result container--search">
+                <p class="table__cell--not-found">There are no rooms available for these dates</p>
+            </div>
         @endforelse
     </section>
 
