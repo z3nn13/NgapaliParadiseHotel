@@ -50,20 +50,22 @@ class SearchAvailableRoomsTest extends TestCase
     }
 
     // Helper method to get a valid date range
-    private function getValidDateRange()
+    private function getValidData()
     {
         return [
             'checkInDate' => now(),
-            'checkOutDate' => now()->addDays(3),
+            'checkOutDate' => now()->addDays(1),
+            'numGuests' => 1
         ];
     }
 
     // Helper method to get an invalid date range
-    private function getInvalidDateRange()
+    private function getInvalidData()
     {
         return [
             'checkInDate' => now(),
             'checkOutDate' => now()->subDays(1),
+            'numGuests' => 1
         ];
     }
 
@@ -71,7 +73,8 @@ class SearchAvailableRoomsTest extends TestCase
     // Test: Guests can search for available rooms
     public function test_guests_can_search_for_available_rooms()
     {
-        Livewire::test(ReservationSearch::class, ['request' => new Request($this->getValidDateRange())])
+        Livewire::withQueryParams($this->getValidData())
+            ->test(ReservationSearch::class)
             ->assertOk()
             ->assertViewIs('livewire.reservation-search')
             ->assertSet('availableRoomTypes.0.availableRoomIds', [$this->roomType->id])
@@ -81,7 +84,8 @@ class SearchAvailableRoomsTest extends TestCase
     // Test: Guests receive an error for an invalid date range
     public function test_guests_receive_error_for_invalid_date_range()
     {
-        Livewire::test(ReservationSearch::class, ['request' => new Request($this->getInvalidDateRange())])
+        Livewire::withQueryParams($this->getInvalidData())
+            ->test(ReservationSearch::class)
             ->assertBadRequest();
     }
 
@@ -89,20 +93,23 @@ class SearchAvailableRoomsTest extends TestCase
     public function test_guests_receive_error_for_no_available_rooms()
     {
         $this->createReservationWithRooms(now(), now()->addDays(1));
-        $response = Livewire::test(ReservationSearch::class, ['request' => new Request($this->getValidDateRange())])
+        $response = Livewire::withQueryParams($this->getValidData())
+            ->test(ReservationSearch::class)
             ->assertOk()
             ->assertSee('No rooms available for these dates');
-
         $this->assertTrue($response->get('availableRoomTypes')->isEmpty());
     }
 
-    // // Test: Guests can filter rooms by price
-    // public function test_guests_can_sort_available_rooms_by_price()
-    // {
-    //     $this->createSortableRoomTypes();
-    // }
+    public function test_guests_can_sort_available_rooms_by_price()
+    {
+        // $this->createSortableRoomTypes();
+        $response = Livewire::withQueryParams($this->getValidData())
+            ->test(ReservationSearch::class)
+            ->call('sortByPrice', 'high_to_low')
+            ->assertOk();
+    }
 
-    // private function createSortableRoomTypes()
-    // {
-    // }
+    private function createSortableRoomTypes()
+    {
+    }
 }

@@ -94,6 +94,11 @@ class ReservationService
      */
     public function sortRoomTypesByPrice($roomTypes, string $selectedSortOption)
     {
+        $sortDirections = [
+            'high_to_low' => 'desc',
+            'low_to_high' => 'asc',
+        ];
+        $selectedSortOption = $sortDirections[$selectedSortOption];
         $sortedRoomTypes = $roomTypes->map(function ($roomType) use ($selectedSortOption) {
             $sortedRoomDeals = $roomType->room_deals()
                 ->orderBy('deal_mmk', $selectedSortOption)

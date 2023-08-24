@@ -4,8 +4,8 @@
         id="sortSelect">
         <option selected
             hidden></option>
-        <option value="desc">High to Low</option>
-        <option value="asc">Low to High</option>
+        <option value="high_to_low">High to Low</option>
+        <option value="low_to_high">Low to High</option>
     </select>
 
     <script type="module">

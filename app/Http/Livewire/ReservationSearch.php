@@ -18,8 +18,8 @@ class ReservationSearch extends Component
     public $numGuests;
 
     protected $queryString = [
-        'checkInDate' => ['as' => 'checkIn'],
-        'checkOutDate' => ['as' => 'checkOut'],
+        'checkInDate',
+        'checkOutDate',
         'numGuests',
     ];
 
@@ -31,8 +31,8 @@ class ReservationSearch extends Component
 
     public function mount()
     {
-        $this->checkInDate =  request()->query('checkIn', session('booking.checkInDate'));
-        $this->checkOutDate = request()->query('checkOut', session('booking.checkOutDate'));
+        $this->checkInDate =  request()->query('checkInDate', session('booking.checkInDate'));
+        $this->checkOutDate = request()->query('checkOutDate', session('booking.checkOutDate'));
         $this->numGuests = request()->query('numGuests', session('booking.numGuests'));
 
         $this->checkValidDates($this->checkInDate, $this->checkOutDate);
@@ -48,15 +48,14 @@ class ReservationSearch extends Component
 
     public function sortByPrice($selectedSortOption)
     {
+
         $this->availableRoomTypes = $this->reservationService->sortRoomTypesByPrice($this->availableRoomTypes, $selectedSortOption);
     }
 
 
     public function getAvailableRoomTypesProperty()
     {
-        $checkInDate = session('booking.checkInDate');
-        $checkOutDate = session('booking.checkOutDate');
-        return $this->reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
+        return $this->reservationService->loadAvailableRoomData($this->checkInDate, $this->checkOutDate);
     }
 
 

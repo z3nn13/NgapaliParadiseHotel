@@ -26,13 +26,15 @@ class BookRoomTest extends TestCase
         return [
             'checkInDate' => now(),
             'checkOutDate' => now()->addDays(3),
+            'numGuests' => 1
         ];
     }
 
     public function test_users_can_add_rooms_to_reservation(): void
     {
         $this->seed(RoomTypeSeeder::class);
-        $response = Livewire::test(ReservationSearch::class, ['request' => new Request($this->getValidDateRange())])
+        $response = Livewire::withQueryParams($this->getValidDateRange())
+            ->test(ReservationSearch::class)
             ->call('bookRoom', 1, 1, [1]);
 
 
