@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->constrained('roles');
-            $table->string('user_image')->nullable();
+            $table->string('user_image')->default('images/misc/no-image.png');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();

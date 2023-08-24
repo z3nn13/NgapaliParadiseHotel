@@ -84,5 +84,69 @@ $(function () {
         },
     });
 
-    window.Toast = Toast;
+    /*---------------------
+        Sweet Alert
+    ---------------------*/
+    $(window).on("swal:notification", function (event) {
+        const detail = event.detail;
+        Toast.fire({
+            text: detail.text,
+            icon: detail.type,
+        });
+    });
+
+    $(window).on("swal:modal", function (event) {
+        const detail = event.detail;
+        Swal.fire({
+            title: detail.title,
+            text: detail.text,
+            icon: detail.type,
+            html: detail.html,
+        });
+    });
+
+    $(window).on("swal:cancel", function (event) {
+        const detail = event.detail;
+        Swal.fire({
+            title: detail.title,
+            text: detail.text,
+            icon: detail.type,
+        });
+    });
+
+    $(window).on("swal:confirm_cancel", function (event) {
+        const detail = event.detail;
+        Swal.fire({
+            title: detail.title,
+            text: detail.text,
+            icon: detail.type,
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#424242",
+            showCancelButton: true,
+            confirmButtonText: "Yes, I would like to cancel.",
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                Livewire.emit(`cancelBooking`);
+            }
+        });
+    });
+
+    $(window).on("swal:confirm_delete", function (event) {
+        const detail = event.detail;
+        Swal.fire({
+            title: detail.title,
+            text: detail.text,
+            icon: detail.type,
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#424242",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                Livewire.emit(`delete${event.detail.modelName}s`, detail.ids);
+            }
+        });
+    });
 });

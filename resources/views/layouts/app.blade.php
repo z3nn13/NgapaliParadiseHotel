@@ -34,6 +34,8 @@
         integrity="sha512-Ixzuzfxv1EqafeQlTCufWfaC6ful6WFqIz4G+dWvK0beHw0NVJwvCKSgafpy5gwNqKmgUfIBraVwkKI+Cz0SEQ=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
+    <script defer
+        src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <!-- Styles -->

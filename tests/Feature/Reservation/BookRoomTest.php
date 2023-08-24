@@ -29,7 +29,7 @@ class BookRoomTest extends TestCase
         ];
     }
 
-    public function test_users_can_book_a_room(): void
+    public function test_users_can_add_rooms_to_reservation(): void
     {
         $this->seed(RoomTypeSeeder::class);
         $response = Livewire::test(ReservationSearch::class, ['request' => new Request($this->getValidDateRange())])
@@ -52,11 +52,6 @@ class BookRoomTest extends TestCase
     }
 
 
-    public function test_users_can_book_multiple_rooms(): void
-    {
-        $response = $this->get('/');
-        $response->assertStatus(200);
-    }
 
 
     public function test_users_can_apply_coupons(): void

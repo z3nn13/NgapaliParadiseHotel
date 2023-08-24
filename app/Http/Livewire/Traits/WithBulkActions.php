@@ -43,13 +43,6 @@ trait WithBulkActions
      */
     public function updatedSelectAll()
     {
-        // if ($this->selectAll) {
-        //     $this->selectedModels = collect($this->paginatedModels)->mapWithKeys(function ($model) {
-        //         return [$model['id'] => true];
-        //     });
-        // } else {
-        //     $this->selectedModels = new Collection();
-        // }
         $this->selectedModels = $this->selectAll
             ? collect($this->paginatedModels)->keyBy('id')
             : new Collection();
@@ -62,8 +55,7 @@ trait WithBulkActions
      */
     public function getSelectedModels()
     {
-        return $this->selectedModels->keys();
-        // return $this->selectedModels->filter(fn ($p) => $p)->keys();
+        return $this->selectedModels->filter(fn ($p) => $p)->keys();
     }
 
     /**
@@ -101,7 +93,7 @@ trait WithBulkActions
     public function confirmDelete(string $modelClassName, array $modelIds)
     {
         $this->dispatchBrowserEvent(
-            "swal:confirm",
+            "swal:confirm_delete",
             [
                 "type" => "warning",
                 "title" => "Are you sure?",

@@ -22,14 +22,6 @@
         #{{ sprintf('%04d', $reservation->id) }}
     </td>
 
-    {{-- <!-- Guest Name -->
-    <td class="table__cell table__cell--profile">
-        <img class="table__image--circle"
-            src="{{ asset($reservation->user->user_image) ?? asset('images/misc/no-image.png') }}">
-        {{ $reservation->first_name }}<br>
-        {{ $reservation->last_name }}
-    </td> --}}
-
     <!-- Check-in Date -->
     <td class="table__cell table__cell--bolded table__cell--accent">
         {{ $check_in_date }}
@@ -51,11 +43,11 @@
     <td class="table__cell table__cell--action">
 
         <!-- View Option -->
-        <form action="{{ route('admin.reservations.show', ['reservation' => $reservation->id]) }}">
-            <button class="table__dropdown-option table__dropdown-option--view"
-                type="submit">
-                View
-            </button>
+        <a class="table__dropdown-option table__dropdown-option--view"
+            type="submit"
+            href="{{ route('dashboard.bookings.show', ['reservation' => $reservation->id]) }}">
+            View
+        </a>
         </form>
     </td>
 </tr>

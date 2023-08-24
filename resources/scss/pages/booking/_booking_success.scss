@@ -9,9 +9,28 @@
     &__wrapper {
         background-color: hsl(var(--clr-neutral-100));
         border-radius: 15px;
-        padding: 1rem;
+        padding: 2rem;
         display: flex;
-        align-items: center;
         flex-direction: column;
+        margin-bottom: 4rem;
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: var(--fs-400);
+        padding-bottom: 1rem;
+        border-bottom: 1px solid hsl(var(--clr-neutral-900) / 0.1);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    &__item {
+        color: hsl(var(--clr-neutral-900) / 0.5);
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__label {
+        font-weight: 500;
     }
 }

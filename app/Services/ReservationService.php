@@ -6,8 +6,7 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Collection;
 
 /**
  * Class ReservationService
@@ -24,51 +23,47 @@ class ReservationService
     }
 
     /**
-     * Initializes the session for a new reservation
+     * * Initializes the session for a new reservation
      * 
      * @param string $checkInDate
      * @param string $checkOutDate
-     * @return array
+     * @param string $numGuests
      */
-    public function initializeSessionData($request)
+    public function initializeSessionData($checkInDate, $checkOutDate, $numGuests): void
     {
-        $checkInDate = $request->input('checkInDate');
-        $checkOutDate = $request->input('checkOutDate');
-        $numGuests = $request->input('numGuests');
         $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
         session([
-            'numNights' => $numNights,
-            'checkInDate' => $checkInDate,
-            'checkOutDate' => $checkOutDate,
-            'numGuests' => $numGuests,
+            'booking' => [
+                'numNights' => $numNights,
+                'checkInDate' => $checkInDate,
+                'checkOutDate' => $checkOutDate,
+                'numGuests' => $numGuests,
+            ],
         ]);
     }
 
     /**
-     * Loads the available rooms for a given date range
+     * * Loads the available rooms for a given date range
      * 
      * @param string $checkInDate
      * @param string $checkOutDate
      */
-    public function loadAvailableRoomData($checkInDate, $checkOutDate)
+    public function loadAvailableRoomData($checkInDate, $checkOutDate): Collection
     {
         $availableRoomTypes = Room::availableRoomTypes($checkInDate, $checkOutDate)
-            ->with('room_type')
+            ->with('roomType.room_deals')
             ->get()
             ->map(function ($room) {
-                $roomType = $room->room_type;
+                $roomType = $room->roomType;
                 $roomType->availableRoomIds = $this->roomHelper->parseAvailableRoomIds($room->room_ids);
                 return $roomType;
             });
-
-        $availableRoomIds = $availableRoomTypes->pluck('availableRoomIds', 'id')->toArray();
-
-        return compact('availableRoomTypes', 'availableRoomIds');
+        return $availableRoomTypes;
     }
 
 
     /** 
-     * Stores the data for a new reservation room in the session
+     * * Stores the data for a new reservation room in the session
      * 
      * @param RoomType $roomType
      * @param RoomDeal $roomDeal
@@ -85,39 +80,51 @@ class ReservationService
             'roomAssigned' => Room::find($availableRoomIds[0]),
         ];
 
-        session()->push('reservation_rooms', $reservation_room);
+        session()->push('booking.reservation_rooms', $reservation_room);
         session()->save();
     }
 
-    public function sortRoomTypes($roomTypes, $selectedSortOption)
-    {
-        if ($selectedSortOption === 'desc') {
-            return $roomTypes->sortByDesc(function ($roomType) {
-                return $roomType->highest_price();
-            });
-        } elseif ($selectedSortOption === 'asc') {
-            return $roomTypes->sortBy(function ($roomType) {
-                return $roomType->lowest_price();
-            });
-        }
 
-        return $roomTypes;
+    /**
+     * * Sort rooms according to the selected price options
+     * 
+     * @param   Collection    $roomTypes
+     * @param   string      $selectedSortOption
+     * @return   Collection
+     */
+    public function sortRoomTypesByPrice($roomTypes, string $selectedSortOption)
+    {
+        $sortedRoomTypes = $roomTypes->map(function ($roomType) use ($selectedSortOption) {
+            $sortedRoomDeals = $roomType->room_deals()
+                ->orderBy('deal_mmk', $selectedSortOption)
+                ->get();
+
+            $roomType->setRelation('room_deals', $sortedRoomDeals);
+            return $roomType;
+        });
+
+        $sortByMethod = ($selectedSortOption === 'desc') ? 'sortByDesc' : 'sortBy';
+        $priceMethod = ($selectedSortOption === 'desc') ? 'highest_price' : 'lowest_price';
+
+        return $sortedRoomTypes->$sortByMethod(function ($roomType) use ($priceMethod) {
+            return $roomType->$priceMethod();
+        });
     }
 }
 
 /**
- * Class RoomHelper
+ * * Class RoomHelper
  * @package App\Services
  */
 class RoomHelper
 {
-    public function is_additional_room(Request $request)
+    public function is_additional_room()
     {
-        return session()->has('reservation_rooms');
+        return session()->has('booking.reservation_rooms');
     }
 
     /**
-     * Parses the available room ids from a given string
+     * * Parses the available room ids from a given string
      * 
      * @param $roomIds
      * @return array

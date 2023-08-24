@@ -18,8 +18,7 @@
         <div class="admin-nav__item nav__item--auth"
             x-data="{ nav_dropdown: false }">
             <img class="admin-nav__profile-pic profile__picture"
-                src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}"
-                width="100">
+                src="{{ asset(auth()->user()->user_image) }}">
             <p class="admin-nav__username">
                 {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
             </p>

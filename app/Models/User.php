@@ -85,6 +85,10 @@ class User extends Authenticatable
         });
     }
 
+    public function getFullName(): string
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
 
     // Use a regular expression to check for leading zeros
     function hasLeadingZeros($string)

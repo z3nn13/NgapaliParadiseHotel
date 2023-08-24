@@ -7,6 +7,9 @@
     <div class="room-deal__button-wrapper">
         <button class="room-deal__button button button--primary"
             type="submit"
-            wire:click='bookRoom({{ $roomType->id }}, {{ $roomDeal->id }}, {{ json_encode($availableRoomIds) }})'>Reserve</button>
+            wire:click='bookRoom({{ $roomType->id }}, {{ $roomDeal->id }}, {{ json_encode($availableRoomIds) }})'>
+            Reserve
+
+        </button>
     </div>
 </div>

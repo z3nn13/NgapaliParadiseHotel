@@ -28,13 +28,14 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
     <script defer
+        src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer
         src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
     <script defer
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer
         src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script defer
-        src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script defer
         src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"
         integrity="sha512-Ixzuzfxv1EqafeQlTCufWfaC6ful6WFqIz4G+dWvK0beHw0NVJwvCKSgafpy5gwNqKmgUfIBraVwkKI+Cz0SEQ=="
@@ -71,46 +72,6 @@
 
     <!-- Scripts -->
     @yield('scripts')
-    <script>
-        $(document).ready(function() {
-
-            /* Notification Sweet Alert */
-            $(window).on('swal:notification', function(event) {
-                const detail = event.detail;
-                Toast.fire({
-                    text: detail.text,
-                    icon: detail.type,
-                });
-            });
-
-            $(window).on('swal:modal', function(event) {
-                const detail = event.detail;
-                Swal.fire({
-                    title: detail.title,
-                    text: detail.text,
-                    icon: detail.type,
-                });
-            });
-
-            $(window).on('swal:confirm', function(event) {
-                const detail = event.detail;
-                Swal.fire({
-                    title: detail.title,
-                    text: detail.text,
-                    icon: detail.type,
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#424242',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!'
-                }).then(function(result) {
-                    if (result.isConfirmed) {
-                        Livewire.emit(`delete${event.detail.modelName}s`, detail.ids);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

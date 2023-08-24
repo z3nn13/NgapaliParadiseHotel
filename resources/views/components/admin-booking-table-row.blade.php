@@ -76,7 +76,7 @@
         </button>
 
         <!-- View Option -->
-        <form action="{{ route('admin.reservations.show', ['reservation' => $reservation->id]) }}">
+        <form action="{{ route('dashboard.bookings.show', ['reservation' => $reservation->id]) }}">
             <button class="table__dropdown-option table__dropdown-option--view"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"

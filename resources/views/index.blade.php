@@ -21,12 +21,8 @@
         </div>
     </section>
 
-    <x-booking-form>
-        <button class="booking__form__button button button--primary"
-            type="submit">
-            Book a stay
-        </button>
-    </x-booking-form>
+    {{-- Booking Form --}}
+    @livewire('booking-search-form', ['pageType' => 'landing'])
 
 
     {{-- Wave Section --}}

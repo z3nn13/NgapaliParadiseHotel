@@ -4,8 +4,7 @@
     .container {
         &--landing {
             width: calc(100% - (var(--margin-size) * 2));
-            margin-left: auto;
-            margin-right: auto;
+            margin-inline: auto;
         }
         &--search {
             padding-right: calc(var(--margin-size) * 2);

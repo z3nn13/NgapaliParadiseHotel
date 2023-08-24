@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Coupon;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class CouponSeeder extends Seeder
 {

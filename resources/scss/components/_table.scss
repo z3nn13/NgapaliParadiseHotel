@@ -48,6 +48,9 @@
         padding: 0.5rem 1rem;
         cursor: pointer;
         border-radius: 25px;
+        border: 2px solid black;
+        position: relative;
+        white-space: nowrap;
         background: none;
     }
 
@@ -77,6 +80,7 @@
         border-radius: 25px;
         padding: 0.5rem 1rem 0.5rem 1rem;
     }
+
     &__option--search,
     &__option--search:focus {
         background-color: transparent;
@@ -115,6 +119,7 @@
     /* ----- Row Borders ----- */
     &__cell--not-found {
         padding-bottom: 3rem;
+        text-align: center;
     }
     &__head,
     &__row:not(:last-of-type) {

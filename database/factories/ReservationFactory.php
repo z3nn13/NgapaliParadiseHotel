@@ -27,13 +27,10 @@ class ReservationFactory extends Factory
         $date1 = Carbon::now();
         $date2 = Carbon::now()->addMonth();
         $check_in = fake()->dateTimeBetween($date1, $date2);
-        $user_id = rand(1, 2);
-        $user = User::find($user_id);
 
         return [
-            'user_id' => $user_id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'email' => fake()->email(),
             'phone_no' => fake()->phoneNumber(),
             'country' => fake()->country(),

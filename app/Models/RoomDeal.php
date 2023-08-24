@@ -9,13 +9,27 @@ class RoomDeal extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'room_type_id',
+        'deal_name',
+        'deal_mmk',
+        'is_active',
+    ];
+
+
     public function deal_usd()
     {
         return $this->deal_mmk / 2000;
     }
     // The room type this room deal belongs to
-    public function room_type()
+    public function roomType()
     {
         return $this->belongsTo(RoomType::class);
+    }
+
+
+    public function reservation()
+    {
+        return $this->belongsToMany(RoomDeal::class, 'reservation_rooms');
     }
 }

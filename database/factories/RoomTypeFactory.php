@@ -23,7 +23,7 @@ class RoomTypeFactory extends Factory
             "view" => $this->faker->word,
             "bedding" => $this->faker->randomElement(['1 Queen Bed', '2 Double Bed', '1 King Bed']),
             "description" => $this->faker->paragraph,
-            "room_category_id" => $this->faker->numberBetween(1, 3),
+            "room_category_id" => $this->faker->numberBetween(1, 2),
         ];
     }
 }

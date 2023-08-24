@@ -3,9 +3,8 @@
     <x-step-bar active=3></x-step-bar>
 
     @php
-        $reservation_rooms = session('reservation_rooms');
-        
-        $billingData = session('billingData');
+        $reservation_rooms = session('booking.reservation_rooms');
+        $billingData = session('booking.billingData');
         $subTotal = $billingData['subTotal'];
         $totalAmount = $billingData['totalAmount'];
         $unit = '';
@@ -66,8 +65,8 @@
                 @endforeach
 
                 <div class="billing-summary__item">
-                    <p class="billing-summary__room-extra">{{ session('numNights') }} Nights
-                        {{ session('numGuests') }} Guests</p>
+                    <p class="billing-summary__room-extra">{{ session('booking.numNights') }} Nights
+                        {{ session('booking.numGuests') }} Guests</p>
                 </div>
 
                 <div class="billing-summary__item billing-summary__item--divider">

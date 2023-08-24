@@ -32,7 +32,7 @@ class ReservationCreate extends Component
     {
         $this->unit = $this->preferredCurrency === "MMK" ? "Ks." : "$";
 
-        $reservationRooms = session('reservation_rooms');
+        $reservationRooms = session('booking.reservation_rooms');
         $this->calculateSubTotal($reservationRooms);
         $this->calculateTotal($this->subTotal);
 

@@ -1,0 +1,101 @@
+.booking {
+    &__heading {
+        display: flex;
+        gap: 1.5rem;
+
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        font-family: var(--ff-secondary);
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: var(--fs-500);
+        margin-bottom: 0.5rem;
+    }
+
+    &__subtitle {
+        color: hsl(var(--clr-neutral-900) / 0.5);
+        font-weight: 500;
+    }
+
+    &__main {
+        display: flex;
+        gap: 5rem;
+    }
+}
+
+.billing-details {
+    font-family: var(--ff-secondary);
+
+    &__container {
+        background-color: hsl(var(--clr-neutral-100));
+        border-radius: 0.9375rem;
+        max-width: 30rem;
+        padding: 2.4rem;
+        margin-bottom: 3rem;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    &__title {
+        border-bottom: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+        padding-bottom: 1.25rem;
+
+        font-size: var(--fs-400);
+        font-weight: 600;
+    }
+
+    &__label {
+        font-weight: 500;
+    }
+
+    &__value {
+        text-align: right;
+    }
+
+    &__item {
+        margin-top: 1rem;
+        display: flex;
+        gap: 6rem;
+        justify-content: space-between;
+        font-weight: 500;
+        color: hsl(var(--clr-neutral-900) / 0.6);
+        white-space: nowrap;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 4rem;
+        width: fit-content;
+    }
+
+    &__button {
+        color: hsl(var(--clr-neutral-100));
+        background-color: hsl(var(--clr-neutral-900) / 0.9);
+        border-radius: 0.8rem;
+        border: none;
+
+        width: min-content;
+        padding: 1rem;
+        font-weight: 600;
+        transition: filter 200ms ease;
+        white-space: nowrap;
+
+        cursor: pointer;
+        &[disabled] {
+            filter: opacity(0.5);
+            cursor: not-allowed;
+        }
+
+        &:hover:enabled {
+            filter: opacity(0.8);
+        }
+    }
+
+    &__button-text {
+        font-weight: 500;
+        color: hsl(var(--clr-neutral-900) / 0.5);
+    }
+}

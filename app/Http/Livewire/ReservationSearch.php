@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
-use App\Models\Room;
 use Livewire\Component;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
@@ -12,39 +10,53 @@ use App\Services\ReservationService;
 
 class ReservationSearch extends Component
 {
-    public $availableRoomTypes;
-    public $availableRoomIds;
-
-    protected $listeners = ['option_selected' => 'sortRoomTypes'];
-
+    protected $listeners = ['optionSelected' => 'sortByPrice'];
     protected $reservationService;
+
+    public $checkInDate;
+    public $checkOutDate;
+    public $numGuests;
+
+    protected $queryString = [
+        'checkInDate' => ['as' => 'checkIn'],
+        'checkOutDate' => ['as' => 'checkOut'],
+        'numGuests',
+    ];
+
 
     public function boot(ReservationService $reservationService)
     {
         $this->reservationService = $reservationService;
     }
 
-    public function mount(Request $request)
+    public function mount()
     {
-        $checkInDate = $request->checkInDate;
-        $checkOutDate = $request->checkOutDate;
-        $this->reservationService->initializeSessionData($request);
-        $this->loadAvailableRoomData($checkInDate, $checkOutDate);
+        $this->checkInDate =  request()->query('checkIn', session('booking.checkInDate'));
+        $this->checkOutDate = request()->query('checkOut', session('booking.checkOutDate'));
+        $this->numGuests = request()->query('numGuests', session('booking.numGuests'));
+
+        $this->checkValidDates($this->checkInDate, $this->checkOutDate);
+        $this->checkValidNumGuests($this->numGuests);
     }
 
 
     public function render()
     {
-        return view('livewire.reservation-search')
-            ->extends('booking.search')
-            ->section('room-list');
+        return view('livewire.reservation-search')->layout('layouts.app');
     }
 
-    private function loadAvailableRoomData($checkInDate, $checkOutDate)
+
+    public function sortByPrice($selectedSortOption)
     {
-        $data = $this->reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
-        $this->availableRoomTypes = $data['availableRoomTypes'];
-        $this->availableRoomIds = $data['availableRoomIds'];
+        $this->availableRoomTypes = $this->reservationService->sortRoomTypesByPrice($this->availableRoomTypes, $selectedSortOption);
+    }
+
+
+    public function getAvailableRoomTypesProperty()
+    {
+        $checkInDate = session('booking.checkInDate');
+        $checkOutDate = session('booking.checkOutDate');
+        return $this->reservationService->loadAvailableRoomData($checkInDate, $checkOutDate);
     }
 
 
@@ -54,8 +66,20 @@ class ReservationSearch extends Component
         return redirect()->route('booking.create');
     }
 
-    public function sortRoomTypes($selectedSortOption)
+
+    private function checkValidDates($checkInDate, $checkOutDate)
     {
-        $this->availableRoomTypes = $this->reservationService->sortRoomTypes($this->availableRoomTypes, $selectedSortOption);
+        if ($checkInDate < $checkOutDate) {
+            return;
+        }
+        abort(400, 'Invalid date range. Please select valid dates.');
+    }
+
+    private function checkValidNumGuests($numGuests)
+    {
+        if (1 <= $numGuests && $numGuests <= 10) {
+            return;
+        }
+        abort(400, 'No. of guests must be between 1 and 10.');
     }
 }

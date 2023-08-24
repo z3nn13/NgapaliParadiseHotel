@@ -29,8 +29,8 @@
                     $subTotal = $unit . ' ' . $subTotal;
                     $totalAmount = $unit . ' ' . $totalAmount;
                 @endphp
-                <x-summary-details :numNights="session('numNights')"
-                    :numGuests="session('numGuests')"
+                <x-summary-details :numNights="session('booking.numNights')"
+                    :numGuests="session('booking.numGuests')"
                     :subTotal="$subTotal"
                     :couponCode="$couponCode"
                     :totalAmount="$totalAmount" />

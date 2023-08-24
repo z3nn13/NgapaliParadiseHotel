@@ -5,7 +5,40 @@
             <h1 class="dashboard-heading__title">Rooms</h1>
             <p class="dashboard-heading__subtitle">Rooms > All Room Types</p>
         </div>
-        <div class="heading__buttons">
+        <div class="dashboard-heading__options">
+
+            <x-dropdown>
+                <div class="dropdown">
+                    <x-slot name="trigger">
+                        <div x-data="{ selected: @entangle('selectedModels') }">
+
+                            {{-- TODO: MAKE THIS APPEAR, SHIT WORKS NOW, JUST NOT APPEARING --}}
+                            <div class="dashboard-heading__option table__option--bulk"
+                                x-show="selected.length != 0 || Object.values(selected).some(val => val)">
+                                Bulk
+                                Actions
+                            </div>
+                        </div>
+                    </x-slot>
+                    <div class="table__dropdown-container"
+                        x-ref="container">
+                        <button class="table__option table__dropdown-option"
+                            onclick='confirmDelete(
+                        "RoomType", @json($this->getSelectedModels()->values()->all())
+                        )'>
+                            Bulk Delete
+                        </button>
+                    </div>
+                </div>
+            </x-dropdown>
+
+            <button class="dashboard-heading__option table__option--add"
+                onclick='Livewire.emit(
+                "openModal", "edit-room-type-modal"
+                )'>
+                + Add Room
+            </button>
+
             <button class="dashboard-heading__option--export"
                 type="submit"
                 wire:click="exportRoomTypes">
@@ -17,41 +50,23 @@
                     <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
                         fill="black" />
                 </svg>
-                Export</button>
+                Export
+            </button>
         </div>
     </section>
 
     <!------- Room Type Table Start ------->
     <section class="table__wrapper container__admin-dashboard">
         <div class="table__container">
-            <table class="table"
-                x-data="{ show: false }">
+            <table class="table">
                 <div class="table__title-bar">
                     <h2 class="table__caption">Room Types</h2>
-                    <div class="table__options">
+                    <div class="table__options"
+                        x-data="{ selected: @entangle('selectedModels') }">
                         <div class="table___option"
-                            x-show="show">
-                            <p class="table__option">Selected {{ $selectedModels->count() }} rows</p>
+                            x-show="selected.length != 0 || Object.values(selected).some(val => val)">
+                            <p class="table__option">Selected {{ count($this->getSelectedModels()->values()->all()) }} rows</p>
                         </div>
-                        <div class="table__option table__option--bulk">
-                            Bulk
-                            Actions
-                            <button class="table__option table__option--add"
-                                onclick='confirmDelete(
-                                    "RoomType", @json($this->getSelectedModels()->values()->all())
-                                )'>
-                                Bulk Delete
-                            </button>
-                        </div>
-
-                        <button class="table__option table__option--add"
-                            onclick='Livewire.emit(
-                                "openModal", "edit-room-type-modal"
-                                )'>
-                            +
-                            Add
-                            Room
-                        </button>
 
                         <div class="table__option--searchbar">
                             <input class="table__option--search"
@@ -73,7 +88,6 @@
                     <th class="table__heading">
                         <input class="table__checkbox"
                             type="checkbox"
-                            @click="show = !show"
                             wire:model="selectAll">
                     </th>
 
@@ -117,4 +131,5 @@
         </div>
     </section>
     <!------- Room Type Table End ------->
+
 </div>
