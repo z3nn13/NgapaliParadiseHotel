@@ -26,15 +26,16 @@ class BillingForm extends Component
 
     public function mount()
     {
-        $fields = ['firstName', 'lastName', 'email', 'phoneNo'];
-        $billingData = session('booking.billingData');
+        $authFields = ['firstName', 'lastName', 'email', 'phoneNo'];
+        $fields = array_merge($authFields, ['paymentMethod', 'country', 'preferredCurrency']);
 
+        $billingData = session('booking.billingData');
         if ($billingData) {
             foreach ($fields as $field) {
                 $this->$field = $billingData[$field] ?? null;
             }
         } elseif (auth()->check()) {
-            foreach ($fields as $field) {
+            foreach ($authFields as $field) {
                 $snakeCaseField = Str::snake($field);
                 $this->$field = auth()->user()->$snakeCaseField;
             }
