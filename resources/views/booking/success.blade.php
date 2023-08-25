@@ -28,6 +28,16 @@
                     <label class="booking-success__label">Check Out:</label>
                     <span class="booking-success__value">{{ date('d/m/Y', strtotime($reservation->check_out_date)) }}</span>
             </ul>
+
+            <div class="booking-success__footer">
+                <div class="booking-success__footer-text">
+                    <p class="booking-success__text">Thank you for booking with us.</p>
+                    <p class="booking-success__text">If you have anymore inquiries, please contact us at:</p>
+                    <a class="booking-success__link"
+                        href="tel:+959511663">(+95) 951-1663</a>
+                </div>
+                <button class="button button--primary">Go to home</button>
+            </div>
         </div>
 
     </section>

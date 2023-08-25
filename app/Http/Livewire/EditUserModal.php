@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use App\Http\Livewire\UserDashboard;
 use LivewireUI\Modal\ModalComponent;
 use App\Http\Livewire\AdminUserIndex;
@@ -37,15 +38,18 @@ class EditUserModal extends ModalComponent
             AdminUserIndex::getName() => 'userUpdated',
             UserDashboard::getName() => 'userUpdated',
         ]);
-        $this->emit('dataChanged', 'User', $this->user->id, 'saved');
+        $this->dispatchBrowserEvent('swal:notification', [
+            'type' => 'success',
+            'text' => 'User details were updated successfully.'
+        ]);
     }
-
     protected function rules(): array
     {
+        $userId = $this->user->id;
         return [
             'user.first_name' => ['required', 'string', 'max:255'],
             'user.last_name' => ['required', 'string', 'max:255'],
-            'user.email' => ['required', 'string', 'email', 'max:255'],
+            'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
             'user.phone_no' => ['required', 'string'],
             'user.role_id' => 'required|exists:roles,id',
         ];

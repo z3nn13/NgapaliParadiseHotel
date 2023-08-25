@@ -12,9 +12,16 @@
         padding: 2rem;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        line-height: normal;
+
         margin-bottom: 4rem;
     }
 
+    &__list {
+        border-bottom: 1px solid hsl(var(--clr-neutral-900) / 0.1);
+        padding-bottom: 1rem;
+    }
     &__title {
         font-weight: 600;
         font-size: var(--fs-400);
@@ -33,5 +40,18 @@
     }
     &__label {
         font-weight: 500;
+    }
+    &__footer {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: hsl(var(--clr-neutral-900) / 0.7);
+        max-width: 30ch;
+        gap: 1rem;
+    }
+    &__link {
+        color: hsl(var(--clr-sun-400));
     }
 }

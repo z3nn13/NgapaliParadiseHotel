@@ -18,6 +18,6 @@ class CheckBookingSession
         if (session()->has('booking')) {
             return $next($request);
         }
-        abort(403);
+        abort(419);
     }
 }
