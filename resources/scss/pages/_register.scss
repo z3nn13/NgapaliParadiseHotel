@@ -149,7 +149,7 @@
 
     &__error {
         color: hsl(0, 82%, 43%);
-        white-space: nowrap;
         font-size: 0.9rem;
+        font-family: var(--ff-secondary);
     }
 }

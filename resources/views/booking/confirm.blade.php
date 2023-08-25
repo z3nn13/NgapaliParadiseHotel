@@ -98,14 +98,10 @@
                     <p class="billing-summary__total-value text-sun-400">{{ $unit }} {{ $totalAmount }}</p>
                 </div>
                 <div class="billing-summary__item">
-                    <form action="{{ route('booking.create', ['goBack' => true]) }}"
-                        method="POST">
-                        @csrf
-
-                        <button class="billing-summary__button billing-summary__button--back">
-                            <img src="{{ asset('images/svgs/bx-aritem-back.svg') }}"
-                                alt=""> Back</button>
-                    </form>
+                    <a class="billing-summary__button billing-summary__button--back"
+                        href="{{ route('booking.create') }}">
+                        <img src="{{ asset('images/svgs/bx-aritem-back.svg') }}"
+                            alt=""> Back</a>
 
                     <a class="billing-summary__button billing-summary__button--confirm"
                         href="{{ route('booking.payment') }}">

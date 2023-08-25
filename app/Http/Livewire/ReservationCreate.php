@@ -10,7 +10,7 @@ use App\Services\ReservationPaymentService;
 class ReservationCreate extends Component
 {
     public $couponCode = "";
-    public $coupon = null;
+    public $coupon;
 
     public $preferredCurrency = "MMK";
     public $unit;
@@ -27,6 +27,13 @@ class ReservationCreate extends Component
     public function boot(ReservationPaymentService $reservationPaymentService)
     {
         $this->reservationPaymentService = $reservationPaymentService;
+    }
+
+    public function mount()
+    {
+        $this->preferredCurrency = session('booking.billingData.preferredCurrency');
+        $this->coupon = session('booking.billingData.coupon');
+        $this->couponCode = $this->coupon->coupon_code;
     }
 
     public function render()

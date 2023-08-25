@@ -25,8 +25,8 @@ class BookingSearchForm extends Component
     public function mount($pageType, $checkInDate = null, $checkOutDate = null, $numGuests = null)
     {
         $this->inputsDisabled = $pageType == 'search';
-        $this->checkInDate = $checkInDate ?? session('booking.checkInDate', now()->toDateString());
-        $this->checkOutDate = $checkOutDate ?? session('booking.checkOutDate', now()->addDay()->toDateString());
+        $this->checkInDate = $checkInDate ?? session('booking.checkInDate',);
+        $this->checkOutDate = $checkOutDate ?? session('booking.checkOutDate');
         $this->numGuests = $numGuests ?? session('booking.numGuests', 1);
     }
 

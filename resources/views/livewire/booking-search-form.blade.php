@@ -12,7 +12,7 @@
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
                 @error('checkInDate')
-                    <span class="error">{{ $message }}</span>
+                    <span class="auth-input__error">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -27,7 +27,7 @@
                     required>
 
                 @error('checkOutDate')
-                    <span class="error">{{ $message }}</span>
+                    <span class="auth-input__error">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -42,7 +42,7 @@
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
                 @error('numGuests')
-                    <span class="error">{{ $message }}</span>
+                    <span class="auth-input__error">{{ $message }}</span>
                 @enderror
             </div>
         </div>
