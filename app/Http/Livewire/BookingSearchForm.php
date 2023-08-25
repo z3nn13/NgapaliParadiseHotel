@@ -41,11 +41,14 @@ class BookingSearchForm extends Component
         $checkIn = Carbon::parse($this->checkInDate);
         $checkOut = Carbon::parse($this->checkOutDate);
 
-        if ($checkOut->lte($checkIn)) {
+
+        if (($propertyName === 'checkInDate' && empty($this->checkOutDate)) || $checkOut->lte($checkIn)) {
             $this->checkOutDate = $checkIn->copy()->addDay()->toDateString();
         }
+
         $this->validateOnly($propertyName);
     }
+
 
 
     public function submit(ReservationService $reservationService)
