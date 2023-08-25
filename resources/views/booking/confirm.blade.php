@@ -8,8 +8,8 @@
         $subTotal = $billingData['subTotal'];
         $totalAmount = $billingData['totalAmount'];
         $unit = '';
-        // $unit = $billingData['currency'] === 'MMK' ? 'Ks.' : "$";
-        $coupon = isset($billingData['coupon']) ? json_decode($billingData['coupon']) : null;
+        $unit = $billingData['preferredCurrency'] === 'MMK' ? 'Ks.' : "$";
+        $coupon = $billingData['coupon'];
         
     @endphp
 
@@ -23,7 +23,7 @@
                     @php
                         $roomDeal = $room['roomDeal'];
                         $roomType = $room['roomType'];
-                        $roomPrice = $billingData['currency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
+                        $roomPrice = $billingData['preferredCurrency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
                         $iteration = $loop->iteration;
                     @endphp
 
@@ -51,7 +51,7 @@
                             </div>
 
 
-                            <p class="billing-summary__room-price">$ {{ $roomPrice }}</p>
+                            <p class="billing-summary__room-price">{{ $unit }} {{ $roomPrice }}</p>
                         </div>
 
                         <div class="billing-summary__room-body"

@@ -17,11 +17,12 @@ class ReservationCreate extends Component
     public $subTotal;
     public $totalAmount;
 
+    protected ReservationPaymentService $reservationPaymentService;
     protected $rules = [
         'couponCode' => 'nullable|string|max:255',
     ];
+    protected $listeners = ['updatedPreferredCurrency' => 'changeCurrency', 'formSubmitted' => 'completeStage'];
 
-    protected ReservationPaymentService $reservationPaymentService;
 
     public function boot(ReservationPaymentService $reservationPaymentService)
     {
@@ -38,7 +39,6 @@ class ReservationCreate extends Component
 
         return view('livewire.reservation-create', compact('reservationRooms'))->layout('layouts.app');
     }
-
 
 
     public function updatedCouponCode()
@@ -79,5 +79,24 @@ class ReservationCreate extends Component
     public function getRoomPrice(RoomDeal $roomDeal)
     {
         return $this->reservationPaymentService->getRoomPrice($roomDeal, $this->preferredCurrency);
+    }
+
+    public function changeCurrency($preferredCurrency)
+    {
+        $this->preferredCurrency = $preferredCurrency;
+    }
+
+    public function completeStage($billingData)
+    {
+        $additionalData = [
+            'coupon' => $this->coupon,
+            'subTotal' => $this->subTotal,
+            'totalAmount' => $this->totalAmount,
+        ];
+        $billingData = array_merge($billingData, $additionalData);
+
+        session(['booking.billingData' => $billingData]);
+        session(['booking.create' => true]);
+        return redirect()->route('booking.confirm');
     }
 }

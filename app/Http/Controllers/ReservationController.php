@@ -42,11 +42,8 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new booking.
      */
-    public function confirm(Request $request)
+    public function confirm()
     {
-        if ($request->isMethod('POST')) {
-            session(['booking.billingData' => $request->all()]);
-        }
         return view('booking.confirm');
     }
 
@@ -73,24 +70,26 @@ class ReservationController extends Controller
      */
     public function store(ReservationPaymentService $reservationPaymentService)
     {
+
         $checkIn = session("booking.checkInDate");
         $checkOut = session("booking.checkOutDate");
         $billingData = session('booking.billingData');
 
 
-        $totalPaid_MMK = $reservationPaymentService->calculateSubTotal(session('booking.reservation_rooms'), 'MMK');
-        $coupon = $reservationPaymentService->checkForCoupon($billingData);
 
+        $totalPaidMMK = $reservationPaymentService->calculateSubTotal(session('booking.reservation_rooms'), 'MMK');
+
+        $coupon = $billingData['coupon'];
         if ($coupon) {
-            $totalPaid_MMK = $reservationPaymentService->applyCoupon($totalPaid_MMK, $coupon, 'MMK');
+            $totalPaidMMK = $reservationPaymentService->applyCoupon($totalPaidMMK, $coupon, 'MMK');
             $coupon->useCoupon();
         }
 
         $invoiceData = [
             'coupon_id' => $coupon->id,
-            'total_paid_mmk' => $totalPaid_MMK,
-            'pay_type_id' => $billingData['payment_method'],
-            'preferred_currency' => $billingData['currency'],
+            'total_paid_mmk' => $totalPaidMMK,
+            'pay_type_id' => $billingData['paymentMethod'],
+            'preferred_currency' => $billingData['preferredCurrency'],
         ];
 
 
@@ -101,10 +100,10 @@ class ReservationController extends Controller
             'check_out_date' => $checkOut,
             'special_request' => session("booking.specialRequest"),
             'status' => 'Upcoming',
-            'first_name' => $billingData['first_name'],
-            'last_name' => $billingData['last_name'],
+            'first_name' => $billingData['firstName'],
+            'last_name' => $billingData['lastName'],
             'country' => $billingData['country'],
-            'phone_no' => $billingData['phone_no'],
+            'phone_no' => $billingData['phoneNo'],
             'email' => $billingData['email'],
         ];
 

@@ -30,9 +30,9 @@
                     $camelCased = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $field))));
                     $spaced = ucwords(str_replace('_', ' ', $field));
                 @endphp
-                <x-billing-form-group type="{{ $field === 'email' ? 'email' : 'text' }}"
-                    :field="$field"
-                    wire:model="{{ $camelCased }}">
+                <x-billing-form-group name="$camelCased"
+                    type="{{ $field === 'email' ? 'email' : 'text' }}"
+                    :name='$camelCased'>
                     {{ $spaced }}
                 </x-billing-form-group>
             @endforeach
@@ -43,11 +43,8 @@
                 <select class="billing-form__group-input"
                     wire:model="country"
                     required>
-                    <option value=""
-                        readonly="readonly"
-                        selected
-                        hidden>Select Country</option>
-                    <option value="Myanmar">Myanmar</option>
+                    <option value="Myanmar"
+                        selected>Myanmar</option>
                     <option value="USA">USA</option>
                 </select>
             </div>
@@ -57,6 +54,7 @@
                     for="currency">Preferred Currency</label>
                 <select class="billing-form__group-input"
                     wire:model="preferredCurrency"
+                    wire:loading.attr="disabled"
                     required>
                     <option value="MMK">MMK</option>
                     <option value="USD">USD</option>
@@ -66,18 +64,6 @@
 
 
         <div class="center">
-
-            {{-- @if ($coupon)
-                <input name="coupon"
-                    type="hidden"
-                    value="{{ json_encode($coupon) }}">
-            @endif
-            <input name="subTotal"
-                type="hidden"
-                value="{{ $subTotal }}" />
-            <input name="totalAmount"
-                type="hidden"
-                value="{{ $totalAmount }}" /> --}}
             <button class="billing-form__button--submit button"
                 type="submit">Continue</button>
         </div>

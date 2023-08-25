@@ -36,9 +36,7 @@
                     :totalAmount="$totalAmount" />
             </div>
 
-            <x-billing-form :coupon="$coupon"
-                :subTotal="$subTotal"
-                :totalAmount="$totalAmount" />
+            @livewire('billing-form')
         </div>
     </div>
 </div>
