@@ -124,13 +124,13 @@ class BookingProcessTest extends TestCase
             ->assertStatus(200);
     }
 
-    public function test_guests_can_confirm_their_reservation(): void
+    public function test_guests_can_see_error_for_invalid_coupons(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
 
-    public function test_guests_can_see_error_for_invalid_coupons(): void
+    public function test_guests_can_confirm_their_reservation(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);

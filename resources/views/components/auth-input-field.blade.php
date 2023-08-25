@@ -5,6 +5,7 @@
     <input class="auth-input__input"
         name="{{ $name }}"
         type="{{ $type }}"
+        value="{{ old($name) }}"
         placeholder="{{ $slot }}"
         required>
     @error($name)
