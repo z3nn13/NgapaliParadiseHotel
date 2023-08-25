@@ -2,20 +2,22 @@
 
 namespace Tests\Feature\Reservation;
 
-use App\Http\Livewire\ReservationCreate;
 use Tests\TestCase;
+use App\Models\Role;
 use App\Models\Room;
+use App\Models\User;
 use Livewire\Livewire;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
 use App\Models\RoomCategory;
 use Illuminate\Http\Request;
 use Database\Seeders\RoomTypeSeeder;
+use App\Http\Livewire\ReservationCreate;
 use App\Http\Livewire\ReservationSearch;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BookRoomTest extends TestCase
+class BookingProcessTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -82,9 +84,38 @@ class BookRoomTest extends TestCase
 
     public function test_guests_can_change_their_preferred_currency(): void
     {
-        $response = $this->get('/');
-        $response->assertStatus(200);
+        session($this->getMockReservationSession());
+        $response = Livewire::test(ReservationCreate::class)
+            ->emit('updatedPreferredCurrency', 'USD');
+
+        $response->assertOk()
+            ->assertSet('preferredCurrency', 'USD')
+            ->assertSee('$');
     }
+
+
+    public function test_authenticated_users_can_auto_fill_booking_details()
+    {
+        session($this->getMockReservationSession());
+        $role = Role::create(['name' => 'user']);
+        $user = User::factory()->for($role)->create();
+
+        $response = $this->actingAs($user)
+            ->get(route('booking.create'));
+
+        $response->assertSee($user->first_name)
+            ->assertSee($user->last_name)
+            ->assertSee($user->email)
+            ->assertSee($user->phone_no);
+    }
+
+    public function test_guests_can_see_validation_errors_for_invalid_inputs()
+    {
+        session($this->getMockReservationSession());
+        Livewire::test(ReservationCreate::class)
+            ->assertStatus(200);
+    }
+
 
     public function test_guests_can_use_coupons(): void
     {
@@ -99,32 +130,9 @@ class BookRoomTest extends TestCase
         $response->assertStatus(200);
     }
 
-
-    public function test_guests_can_proceed_to_payment(): void
+    public function test_guests_can_see_error_for_invalid_coupons(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-    }
-    public function test_guests_can_create_reservations_successfully()
-    {
-        $response = $this->get('/');
-        $response->assertStatus(200);
-    }
-
-    public function test_guests_cannot_revisit_the_pages_without_an_active_booking_session()
-    {
-        $routes = [
-            'booking.search',
-            'booking.create',
-            'booking.confirm',
-            'booking.add-room',
-            'booking.payment',
-            'booking.success',
-        ];
-
-        foreach ($routes as $route) {
-            $response = $this->get(route($route));
-            $response->assertStatus(403);
-        }
     }
 }

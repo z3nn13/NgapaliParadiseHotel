@@ -12,7 +12,7 @@ class ReservationCreate extends Component
     public $couponCode = "";
     public $coupon;
 
-    public $preferredCurrency = "MMK";
+    public $preferredCurrency;
     public $unit;
     public $subTotal;
     public $totalAmount;
@@ -31,9 +31,9 @@ class ReservationCreate extends Component
 
     public function mount()
     {
-        $this->preferredCurrency = session('booking.billingData.preferredCurrency');
+        $this->preferredCurrency = session('booking.billingData.preferredCurrency') ?? "MMK";
         $this->coupon = session('booking.billingData.coupon');
-        $this->couponCode = $this->coupon->coupon_code;
+        $this->couponCode = optional($this->coupon)->coupon_code;
     }
 
     public function render()
