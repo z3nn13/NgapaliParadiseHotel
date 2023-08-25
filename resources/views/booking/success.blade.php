@@ -21,11 +21,11 @@
                     <span class="booking-success__value"> {{ $reservation->num_guests }}</span>
                 </li>
                 <li class="booking-success__item">
-                    <label class="booking-success__label">Check In</label>
+                    <label class="booking-success__label">Check In:</label>
                     <span class="booking-success__value"> {{ date('d/m/Y', strtotime($reservation->check_in_date)) }}</span>
                 </li>
                 <li class="booking-success__item">
-                    <label class="booking-success__label">Check Out</label>
+                    <label class="booking-success__label">Check Out:</label>
                     <span class="booking-success__value">{{ date('d/m/Y', strtotime($reservation->check_out_date)) }}</span>
             </ul>
         </div>

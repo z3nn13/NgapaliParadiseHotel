@@ -137,7 +137,7 @@
                 </div>
 
                 <!------- Table Pagination ------->
-                @if ($reservations->items())
+                @if (count($reservations->items()) > $items_per_page)
                     <div class="table__pagination">
                         {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
                     </div>
