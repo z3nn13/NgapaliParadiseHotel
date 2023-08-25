@@ -15,7 +15,7 @@
     <p class="billing-summary__coupon-title">Coupon Code</p>
     <div class="billing-summary__coupon">
         <input class="billing-summary__coupon-input"
-            wire:model='couponCode' />
+            wire:model.lazy='couponCode' />
         @if ($this->coupon && $this->couponCode)
             <p class="billing-summary__coupon-success">
                 {{ $this->coupon->discount_percentage }}% discount applied!

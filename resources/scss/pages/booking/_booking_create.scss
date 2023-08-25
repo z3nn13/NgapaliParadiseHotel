@@ -19,7 +19,7 @@
     &--create {
         display: grid;
         grid-template-columns: auto 1fr;
-        width: fit-content;
+        width: min-content;
         transform: scale(0.9);
         margin-inline: auto;
         margin-bottom: 3rem;
@@ -103,6 +103,7 @@
     &__item {
         display: flex;
         justify-content: space-between;
+        gap: 2rem;
         white-space: nowrap;
 
         &--right {

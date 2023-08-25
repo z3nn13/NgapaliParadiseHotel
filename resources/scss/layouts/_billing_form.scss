@@ -49,6 +49,11 @@
         border: none;
         border-radius: 30px;
         padding: 1rem 4rem;
+
+        transition: background-color 200ms ease;
+        &:hover {
+            background-color: hsl(var(--clr-sun-400) / 0.8);
+        }
     }
 }
 .center {
