@@ -8,23 +8,25 @@
 
                 <div class="modal__form--left">
 
-                    <div class="modal__input-group">
-                        <label class="modal__label"
-                            for="role_id">Role:</label>
-                        <select class="modal__select"
-                            id="role_id"
-                            name="role_id"
-                            wire:model="user.role_id">
-                            <!-- Populate the options with available roles -->
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}"
-                                    selected>{{ $role->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('user.role_id')
-                            <span class="modal__error">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    @if (auth()->user()->role->name === 'admin')
+                        <div class="modal__input-group">
+                            <label class="modal__label"
+                                for="role_id">Role:</label>
+                            <select class="modal__select"
+                                id="role_id"
+                                name="role_id"
+                                wire:model="user.role_id">
+                                <!-- Populate the options with available roles -->
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                        selected>{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('user.role_id')
+                                <span class="modal__error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="modal__input-group">
                         <label class="modal__label"

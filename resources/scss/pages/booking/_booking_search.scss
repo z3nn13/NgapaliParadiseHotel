@@ -114,6 +114,7 @@
         margin-bottom: var(--margin-size);
         padding: var(--padding);
         padding-top: 3rem;
+
         overflow: visible;
     }
 
@@ -190,7 +191,7 @@
     }
 
     &__separator {
-        margin: var(--padding);
+        margin-inline: var(--padding);
         border-top: 2px solid hsl(var(--clr-primary-400) / 0.1);
     }
     &__deals {

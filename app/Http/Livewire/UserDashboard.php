@@ -19,6 +19,8 @@ class UserDashboard extends Component
         'page' => ['except' => 1],
     ];
 
+    protected $listeners = ['userUpdated' => 'render'];
+
     public function render()
     {
         $reservations = $this->getReservations(auth()->user());

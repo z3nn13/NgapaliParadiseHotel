@@ -31,10 +31,8 @@ class ReservationService
      */
     public function initializeSessionData($checkInDate, $checkOutDate, $numGuests): void
     {
-        $numNights = Carbon::parse($checkInDate)->diffInDays(Carbon::parse($checkOutDate));
         session([
             'booking' => [
-                'numNights' => $numNights,
                 'checkInDate' => $checkInDate,
                 'checkOutDate' => $checkOutDate,
                 'numGuests' => $numGuests,

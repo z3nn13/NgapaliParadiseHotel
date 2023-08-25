@@ -3,7 +3,7 @@
 </div>
 
 <div class="billing-summary__item billing-summary__item--right">
-    <p>+ Add Rooms</p>
+    <a href="{{ route('booking.search') }}">+ Add Rooms</a>
 </div>
 
 <div class="billing-summary__item billing-summary__item--divider">

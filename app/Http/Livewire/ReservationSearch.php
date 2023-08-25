@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
@@ -24,6 +25,7 @@ class ReservationSearch extends Component
     ];
 
 
+
     public function boot(ReservationService $reservationService)
     {
         $this->reservationService = $reservationService;
@@ -37,6 +39,7 @@ class ReservationSearch extends Component
 
         $this->checkValidDates($this->checkInDate, $this->checkOutDate);
         $this->checkValidNumGuests($this->numGuests);
+        $this->setNumNights();
     }
 
 
@@ -71,7 +74,7 @@ class ReservationSearch extends Component
         if ($checkInDate < $checkOutDate) {
             return;
         }
-        abort(400, 'Invalid date range. Please select valid dates.');
+        abort(400, 'Invalid date range. Please make sure the check-out date is at least 1 day after the check-in date.');
     }
 
     private function checkValidNumGuests($numGuests)
@@ -80,5 +83,11 @@ class ReservationSearch extends Component
             return;
         }
         abort(400, 'No. of guests must be between 1 and 10.');
+    }
+
+    private function setNumNights()
+    {
+        $numNights = Carbon::parse($this->checkInDate)->diffInDays(Carbon::parse($this->checkOutDate));
+        session(['booking.numNights' => $numNights]);
     }
 }

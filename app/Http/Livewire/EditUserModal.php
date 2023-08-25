@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Http\Livewire\UserDashboard;
 use LivewireUI\Modal\ModalComponent;
 use App\Http\Livewire\AdminUserIndex;
 
@@ -33,7 +34,8 @@ class EditUserModal extends ModalComponent
         $this->user->save();
 
         $this->closeModalWithEvents([
-            AdminUserIndex::getName() => 'userUpdated'
+            AdminUserIndex::getName() => 'userUpdated',
+            UserDashboard::getName() => 'userUpdated',
         ]);
         $this->emit('dataChanged', 'User', $this->user->id, 'saved');
     }

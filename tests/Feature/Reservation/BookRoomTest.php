@@ -72,7 +72,7 @@ class BookRoomTest extends TestCase
             ->assertRedirect(route('booking.create'));
     }
 
-    public function test_user_can_view_their_reservation_summary_and_billing_form()
+    public function test_guests_can_view_their_reservation_summary_and_billing_form()
     {
         session($this->getMockReservationSession());
         Livewire::test(ReservationCreate::class)
@@ -80,30 +80,38 @@ class BookRoomTest extends TestCase
         session()->forget('booking');
     }
 
-    public function test_users_can_apply_coupons(): void
+    public function test_guests_can_change_their_preferred_currency(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
 
-    public function test_users_can_confirm_their_reservation(): void
+    public function test_guests_can_use_coupons(): void
+    {
+        session($this->getMockReservationSession());
+        Livewire::test(ReservationCreate::class)
+            ->assertStatus(200);
+    }
+
+    public function test_guests_can_confirm_their_reservation(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
 
-    public function test_users_can_proceed_to_payment(): void
+
+    public function test_guests_can_proceed_to_payment(): void
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
-    public function test_user_can_create_reservations_successfully()
+    public function test_guests_can_create_reservations_successfully()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
 
-    public function test_users_cannot_revisit_the_pages_without_an_active_booking_session()
+    public function test_guests_cannot_revisit_the_pages_without_an_active_booking_session()
     {
         $routes = [
             'booking.search',

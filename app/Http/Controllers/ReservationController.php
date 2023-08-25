@@ -61,7 +61,10 @@ class ReservationController extends Controller
         $billingData = session('booking.billingData');
 
         $paymentUrl = $reservationPaymentService->processPayment($roomsBooked, $billingData);
-        return redirect($paymentUrl);
+        if ($paymentUrl) {
+            return redirect($paymentUrl);
+        }
+        abort(400, 'Sorry, something went wrong with your payment process. Please wait a few moments and try again');
     }
 
 

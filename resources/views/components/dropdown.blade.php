@@ -1,5 +1,5 @@
 <div x-data="{
-    dropdown: true,
+    dropdown: false,
     dropdownPosition: 'left-100',
     containerWidth: 0,
     toggleDropdown: function() {

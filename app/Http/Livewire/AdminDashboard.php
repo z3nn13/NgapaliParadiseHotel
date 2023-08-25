@@ -17,7 +17,7 @@ class AdminDashboard extends Component
 
     public $reports;
 
-    protected $listeners = ['deleteReservations' => 'deleteReservations', 'bookingUpdated' => 'render'];
+    protected $listeners = ['deleteReservations' => 'deleteReservations', 'reservationUpdated' => 'render'];
 
     public function render()
     {

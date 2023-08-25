@@ -30,13 +30,25 @@
             x-show="is_open">Log Out</p>
     </button>
 @else
-    <a class="admin-sidebar__item {{ $active ? 'admin-sidebar__item--active' : '' }}"
-        href="{{ route('admin.' . strtolower($name)) }}">
-        {!! $svgIcons[$name] !!}
-        <p class="admin-sidebar__link"
-            x-transition.duration.200ms
-            x-show="is_open">
-            {{ $name }}
-        </p>
-    </a>
+    @if ($name == 'Settings')
+        <a class="admin-sidebar__item {{ $active ? 'admin-sidebar__item--active' : '' }}"
+            href="#">
+            {!! $svgIcons[$name] !!}
+            <p class="admin-sidebar__link"
+                x-transition.duration.200ms
+                x-show="is_open">
+                {{ $name }}
+            </p>
+        </a>
+    @else
+        <a class="admin-sidebar__item {{ $active ? 'admin-sidebar__item--active' : '' }}"
+            href="{{ route('admin.' . strtolower($name)) }}">
+            {!! $svgIcons[$name] !!}
+            <p class="admin-sidebar__link"
+                x-transition.duration.200ms
+                x-show="is_open">
+                {{ $name }}
+            </p>
+        </a>
+    @endif
 @endif
