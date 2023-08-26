@@ -21,7 +21,7 @@ class AdminUserIndex extends Component
 
     public function render()
     {
-        $users = $this->loadPageItems(User::class, 6);
+        $users = $this->loadPageItems(User::class);
 
         return view('livewire.admin-user-index', compact('users'))
             ->layout('layouts.admin', ['active' => "Users"]);
@@ -35,6 +35,6 @@ class AdminUserIndex extends Component
 
     public function exportUsers()
     {
-        return $this->bulkExport(UsersExport::class, 'Users.pdf');
+        return $this->bulkExport(UsersExport::class, 'Users.xlsx');
     }
 }

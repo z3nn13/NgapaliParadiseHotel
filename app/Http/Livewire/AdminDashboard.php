@@ -21,7 +21,7 @@ class AdminDashboard extends Component
 
     public function render()
     {
-        $reservations = $this->loadPageItems(Reservation::class, 6);
+        $reservations = $this->loadPageItems(Reservation::class);
 
         return view('livewire.admin-dashboard', compact('reservations'))
             ->layout('layouts.admin', ['active' => "Dashboard"]);

@@ -25,7 +25,7 @@ class AdminRoomIndex extends Component
 
     public function render()
     {
-        $roomTypes = $this->loadPageItems(RoomType::class, 6);
+        $roomTypes = $this->loadPageItems(RoomType::class);
 
         return view('livewire.admin-room-index', compact('roomTypes'))
             ->layout('layouts.admin', ['active' => 'Rooms']);
