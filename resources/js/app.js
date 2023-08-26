@@ -121,9 +121,9 @@ $(function () {
             text: detail.text,
             icon: detail.type,
             showCancelButton: true,
+            reverseButtons: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#424242",
-            showCancelButton: true,
             confirmButtonText: "Yes, I would like to cancel.",
         }).then(function (result) {
             if (result.isConfirmed) {
@@ -141,8 +141,8 @@ $(function () {
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#424242",
-            showCancelButton: true,
             confirmButtonText: "Yes, delete it!",
+            reverseButtons: true,
         }).then(function (result) {
             if (result.isConfirmed) {
                 Livewire.emit(`delete${event.detail.modelName}s`, detail.ids);

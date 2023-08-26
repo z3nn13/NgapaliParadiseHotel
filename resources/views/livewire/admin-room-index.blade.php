@@ -14,7 +14,8 @@
 
                             {{-- TODO: MAKE THIS APPEAR, SHIT WORKS NOW, JUST NOT APPEARING --}}
                             <div class="dashboard-heading__option table__option--bulk"
-                                x-show="selected.length != 0 || Object.values(selected).some(val => val)">
+                                x-show="Object.values(selected).some(value => value === true);"
+                                x-transition.duration.300>
                                 Bulk
                                 Actions
                             </div>
@@ -23,7 +24,7 @@
                     <div class="table__dropdown-container"
                         x-ref="container">
                         <button class="table__option table__dropdown-option"
-                            onclick='confirmDelete(
+                            wire:click='confirmDelete(
                         "RoomType", @json($this->getSelectedModels()->values()->all())
                         )'>
                             Bulk Delete
@@ -64,7 +65,7 @@
                     <div class="table__options"
                         x-data="{ selected: @entangle('selectedModels') }">
                         <div class="table___option"
-                            x-show="selected.length != 0 || Object.values(selected).some(val => val)">
+                            x-show="Object.values(selected).some(value => value === true);">
                             <p class="table__option">Selected {{ count($this->getSelectedModels()->values()->all()) }} rows</p>
                         </div>
 
@@ -118,17 +119,21 @@
                         <x-room-type-table-row wire:model.defer="selectAll"
                             :roomType=$roomType></x-room-type-table-row>
                     @empty
-                        <td></td>
-                        <td class="table__cell">No Results Found.</td>
+                        <td class="table__cell table__cell--not-found"
+                            colspan="9">No room types found for
+                            "<span class="text-semi-bold">{{ $searchQuery }}</span>".
+                        </td>
                     @endforelse
                 </tbody>
             </table>
         </div>
 
         <!------- Table Pagination ------->
-        <div class="table__pagination">
-            {{ $roomTypes->onEachSide(1)->links('livewire.livewire-pagination-links') }}
-        </div>
+        @if ($roomTypes->total() > $items_per_page)
+            <div class="table__pagination">
+                {{ $roomTypes->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            </div>
+        @endif
     </section>
     <!------- Room Type Table End ------->
 

@@ -10,8 +10,10 @@ trait WithBulkActions
 {
     public Collection $selectedModels;
     public bool $selectAll = false;
-    public string $searchQuery = "";
+    public $searchQuery = "";
     public $paginatedModels;
+    public $items_per_page = 6;
+
 
     public function mount()
     {
@@ -25,12 +27,12 @@ trait WithBulkActions
      * @param int $items_per_page
      * @return mixed
      */
-    public function loadPageItems($modelClass, $items_per_page)
+    public function loadPageItems($modelClass)
     {
         $data = $modelClass::when($this->searchQuery, fn ($query) => $query
             ->searchBy(trim($this->searchQuery)))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($items_per_page);
+            ->paginate($this->items_per_page);
 
         $this->paginatedModels = $data->items();
         return $data;
@@ -44,7 +46,7 @@ trait WithBulkActions
     public function updatedSelectAll()
     {
         $this->selectedModels = $this->selectAll
-            ? collect($this->paginatedModels)->keyBy('id')
+            ? collect($this->paginatedModels)->keyBy('id')->map(fn ($model) => true)
             : new Collection();
     }
 

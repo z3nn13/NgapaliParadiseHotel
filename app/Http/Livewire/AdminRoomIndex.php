@@ -17,6 +17,11 @@ class AdminRoomIndex extends Component
     use WithBulkActions;
 
     protected $listeners = ['deleteRoomTypes' => 'deleteRoomTypes', 'roomUpdated' => 'render'];
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => 'search'],
+        // 'sortField' => ['except' => '', 'as' => 'sortField'],
+        // 'sortDirection' => ['except' => '', 'as' => 'sortBy'],
+    ];
 
     public function render()
     {
