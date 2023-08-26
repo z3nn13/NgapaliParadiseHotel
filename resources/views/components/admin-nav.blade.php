@@ -75,7 +75,7 @@
                             x-cloak
                             x-ref="container">
                             <li class="dropdown__option">
-                                <form action="{{ route('logout') }}"
+                                <form action="{{ route('admin.logout') }}"
                                     method="POST">
                                     @csrf
                                     <button class="dropdown__link"
