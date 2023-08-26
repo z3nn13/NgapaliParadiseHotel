@@ -78,16 +78,29 @@
                         <x-user-table-row wire:model.defer="selectAll"
                             :user=$user></x-user-table-row>
                     @empty
-                        <td class="table__cell">No Results Found.</td>
+                        <tr class="table__row">
+                            <td class="table__cell table__cell--not-found"
+                                colspan="7">
+                                @if ($searchQuery)
+                                    No users found for
+                                    "<span class="text-semi-bold">{{ $searchQuery }}</span>".
+                                @else
+                                    There are no existing user records.
+                                    <p>Please register a <span class="text-semi-bold">user</span> or run the seeder file.</p>
+                                @endif
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
 
         <!------- Table Pagination ------->
-        <div class="table__pagination">
-            {{ $users->onEachSide(1)->links('livewire.livewire-pagination-links') }}
-        </div>
+        @if ($users->total() > $items_per_page)
+            <div class="table__pagination">
+                {{ $users->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            </div>
+        @endif
     </section>
     <!------- User Table End ------->
 </div>

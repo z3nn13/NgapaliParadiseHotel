@@ -18,7 +18,11 @@ class AdminDashboard extends Component
     public $reports;
 
     protected $listeners = ['deleteReservations' => 'deleteReservations', 'reservationUpdated' => 'render'];
-
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => 'search'],
+        // 'sortField' => ['except' => '', 'as' => 'sortField'],
+        // 'sortDirection' => ['except' => '', 'as' => 'sortBy'],
+    ];
     public function render()
     {
         $reservations = $this->loadPageItems(Reservation::class);

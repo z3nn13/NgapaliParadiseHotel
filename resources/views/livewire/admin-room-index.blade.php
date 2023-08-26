@@ -119,10 +119,18 @@
                         <x-room-type-table-row wire:model.defer="selectAll"
                             :roomType=$roomType></x-room-type-table-row>
                     @empty
-                        <td class="table__cell table__cell--not-found"
-                            colspan="9">No room types found for
-                            "<span class="text-semi-bold">{{ $searchQuery }}</span>".
-                        </td>
+                        <tr class="table__row">
+                            <td class="table__cell table__cell--not-found"
+                                colspan="9">
+                                @if ($searchQuery)
+                                    No room types found for
+                                    "<span class="text-semi-bold">{{ $searchQuery }}</span>".
+                                @else
+                                    There are no existing room type records.
+                                    <p>Please add a <span class="text-semi-bold">room type</span> or run the seeder file.</p>
+                                @endif
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

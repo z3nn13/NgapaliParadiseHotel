@@ -69,9 +69,17 @@
                         <x-admin-booking-table-row wire:model.defer="selectAll"
                             :reservation="$reservation"></x-admin-booking-table-row>
                     @empty
-                        <tr>
-                            <td class="table_cell"></td>
-                            <td class="table__cell">No Bookings Found</td>
+                        <tr class="table__row">
+                            <td class="table__cell table__cell--not-found"
+                                colspan="7">
+                                @if ($searchQuery)
+                                    No bookings found for
+                                    "<span class="text-semi-bold">{{ $searchQuery }}</span>".
+                                @else
+                                    There are no existing booking records.
+                                    <p>Please make a <span class="text-semi-bold">reservation</span> or run the seeder file.</p>
+                                @endif
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -80,9 +88,12 @@
         </div>
 
         <!------- Table Pagination ------->
-        <div class="table__pagination">
-            {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
-        </div>
+        @if ($reservations->total() > $items_per_page)
+            <div class="table__pagination">
+                {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            </div>
+        @endif
+
     </section>
 
     <!------- Booking Table End ------->
