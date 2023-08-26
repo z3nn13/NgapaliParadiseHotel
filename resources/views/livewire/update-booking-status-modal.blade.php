@@ -9,7 +9,7 @@
                     id=""
                     name="Status"
                     wire:model='status'>
-                    <option value="completed">Completed</option>
+                    <option value="finished">Finished</option>
                     <option value="cancelling">Cancelling</option>
                     <option value="cancelled">Cancelled</option>
                     <option value="upcoming">Upcoming</option>
