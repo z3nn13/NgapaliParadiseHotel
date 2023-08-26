@@ -48,7 +48,7 @@ class UserDashboardTest extends TestCase
             ->test(UserDashboard::class)
             ->assertOk();
     }
-    public function test_users_can_see_their_booking_history()
+    public function test_users_can_search_through_their_booking_history()
     {
         Livewire::actingAs($this->user)
             ->test(UserDashboard::class)
