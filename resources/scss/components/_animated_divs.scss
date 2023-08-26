@@ -1,17 +1,18 @@
 .animated-div {
     opacity: 0;
     filter: blur(5px);
+    --transition-speed: 0.7s;
 
     &.from-bottom {
-        transform: translateY(100%);
+        transform: translateY(50px);
     }
 
     &.from-right {
-        transform: translateX(100%);
+        transform: translateX(50px);
     }
 
     &.from-left {
-        transform: translateX(-100%);
+        transform: translateX(-50px);
     }
 
     &.animate-in {
@@ -28,7 +29,9 @@
         }
     }
 
-    transition: opacity 1s ease-in, transform 1s ease-in, filter 1s ease-in;
+    transition: opacity var(--transition-speed) ease-in,
+        transform var(--transition-speed) ease-in,
+        filter var(--transition-speed) ease-in;
 
     @media (prefers-reduced-motion) {
         transition: none;
