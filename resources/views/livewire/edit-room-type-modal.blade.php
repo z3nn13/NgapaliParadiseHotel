@@ -4,7 +4,6 @@
             <h2 class="modal__title">Room Type</h2>
             <form class="modal__form"
                 wire:submit.prevent="saveRoomType">
-
                 <div class="modal__form--left">
 
                     <div class="modal__input-group">
@@ -20,27 +19,28 @@
                         @enderror
                     </div>
 
-                    <div class="modal__input-group"
-                        wire:ignore>
-                        <label class="modal__label"
-                            for="room_category_id">Room category:</label>
-                        <select class="modal__select select2"
-                            id="select2">
+                    <div class="modal__input-group">
+                        <div wire:ignore>
+                            <label class="modal__label"
+                                for="room_category_id">Room category:</label>
+                            <select class="modal__select select2"
+                                id="select2">
+                                <option selected></option>
 
-                            @forelse ($roomCategories as $roomCategory)
-                                <option value="{{ $roomCategory->id }}">
-                                    {{ $roomCategory->room_category_name }}
-                                </option>
-                            @empty
-                                <option disabled
-                                    selected>--No room categories found--</option>
-                            @endforelse
-                        </select>
+                                @forelse ($roomCategories as $roomCategory)
+                                    <option value="{{ $roomCategory->id }}">
+                                        {{ $roomCategory->room_category_name }}
+                                    </option>
+                                @empty
+                                    <option disabled
+                                        selected>--No room categories found--</option>
+                                @endforelse
+                            </select>
+                        </div>
                         @error('roomType.room_category_id')
-                            <span class="modal__error">{{ $message }}</span>
+                            <span class="modal__error">Room category is required</span>
                         @enderror
                     </div>
-
 
                     <div class="modal__input-group">
                         <label class="modal__label"
@@ -146,7 +146,7 @@
 
 
         $(".select2").select2({
-            placeholder: "Please select a room category",
+            placeholder: "Please select a category",
             allowClear: false,
             minimumResultsForSearch: 6,
             dropdownCssClass: "category-select__select",
