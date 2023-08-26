@@ -86,7 +86,7 @@ class ReservationController extends Controller
         }
 
         $invoiceData = [
-            'coupon_id' => $coupon->id,
+            'coupon_id' => optional($coupon)->id,
             'total_paid_mmk' => $totalPaidMMK,
             'pay_type_id' => $billingData['paymentMethod'],
             'preferred_currency' => $billingData['preferredCurrency'],
