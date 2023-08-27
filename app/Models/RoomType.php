@@ -90,4 +90,9 @@ class RoomType extends Model
     {
         return $this->belongsTo(RoomCategory::class, 'room_category_id');
     }
+
+    public function getFormattedIdAttribute()
+    {
+        return sprintf('%03d', $this->id);
+    }
 }

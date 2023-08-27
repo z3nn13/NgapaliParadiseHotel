@@ -6,12 +6,12 @@
             <p class="dashboard-heading__subtitle">Welcome back to your dashboard</p>
         </div>
         <div class="dashboard-heading__options">
-            <select class="dashboard-heading__option--select select2"
+            {{-- <select class="dashboard-heading__option--select select2"
                 wire:model="selectedPeriod">
                 <option value="today">Today</option>
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>
-            </select>
+            </select> --}}
             <button class="dashboard-heading__option--export"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"

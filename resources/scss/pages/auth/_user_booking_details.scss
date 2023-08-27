@@ -21,7 +21,8 @@
 
     &__main {
         display: flex;
-        gap: 5rem;
+        gap: 2rem;
+        justify-content: space-between;
     }
 }
 
@@ -31,7 +32,6 @@
     &__container {
         background-color: hsl(var(--clr-neutral-100));
         border-radius: 0.9375rem;
-        max-width: 30rem;
         padding: 2.4rem;
         margin-bottom: 3rem;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -45,22 +45,25 @@
         font-weight: 600;
     }
 
+    &__item {
+        color: hsl(var(--clr-neutral-900) / 0.6);
+
+        display: flex;
+        gap: 5rem;
+        justify-content: space-between;
+
+        margin-top: 1rem;
+        font-weight: 500;
+    }
+
     &__label {
+        flex: 1;
         font-weight: 500;
     }
 
     &__value {
-        text-align: right;
-    }
-
-    &__item {
-        margin-top: 1rem;
-        display: flex;
-        gap: 6rem;
-        justify-content: space-between;
-        font-weight: 500;
-        color: hsl(var(--clr-neutral-900) / 0.6);
-        white-space: nowrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     &__buttons {

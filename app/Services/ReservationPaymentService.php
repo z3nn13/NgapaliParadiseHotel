@@ -42,7 +42,7 @@ class ReservationPaymentService
     {
         $lineItems = [];
         foreach ($roomsBooked as $room) {
-            $roomType = $room['roomType'];
+            $roomType = $room['room']->roomType;
             $roomDeal = $room['roomDeal'];
 
             $price = $this->getRoomPrice($roomDeal, $currency);
@@ -105,7 +105,7 @@ class ReservationPaymentService
     {
         return collect($reservationRooms)
             ->map(fn ($room) => $this->getRoomPrice(
-                $room["roomDeal"],
+                $this->getRoomDeal($room),
                 $preferredCurrency
             ))
             ->sum();
@@ -117,6 +117,28 @@ class ReservationPaymentService
      */
     public function getRoomPrice(RoomDeal $roomDeal, string $preferredCurrency): float
     {
-        return $preferredCurrency === "MMK" ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
+        return $preferredCurrency === "MMK" ? $roomDeal->deal_mmk : $roomDeal->deal_usd;
+    }
+
+    public function getRoomType($room)
+    {
+        if (is_array($room) && isset($room['room'])) {
+            return $room['room']->roomType;
+        } elseif (is_object($room)) {
+            return $room->roomType;
+        }
+
+        return null;
+    }
+
+    public function getRoomDeal($room)
+    {
+        if (is_array($room) && isset($room['roomDeal'])) {
+            return $room['roomDeal'];
+        } elseif (is_object($room)) {
+            return $room->pivot->roomDeal;
+        }
+
+        return null;
     }
 }

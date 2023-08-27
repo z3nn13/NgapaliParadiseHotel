@@ -15,15 +15,19 @@ class ReservationSeeder extends Seeder
      */
     public function run()
     {
-        $userIds = User::pluck('id')->toArray();
+        $users = User::select('id', 'first_name', 'last_name')->get();
         $roomIds = Room::pluck('id')->toArray();
         $roomDealIds = RoomDeal::pluck('id')->toArray();
 
         $numReservations = 20; // Change this to the number of reservations you want to create
 
         for ($i = 1; $i <= $numReservations; $i++) {
+            $user = $users[$i % count($users)];
+
             $reservation = Reservation::factory()->create([
-                'user_id' => $userIds[$i % count($userIds)], // Alternating user_ids
+                'user_id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
             ]);
 
             $roomIndex = array_rand($roomIds);

@@ -8,11 +8,11 @@
     </td>
 
     <td class="table__cell">
-        #{{ sprintf('%03d', $roomType->id) }}
+        #{{ $roomType->formatted_id }}
     </td>
     <td class="table__cell">
         <a data-lightbox="rooms"
-            data-title="Image of Room Type ID #{{ sprintf('%03d', $roomType->id) }}"
+            data-title="Image of Room Type ID #{{ $roomType->formatted_id }}"
             href="{{ asset($roomType->room_image) }}">
             <img class="table__image"
                 src="{{ asset($roomType->room_image) }}" />

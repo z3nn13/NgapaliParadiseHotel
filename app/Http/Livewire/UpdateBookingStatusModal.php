@@ -32,7 +32,7 @@ class UpdateBookingStatusModal extends ModalComponent
         ]);
         $this->dispatchBrowserEvent('swal:notification', [
             'type' => 'success',
-            'text' => 'Booking ID #' . $this->reservation->formattedID() . ' has been updated successfully'
+            'text' => 'Booking ID #' . $this->reservation->formatted_id . ' has been updated successfully'
         ]);
     }
 }

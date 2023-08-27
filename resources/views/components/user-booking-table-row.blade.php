@@ -5,7 +5,7 @@
     $check_in_date = date('jS M Y', strtotime($reservation->check_in_date));
     
     $currency = $reservation->invoice->preferred_currency;
-    $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
+    $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd;
     $paid = $currency . ' ' . $amount;
 @endphp
 
@@ -19,7 +19,7 @@
 
     <!-- Reservation ID -->
     <td class="table__cell">
-        #{{ sprintf('%04d', $reservation->id) }}
+        #{{ $reservation->formatted_id }}
     </td>
 
     <!-- Check-in Date -->

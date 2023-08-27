@@ -11,7 +11,7 @@
                     Luxury At<br>
                     Its Finest<br>
                     & Exquisite</h2>
-                <span class="hero__span">Plan your dream vacation by the beach</span>
+                <span class="hero__span">Plan your dream vacation by the beach.</span>
             </div>
         </div>
         <div class="hero__image-wrapper">
@@ -49,10 +49,10 @@
             alt="image of a pool">
         <div class="pool-section__content">
             <p class="pool-section__paragraph">
-                Unwind upon the allure of our beachside hotel, where<br>
-                pristine beaches beckon and a sparkling pool<br>
-                awaits, offering a blissful oasis for your<br>
-                unforgettable escape.<br>
+                Unwind upon the allure of our beachside hotel, where
+                pristine beaches beckon and a sparkling pool
+                awaits, offering a blissful oasis for your
+                unforgettable escape.
             </p>
             <a class="pool-section__button button button--primary"
                 href="/about">

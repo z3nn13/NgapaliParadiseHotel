@@ -33,7 +33,7 @@ class RoomTypesExport implements FromCollection, WithHeadings, WithMapping
     {
         return
             [
-                '#' . sprintf('%03d', $roomType->id),
+                $roomType->formatted_id,
                 $roomType->room_type_name,
                 $roomType->view,
                 $roomType->occupancy,

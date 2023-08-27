@@ -8,16 +8,29 @@ use App\Services\ReservationPaymentService;
 
 class UserBookingDetails extends Component
 {
-    public $reservation;
+    public Reservation $reservation;
+    public $roomTypes;
+    public $roomDeals;
+
+    public $coupon;
     public $subTotal;
     public $totalAmount;
-    public $coupon;
+    public $currency;
 
+
+    protected $reservationPaymentService;
     protected $listeners = ['cancelBooking' => 'cancelBooking'];
 
-    public function mount(Reservation $reservation, ReservationPaymentService $reservationPaymentService)
+    public function boot()
     {
-        $this->reservation = $reservation;
+        $this->reservationPaymentService = new ReservationPaymentService();
+    }
+    public function mount(Reservation $reservation)
+    {
+
+        $this->reservation = $reservation->load('rooms.pivot.roomDeal', 'invoice.coupon');
+        $this->currency = $reservation->invoice->preferred_currency;
+        $this->calculateSubTotal();
     }
 
     public function confirmCancel()
@@ -43,5 +56,18 @@ class UserBookingDetails extends Component
     {
         return view('livewire.user-booking-details')
             ->layout('layouts.app');
+    }
+
+    public function calculateSubTotal()
+    {
+        $this->subTotal = $this->reservationPaymentService->calculateSubTotal($this->reservation->rooms, $this->currency);
+    }
+    public function getRoomPrice($roomDeal)
+    {
+        return $this->reservationPaymentService->getRoomPrice($roomDeal, $this->currency);
+    }
+    public function getUnitProperty(): string
+    {
+        return $this->currency === "MMK" ? 'Ks.' : '$';
     }
 }

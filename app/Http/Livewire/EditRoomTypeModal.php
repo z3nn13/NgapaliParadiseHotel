@@ -45,7 +45,7 @@ class EditRoomTypeModal extends ModalComponent
         ]);
         $this->dispatchBrowserEvent('swal:notification', [
             'type' => 'success',
-            'text' => 'Room Type ID #' . $this->roomType->formattedID() . ' saved successfully.'
+            'text' => 'Room Type ID #' . $this->roomType->formatted_id . ' saved successfully.'
         ]);
     }
 

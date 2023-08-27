@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 
 class Room extends Model
 {
     use HasFactory;
-
+    use EagerLoadPivotTrait;
 
     public function scopeAvailableRoomTypes($query, $checkInDate, $checkOutDate)
     {
@@ -30,11 +31,7 @@ class Room extends Model
     //  Get Reservations to this Room.
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class, 'reservation_rooms')->withPivot("room_deal_id");
-    }
-
-    public function roomDeals()
-    {
-        return $this->belongsToMany(RoomDeal::class, 'reservation_rooms');
+        return $this->belongsToMany(Reservation::class, 'reservation_rooms')
+            ->withPivot("room_deal_id");
     }
 }

@@ -1,5 +1,5 @@
 <div class="billing-summary__item">
-    <p class="billing-summary__room-extra">{{ session('booking.numNights') }} Nights {{ session('booking.numGuests') }} Guests</p>
+    <p class="billing-summary__room-extra">{{ $numNights }} Nights {{ $numGuests }} Guests</p>
 </div>
 
 <div class="billing-summary__item billing-summary__item--right">

@@ -8,34 +8,34 @@
 
         <div class="billing-grid billing-grid--create">
             <div class="billing-summary">
-                <h2 class="billing-summary__title">Billing Summary</h2>
-
+                <h2 class="booking-card__title">Reservation Details</h2>
                 <ul>
                     @foreach ($reservationRooms as $room)
                         @php
-                            $roomType = $room['roomType'];
+                            $roomType = $room['room']->roomType;
                             $roomDeal = $room['roomDeal'];
-                            $roomPrice = $unit . ' ' . $this->getRoomPrice($roomDeal);
+                            $roomPrice = $this->unit . ' ' . $this->getRoomPrice($roomDeal);
                         @endphp
 
-                        <x-room-summary :roomType="$roomType"
-                            :roomDeal="$roomDeal"
-                            :iteration="$loop->iteration"
-                            :isLastRoom="$loop->last"
-                            :roomPrice="$roomPrice" />
+                        <x-booking-card-room :isLastRoom="$loop->last"
+                            :roomType='$roomType'
+                            :iteration='$loop->iteration'
+                            :price='$roomPrice'
+                            :roomDeal='$roomDeal' />
                     @endforeach
                 </ul>
-                @php
-                    $subTotal = $unit . ' ' . $subTotal;
-                    $totalAmount = $unit . ' ' . $totalAmount;
-                @endphp
-                <x-summary-details :numNights="session('booking.numNights')"
-                    :numGuests="session('booking.numGuests')"
-                    :subTotal="$subTotal"
-                    :couponCode="$couponCode"
-                    :totalAmount="$totalAmount" />
-            </div>
 
+                @php
+                    $subTotal = $this->unit . ' ' . $subTotal;
+                    $totalAmount = $this->unit . ' ' . $totalAmount;
+                @endphp
+
+                <x-booking-card-details :active='true'
+                    :subTotal='$subTotal'
+                    :totalAmount='$subTotal'
+                    :coupon='$coupon'
+                    :couponCode='$couponCode' />
+            </div>
             @livewire('billing-form')
         </div>
     </div>

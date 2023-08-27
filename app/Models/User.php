@@ -106,4 +106,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function getFormattedIdAttribute()
+    {
+        return sprintf('%04d', $this->id);
+    }
 }

@@ -2,29 +2,30 @@
     background: none;
     cursor: pointer;
     margin: 0;
-    padding: 1.3rem 2rem;
+    padding: 1.3rem 1.5rem;
     color: white;
     text-transform: uppercase;
     border-radius: 0.5rem;
 
-    &--special,
-    &--special:hover {
+    &--special {
         border: 2px solid white;
         font-family: var(--ff-secondary);
     }
 
-    &--primary,
-    &--primary:hover {
+    &--primary {
         border: none;
         max-width: max-content;
         max-height: max-content;
         background-color: hsl(var(--clr-cta-400));
         font-family: var(--ff-secondary);
         font-size: var(--fs-300);
+        transition: all 0.5s ease;
+        &:hover {
+            background-color: rgb(16, 129, 95);
+        }
     }
 
-    &--secondary,
-    &--secondary:hover {
+    &--secondary {
         border: 2px solid hsl(var(--clr-primary-400));
         color: hsl(var(--clr-primary-400));
     }

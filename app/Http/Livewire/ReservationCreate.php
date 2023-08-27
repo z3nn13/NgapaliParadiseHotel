@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Coupon;
 use Livewire\Component;
 use App\Models\RoomDeal;
 use App\Services\ReservationPaymentService;
@@ -13,7 +12,6 @@ class ReservationCreate extends Component
     public $coupon;
 
     public $preferredCurrency;
-    public $unit;
     public $subTotal;
     public $totalAmount;
 
@@ -38,7 +36,6 @@ class ReservationCreate extends Component
 
     public function render()
     {
-        $this->unit = $this->preferredCurrency === "MMK" ? "Ks." : "$";
 
         $reservationRooms = session('booking.reservation_rooms');
         $this->calculateSubTotal($reservationRooms);
@@ -53,6 +50,7 @@ class ReservationCreate extends Component
         $this->validateOnly('couponCode');
         $this->retrieveCoupon($this->reservationPaymentService);
     }
+
 
     private function retrieveCoupon(ReservationPaymentService $reservationPaymentService)
     {
@@ -92,6 +90,12 @@ class ReservationCreate extends Component
     {
         $this->preferredCurrency = $preferredCurrency;
     }
+
+    public function getUnitProperty()
+    {
+        return $this->preferredCurrency === "MMK" ? "Ks." : "$";
+    }
+
 
     public function completeStage($billingData)
     {

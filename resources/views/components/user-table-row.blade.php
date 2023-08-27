@@ -12,7 +12,7 @@
 
     <!-- User ID -->
     <td class="table__cell">
-        #{{ sprintf('%04d', $user->id) }}
+        #{{ $user->formatted_id }}
     </td>
     <!-- Full Name -->
     <td class="table__cell table__cell--profile">

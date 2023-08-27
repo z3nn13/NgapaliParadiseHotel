@@ -7,7 +7,7 @@
                     for="checkInDate">Arrival Date</label>
                 <input class="booking__form__input"
                     type="date"
-                    wire:model="checkInDate"
+                    wire:model.lazy="checkInDate"
                     min="{{ now()->toDateString() }}"
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
@@ -21,7 +21,7 @@
                     for="checkOutDate">Departure Date</label>
                 <input class="booking__form__input"
                     type="date"
-                    wire:model="checkOutDate"
+                    wire:model.lazy="checkOutDate"
                     min="{{ $checkInDate ?? now()->toDateString() }}"
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
@@ -36,11 +36,12 @@
                     for="numGuests">Number Of Guests</label>
                 <input class="booking__form__input"
                     type="number"
-                    wire:model="numGuests"
+                    wire:model.lazy="numGuests"
                     min="1"
                     max="10"
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
+
                 @error('numGuests')
                     <span class="auth-input__error">{{ $message }}</span>
                 @enderror

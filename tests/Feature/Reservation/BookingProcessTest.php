@@ -53,9 +53,8 @@ class BookingProcessTest extends TestCase
     {
         return ['booking.reservation_rooms' => [
             [
-                'roomType' => RoomType::find($this->roomType->id),
+                'room' => Room::with('roomType')->find($this->room->id),
                 'roomDeal' => RoomDeal::find($this->roomDeal->id),
-                'roomAssigned' => Room::find($this->room->id),
             ]
         ]];
     }

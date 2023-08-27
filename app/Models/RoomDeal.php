@@ -17,7 +17,7 @@ class RoomDeal extends Model
     ];
 
 
-    public function deal_usd()
+    public function getDealUsdAttribute()
     {
         return $this->deal_mmk / 2000;
     }
@@ -28,8 +28,14 @@ class RoomDeal extends Model
     }
 
 
-    public function reservation()
+    public function reservations()
     {
         return $this->belongsToMany(RoomDeal::class, 'reservation_rooms');
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class, 'reservation_rooms')
+            ->withPivot('reservation_id');
     }
 }

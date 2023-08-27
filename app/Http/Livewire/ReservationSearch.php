@@ -64,7 +64,7 @@ class ReservationSearch extends Component
 
     public function bookRoom(RoomType $roomType, RoomDeal $roomDeal, array $availableRoomIds)
     {
-        $this->reservationService->storeRoomToSession($roomType, $roomDeal, $availableRoomIds);
+        $this->reservationService->storeRoomToSession($roomDeal, $availableRoomIds);
         return redirect()->route('booking.create');
     }
 

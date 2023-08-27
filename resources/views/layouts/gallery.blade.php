@@ -1,5 +1,6 @@
 <x-app-layout>
-    <x-nav type="primary"></x-nav>
+    <x-nav type="primary"
+        active="gallery"></x-nav>
 
     <!-- Hero Section Start-->
     <section class="hero hero--primary set-bg"

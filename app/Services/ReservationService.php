@@ -63,19 +63,15 @@ class ReservationService
     /** 
      * * Stores the data for a new reservation room in the session
      * 
-     * @param RoomType $roomType
      * @param RoomDeal $roomDeal
      * @param array $availableRoomIds
      */
-    public static function storeRoomToSession(
-        RoomType $roomType,
-        RoomDeal $roomDeal,
-        array $availableRoomIds
-    ) {
+    public static function storeRoomToSession(RoomDeal $roomDeal, array $availableRoomIds): void
+    {
+        $room = Room::with('roomType')->find($availableRoomIds[0]);
         $reservation_room = [
             'roomDeal' => $roomDeal,
-            'roomType' => $roomType,
-            'roomAssigned' => Room::find($availableRoomIds[0]),
+            'room' => $room,
         ];
 
         session()->push('booking.reservation_rooms', $reservation_room);

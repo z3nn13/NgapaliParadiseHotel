@@ -18,30 +18,6 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new booking.
      */
-    public function create(Request $request)
-    {
-        if ($request->has("goBack")) {
-            return view('booking.create');
-        }
-
-        $dealChoice = RoomDeal::find($request->roomDealID);
-        $roomTypeChoice = RoomType::find($request->roomTypeID);
-        $roomAssigned = Room::find($request->roomID);
-
-        $reservation_room = [
-            'roomDeal' => $dealChoice,
-            'roomType' => $roomTypeChoice,
-            'roomAssigned' => $roomAssigned,
-        ];
-        session()->push('booking.reservation_rooms', $reservation_room);
-        session()->save();
-        return view('booking.create');
-    }
-
-
-    /**
-     * Show the form for creating a new booking.
-     */
     public function confirm()
     {
         return view('booking.confirm');
@@ -117,7 +93,7 @@ class ReservationController extends Controller
 
                 foreach (session('booking.reservation_rooms') as $room) {
                     $reservation->rooms()->attach(
-                        $room["roomAssigned"]->id,
+                        $room["room"]->id,
                         ["room_deal_id" => $room["roomDeal"]->id]
                     );
                 }

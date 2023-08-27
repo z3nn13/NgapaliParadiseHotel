@@ -1,4 +1,4 @@
 <li class="billing-details__item">
-    <label class="billing-details__label">{{ $label }}</label>
-    <span class="billing-details__value">{{ $value }}</span>
+    <p class="billing-details__label">{{ $label }}</p>
+    <p class="billing-details__value">{{ $value }}</p>
 </li>

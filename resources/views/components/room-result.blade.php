@@ -31,7 +31,7 @@
                     </li>
                 </ul>
                 <a class="room-result__link"
-                    href="/room/1">
+                    href="#">
                     + See More Details
                 </a>
             </div>

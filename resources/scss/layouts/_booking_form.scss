@@ -70,15 +70,30 @@
             color: var(--label-color);
         }
 
-        &__input,
-        &__input:focus {
-            border: 0;
+        &__input {
+            background: none;
             outline: none;
+            border: 0;
             cursor: text;
             border-bottom: var(--input-border-bottom);
             color: var(--input-color);
             font-family: var(--ff-secondary);
-            background: none;
+            padding-bottom: 0.5rem;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0;
+                height: 2px;
+                background-color: hsl(var(--clr-primary-400));
+                transition: width 0.4s ease;
+            }
+            &:focus::after {
+                width: 100%;
+            }
         }
 
         &__button {

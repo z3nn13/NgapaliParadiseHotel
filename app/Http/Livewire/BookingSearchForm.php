@@ -38,6 +38,9 @@ class BookingSearchForm extends Component
 
     public function updated($propertyName)
     {
+        if (Carbon::parse($this->checkInDate)->diffInYears(now()) >= 500) return;
+        if (Carbon::parse($this->checkOutDate)->diffInYears(now()) >= 500) return;
+
         $checkIn = Carbon::parse($this->checkInDate);
         $checkOut = Carbon::parse($this->checkOutDate);
 
@@ -53,9 +56,7 @@ class BookingSearchForm extends Component
 
     public function submit(ReservationService $reservationService)
     {
-        if ($this->checkIfDatesExceedsLimit()) {
-            return;
-        };
+        if ($this->checkIfDatesExceedsLimit()) return;
 
         $this->validate();
         $reservationService->initializeSessionData($this->checkInDate, $this->checkOutDate, $this->numGuests);
@@ -70,9 +71,8 @@ class BookingSearchForm extends Component
         $checkOut = Carbon::parse($this->checkOutDate);
 
         // Checking if it doesn't exceed, this will return early.
-        if ($checkOut->diffInDays($checkIn) < $daysLimit) {
-            return false;
-        }
+        if ($checkOut->diffInDays($checkIn) < $daysLimit) return false;
+
 
         // Checking if it exceeds, this will send modal and return.
         $this->dispatchBrowserEvent('swal:modal', [

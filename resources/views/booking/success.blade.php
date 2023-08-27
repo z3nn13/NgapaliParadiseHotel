@@ -9,11 +9,11 @@
             <ul class="booking-success__list">
                 <li class="booking-success__item">
                     <label class="booking-success__label">Reservation ID:</label>
-                    <span class="booking-success__value"> #{{ sprintf('%04d', $reservation->id) }}</span>
+                    <span class="booking-success__value"> #{{ $reservation->formatted_id }}</span>
                 </li>
                 <li class="booking-success__item">
                     <label class="booking-success__label">Your Assigned Rooms:</label>
-                    <span class="booking-success__value"> {{ join('', $reservation->rooms->pluck('room_number')->toArray()) }}</span>
+                    <span class="booking-success__value"> {{ join(',', $reservation->rooms->pluck('room_number')->toArray()) }}</span>
                 </li>
 
                 <li class="booking-success__item">
@@ -36,7 +36,8 @@
                     <a class="booking-success__link"
                         href="tel:+959511663">(+95) 951-1663</a>
                 </div>
-                <button class="button button--primary">Go to home</button>
+                <a class="button button--primary"
+                    href="{{ route('index') }}">Go to home</a>
             </div>
         </div>
 

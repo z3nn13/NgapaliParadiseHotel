@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-nav></x-nav>
+    <x-nav active="about"></x-nav>
 
     <!-- Hero Section Start -->
     <section class="hero hero--primary set-bg"

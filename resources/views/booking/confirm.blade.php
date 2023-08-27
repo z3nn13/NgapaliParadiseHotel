@@ -22,8 +22,8 @@
                 @foreach ($reservation_rooms as $room)
                     @php
                         $roomDeal = $room['roomDeal'];
-                        $roomType = $room['roomType'];
-                        $roomPrice = $billingData['preferredCurrency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
+                        $roomType = $room['room']->roomType;
+                        $roomPrice = $billingData['preferredCurrency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd;
                         $iteration = $loop->iteration;
                     @endphp
 
