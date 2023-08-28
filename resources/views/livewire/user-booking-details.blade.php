@@ -18,16 +18,22 @@
         <section class="booking-card">
             <div class="booking-card__container">
                 <h2 class="booking-card__title">Reservation Details</h2>
+
                 @foreach ($reservation->rooms as $room)
-                    <x-booking-card-room :isLastRoom="$loop->last"
+                    @php
+                        $roomPrice = $this->unit . ' ' . $this->getRoomPrice($room->pivot->roomDeal);
+                    @endphp
+                    <x-booking-card-room :isLastRoom="$loop->last == 1"
                         :roomType='$room->roomType'
                         :iteration='$loop->iteration'
-                        :price='$this->unit . $this->getRoomPrice($room->pivot->roomDeal)'
+                        :price='$roomPrice'
                         :roomDeal='$room->pivot->roomDeal' />
                 @endforeach
+
                 <x-booking-card-details :active='false'
                     :subTotal='$this->unit . $subTotal'
-                    :coupon='$reservation->invoice->coupon'
+                    :coupon='$coupon'
+                    :couponCode='$couponCode'
                     :totalAmount='$reservation->invoice->formatted_total' />
             </div>
         </section>

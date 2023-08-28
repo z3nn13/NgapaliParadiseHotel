@@ -18,12 +18,15 @@
             <input class="booking-card__coupon-input"
                 value="{{ $active ? '' : ($coupon ? $coupon->coupon_code : '') }}"
                 wire:model.debounce.400ms='couponCode'
-                {{ $active ?: 'disabled' }}
-                @if ($coupon) @if ($couponCode)
+                {{ $active ?: 'disabled' }}>
+            @if ($coupon)
+                @if ($couponCode)
                     <p class="billing-summary__coupon-success">
-                        {{ $this->coupon->discount_percentage }}% discount applied!
-                    </p> @endif
-                @endif @error('couponCode')
+                        {{ $coupon->discount_percentage }}% discount applied!
+                    </p>
+                @endif
+            @endif
+            @error('couponCode')
                 <p class="billing-summary__coupon-error">{{ $message }}</p>
             @enderror
         </div>

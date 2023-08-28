@@ -9,10 +9,9 @@ use App\Services\ReservationPaymentService;
 class UserBookingDetails extends Component
 {
     public Reservation $reservation;
-    public $roomTypes;
-    public $roomDeals;
 
     public $coupon;
+    public $couponCode;
     public $subTotal;
     public $totalAmount;
     public $currency;
@@ -30,6 +29,8 @@ class UserBookingDetails extends Component
 
         $this->reservation = $reservation->load('rooms.pivot.roomDeal', 'invoice.coupon');
         $this->currency = $reservation->invoice->preferred_currency;
+        $this->coupon = $reservation->invoice->coupon;
+        $this->couponCode = $this->coupon ? $this->coupon->coupon_code : '';
         $this->calculateSubTotal();
     }
 
