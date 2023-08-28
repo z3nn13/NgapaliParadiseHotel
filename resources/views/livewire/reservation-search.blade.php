@@ -14,7 +14,7 @@
     <section class="result-section">
         <header class="result-section__header container--search">
             <h2 class="result-section__title">Select Room</h2>
-            <span class="result-section__found-text">Found {{ count($this->availableRoomTypes) }} Rooms</span>
+            <span class="result-section__found-text">Found {{ count($this->availableRoomData) }} Rooms</span>
 
             @livewire('sort-select')
 
@@ -27,9 +27,16 @@
             </div> --}}
         </header>
 
-        @forelse ($this->availableRoomTypes as $roomType)
-            <x-room-result :wire:key="'room-type-'.$roomType->id"
-                :roomType='$roomType'></x-room-result>
+        @forelse ($this->availableRoomData as $roomData)
+            @php
+                $roomType = $roomData['roomType'];
+                $availableRoomIds = $roomData['availableRoomIds'];
+            @endphp
+
+
+            <x-room-result :wire:key="'room-type-' . $roomType->id"
+                :roomType='$roomType'
+                :availableRoomIds='$availableRoomIds' />
         @empty
             <div class="room-result container--search">
                 <p class="table__cell--not-found">There are no rooms available for these dates</p>

@@ -24,7 +24,7 @@ class ReservationSearch extends Component
         'numGuests',
     ];
 
-
+    public $availableRoomData;
 
     public function boot(ReservationService $reservationService)
     {
@@ -39,7 +39,8 @@ class ReservationSearch extends Component
 
         $this->checkValidDates($this->checkInDate, $this->checkOutDate);
         $this->checkValidNumGuests($this->numGuests);
-        $this->setNumNights();
+        $this->reservationService->initializeSessionData($this->checkInDate, $this->checkOutDate, $this->numGuests);
+        $this->setAvailableRoomData($this->checkInDate, $this->checkOutDate);
     }
 
 
@@ -49,20 +50,30 @@ class ReservationSearch extends Component
     }
 
 
+    public function hydrate()
+    {
+
+        $this->availableRoomData = $this->availableRoomData->map(function ($item) {
+            $roomDeals = RoomDeal::make($item['roomType']['room_deals']);
+            $item['roomType'] = RoomType::make($item['roomType']);
+            $item['roomType']->setRelation('room_deals', $roomDeals);
+            return $item;
+        });
+    }
+
     public function sortByPrice($selectedSortOption)
     {
-
-        $this->availableRoomTypes = $this->reservationService->sortRoomTypesByPrice($this->availableRoomTypes, $selectedSortOption);
+        $this->availableRoomData = $this->reservationService->sortRoomTypesByPrice($this->availableRoomData, $selectedSortOption);
     }
 
 
-    public function getAvailableRoomTypesProperty()
+    public function setAvailableRoomData()
     {
-        return $this->reservationService->loadAvailableRoomData($this->checkInDate, $this->checkOutDate);
+        $this->availableRoomData =  $this->reservationService->loadAvailableRoomData($this->checkInDate, $this->checkOutDate);
     }
 
 
-    public function bookRoom(RoomType $roomType, RoomDeal $roomDeal, array $availableRoomIds)
+    public function bookRoom(RoomDeal $roomDeal, array $availableRoomIds)
     {
         $this->reservationService->storeRoomToSession($roomDeal, $availableRoomIds);
         return redirect()->route('booking.create');
@@ -83,11 +94,5 @@ class ReservationSearch extends Component
             return;
         }
         abort(400, 'No. of guests must be between 1 and 10.');
-    }
-
-    private function setNumNights()
-    {
-        $numNights = Carbon::parse($this->checkInDate)->diffInDays(Carbon::parse($this->checkOutDate));
-        session(['booking.numNights' => $numNights]);
     }
 }

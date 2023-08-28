@@ -1,9 +1,9 @@
-@props(['roomType'])
+@props(['roomType', 'availableRoomIds'])
 <div class="room-result container--search">
     <h2 class="room-result__title">"{{ $roomType->room_type_name }}"</h2>
     <div class="room-result__container">
         <p class="room-result__available-rooms">
-            {{ count($roomType->availableRoomIds) }} Rooms Left
+            {{ count($availableRoomIds) }} Rooms Left
         </p>
 
         <div class="room-result__card">
@@ -43,7 +43,7 @@
             @forelse ($roomType->room_deals as $roomDeal)
                 @csrf
                 <x-room-deal :roomType="$roomType"
-                    :availableRoomIds="$roomType->availableRoomIds"
+                    :availableRoomIds="$availableRoomIds"
                     :roomDeal="$roomDeal"></x-room-deal>
             @empty
                 <p>No active deals</p>
