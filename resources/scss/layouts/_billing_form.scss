@@ -36,15 +36,21 @@
         margin-bottom: 1rem;
     }
     &__group-input,
-    &__group-input:focus {
+    &__group-input + .select2-container--default {
         outline: none;
         background-color: hsl(var(--clr-primary-100));
-        border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
+        border: 2px solid hsl(var(--clr-neutral-900) / 0.2);
         border-radius: 10px;
         padding: 1rem 2rem;
+        transition: border 200ms ease;
+
+        &:focus {
+            outline: none;
+            border: 2px solid hsl(var(--clr-neutral-900));
+        }
     }
 
-    &__button--submit {
+    &__ &__button--submit {
         background-color: hsl(var(--clr-sun-400));
         border: none;
         border-radius: 30px;
