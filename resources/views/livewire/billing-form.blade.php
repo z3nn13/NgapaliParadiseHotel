@@ -37,11 +37,12 @@
                 </x-billing-form-group>
             @endforeach
 
-            <div class="billing-form__group">
+            <div class="billing-form__group"
+                wire:ignore>
                 <label class="billing-form__group-label"
                     for="country">Country</label>
-                <select class="billing-form__group-input"
-                    wire:model="country"
+                <select class="billing-form__group-input select2"
+                    id="countrySelect"
                     required>
                     <option value="Myanmar"
                         selected>Myanmar</option>
@@ -49,23 +50,57 @@
                 </select>
             </div>
 
-            <div class="billing-form__group">
+            <div class="billing-form__group"
+                wire:ignore>
                 <label class="billing-form__group-label"
                     for="currency">Preferred Currency</label>
-                <select class="billing-form__group-input"
-                    wire:model="preferredCurrency"
-                    wire:loading.attr="disabled"
+                <select class="billing-form__group-input select2"
+                    id="currencySelect"
                     required>
                     <option value="MMK">MMK</option>
                     <option value="USD">USD</option>
                 </select>
             </div>
-        </div>
 
-
-        <div class="center">
-            <button class="billing-form__button--submit button"
-                type="submit">Continue</button>
-        </div>
+            <div class="center">
+                <button class="billing-form__button--submit button"
+                    type="submit">Continue</button>
+            </div>
     </form>
 </div>
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $(".select2").select2({
+                placeholder: "Please select an option",
+                minimumResultsForSearch: 6,
+            });
+
+            $('#countrySelect, #currencySelect').select2();
+
+            $('#countrySelect').on('change', function() {
+                @this.set('country', $(this).val());
+            });
+
+            // Livewire integration for Preferred Currency select
+            $('#currencySelect').on('change', function() {
+                @this.set('preferredCurrency', $(this).val());
+            });
+
+            // Reflect wire:loading behavior for the Preferred Currency select
+            Livewire.hook('message.processing', (message, component) => {
+                if (message.from == 'preferredCurrency') {
+                    $('#currencySelect').prop('disabled', true);
+                }
+            });
+
+            Livewire.hook('message.processed', (message, component) => {
+                if (message.from == 'preferredCurrency') {
+                    $('#currencySelect').prop('disabled', false);
+                    $('#currencySelect').trigger('change.select2'); // Trigger Select2 update
+                }
+            });
+        });
+    </script>
+@endsection
