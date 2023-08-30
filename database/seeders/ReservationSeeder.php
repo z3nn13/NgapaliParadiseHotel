@@ -34,7 +34,9 @@ class ReservationSeeder extends Seeder
             $roomDealIndex = array_rand($roomDealIds);
 
             $reservation->rooms()->attach([
-                $roomIds[$roomIndex] => ['room_deal_id' => $roomDealIds[$roomDealIndex]],
+                $roomIds[$roomIndex] => [
+                    'room_deal_id' => $roomDealIds[$roomDealIndex],
+                ],
             ]);
         }
     }

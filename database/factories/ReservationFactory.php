@@ -28,6 +28,10 @@ class ReservationFactory extends Factory
         $date2 = Carbon::now()->addMonth();
         $check_in = fake()->dateTimeBetween($date1, $date2);
 
+        $minDate = Carbon::now()->subMonth();
+        $maxDate = Carbon::now()->subDay();
+        $randomDate = fake()->dateTimeBetween($minDate, $maxDate);
+
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
@@ -39,6 +43,8 @@ class ReservationFactory extends Factory
             'check_out_date' => Carbon::parse($check_in)->addDays(2),
             'special_request' => fake()->text(),
             'status' => $status[array_rand($status)],
+            'created_at' => $randomDate,
+            'updated_at' => $randomDate,
         ];
     }
 }

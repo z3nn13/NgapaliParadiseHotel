@@ -10,24 +10,65 @@ use App\Models\Reservation;
 
 class ReportService
 {
+    /**
+     * Generate report information for dashboard
+     *
+     * @param string $selectedPeriod
+     * @return void
+     */
     public function getReportData($selectedPeriod)
     {
-        $startDate = now()->startOfDay();
-        $endDate = now()->endOfDay();
+        [$startDate, $endDate] = $this->getDateRangeForPeriod($selectedPeriod);
 
-        if ($selectedPeriod === 'monthly') {
-            $startDate->startOfMonth();
-            $endDate->endOfMonth();
-        } elseif ($selectedPeriod === 'yearly') {
-            $startDate->startOfYear();
-            $endDate->endOfYear();
+        $reportData = [
+            'totalRevenue' => $this->getTotalRevenue($startDate, $endDate),
+            'totalBookings' => $this->getTotalBookings($startDate, $endDate),
+            'totalRoomsBooked' => $this->getTotalRoomsBooked($startDate, $endDate),
+            'totalUsers' => $this->getTotalUsers($startDate, $endDate),
+        ];
+
+        return $reportData;
+    }
+
+    protected function getDateRangeForPeriod($selectedPeriod)
+    {
+        $periodMappings = [
+            'monthly' => ['startOfMonth', 'endOfMonth'],
+            'yearly' => ['startOfYear', 'endOfYear'],
+            'weekly' => ['startOfWeek', 'endOfWeek'],
+        ];
+
+        if (array_key_exists($selectedPeriod, $periodMappings)) {
+            [$startMethod, $endMethod] = $periodMappings[$selectedPeriod];
+            $startDate = now()->$startMethod();
+            $endDate = now()->$endMethod();
+        } else {
+            $startDate = now()->startOfDay();
+            $endDate = now()->endOfDay();
         }
 
-        return [
-            'totalRevenue' => Invoice::whereBetween('created_at', [$startDate, $endDate])->sum('total_paid_mmk'),
-            'totalBookings' => Reservation::whereBetween('created_at', [$startDate, $endDate])->count(),
-            'totalRoomsBooked' => Room::whereBetween('created_at', [$startDate, $endDate])->count(),
-            'totalUsers' => User::whereBetween('created_at', [$startDate, $endDate])->count(),
-        ];
+        return [$startDate, $endDate];
+    }
+
+    protected function getTotalRevenue($startDate, $endDate)
+    {
+        return Invoice::whereBetween('created_at', [$startDate, $endDate])->sum('total_paid_mmk');
+    }
+
+    protected function getTotalBookings($startDate, $endDate)
+    {
+        return Reservation::whereBetween('created_at', [$startDate, $endDate])->count();
+    }
+
+    protected function getTotalRoomsBooked($startDate, $endDate)
+    {
+        return Room::whereHas('reservations', function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('reservations.created_at', [$startDate, $endDate]);
+        })->count();
+    }
+
+    protected function getTotalUsers($startDate, $endDate)
+    {
+        return User::whereBetween('created_at', [$startDate, $endDate])->count();
     }
 }
