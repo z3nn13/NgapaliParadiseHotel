@@ -65,11 +65,11 @@
         </ul>
         <nav class="footer__nav nav">
             <li class="nav__item"><a class="nav__link"
-                    href="">rooms</a></li>
+                    href="{{ route('rooms.index') }}">rooms</a></li>
             <li class="nav__item"><a class="nav__link"
-                    href="">gallery</a></li>
+                    href="{{ route('gallery.index') }}">gallery</a></li>
             <li class="nav__item"><a class="nav__link"
-                    href="">about</a></li>
+                    href="{{ route('about.index') }}">about</a></li>
         </nav>
         <span class="footer__copyright">© Copyright 2022 all rights reserved</span>
     </div>
