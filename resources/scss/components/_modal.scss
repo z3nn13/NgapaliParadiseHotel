@@ -99,6 +99,7 @@
     &__select + .select2-container .select2-selection--single {
         border-radius: 50rem;
         border: 1.5px solid hsl(var(--clr-neutral-900) / 0.2);
+        min-width: fit-content;
     }
 
     &__textarea {

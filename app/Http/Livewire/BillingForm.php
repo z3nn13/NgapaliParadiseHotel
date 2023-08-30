@@ -51,6 +51,11 @@ class BillingForm extends Component
         $this->emit('updatedPreferredCurrency', $value);
     }
 
+    /**
+     * Submits a form
+     *
+     * @return void
+     */
     public function submitForm()
     {
         $this->validate();
