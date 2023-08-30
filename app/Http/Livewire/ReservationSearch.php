@@ -2,29 +2,33 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\RoomDeal;
 use App\Models\RoomType;
-use Illuminate\Http\Request;
+use Livewire\WithPagination;
+use Illuminate\Support\Collection;
 use App\Services\ReservationService;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ReservationSearch extends Component
 {
-    protected $listeners = ['optionSelected' => 'sortByPrice'];
-    protected $reservationService;
+    use WithPagination;
 
     public $checkInDate;
     public $checkOutDate;
     public $numGuests;
+    public $availableRoomData;
+    public $items_per_page = 4;
 
+
+    protected $listeners = ['optionSelected' => 'sortByPrice'];
+    protected $reservationService;
     protected $queryString = [
         'checkInDate',
         'checkOutDate',
         'numGuests',
     ];
 
-    public $availableRoomData;
 
     public function boot(ReservationService $reservationService)
     {
@@ -40,23 +44,38 @@ class ReservationSearch extends Component
         $this->checkValidDates($this->checkInDate, $this->checkOutDate);
         $this->checkValidNumGuests($this->numGuests);
         $this->reservationService->initializeSessionData($this->checkInDate, $this->checkOutDate, $this->numGuests);
-        $this->setAvailableRoomData($this->checkInDate, $this->checkOutDate);
+        $this->loadAvailableRoomData($this->checkInDate, $this->checkOutDate);
     }
 
 
     public function render()
     {
-        return view('livewire.reservation-search')->layout('layouts.app');
+        $paginatedData = $this->paginate($this->availableRoomData, $this->items_per_page);
+
+        return view('livewire.reservation-search', [
+            'paginatedData' => $paginatedData
+        ])->layout('layouts.app');
+    }
+
+
+    private function paginate(Collection $items, int $perPage = 6): LengthAwarePaginator
+    {
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $itemsForCurrentPage = $items->forPage($currentPage, $perPage);
+        return new LengthAwarePaginator(
+            $itemsForCurrentPage,
+            count($items),
+            $perPage,
+            $currentPage,
+            array('path' => LengthAwarePaginator::resolveCurrentPath())
+        );
     }
 
 
     public function hydrate()
     {
-
         $this->availableRoomData = $this->availableRoomData->map(function ($item) {
-            $roomDeals = RoomDeal::make($item['roomType']['room_deals']);
-            $item['roomType'] = RoomType::make($item['roomType']);
-            $item['roomType']->setRelation('room_deals', $roomDeals);
+            $item['roomType'] = RoomType::with('room_deals')->find($item['roomType']['id']);
             return $item;
         });
     }
@@ -67,10 +86,11 @@ class ReservationSearch extends Component
     }
 
 
-    public function setAvailableRoomData()
+    public function loadAvailableRoomData()
     {
         $this->availableRoomData =  $this->reservationService->loadAvailableRoomData($this->checkInDate, $this->checkOutDate);
     }
+
 
 
     public function bookRoom(RoomDeal $roomDeal, array $availableRoomIds)
@@ -78,7 +98,6 @@ class ReservationSearch extends Component
         $this->reservationService->storeRoomToSession($roomDeal, $availableRoomIds);
         return redirect()->route('booking.create');
     }
-
 
     private function checkValidDates($checkInDate, $checkOutDate)
     {

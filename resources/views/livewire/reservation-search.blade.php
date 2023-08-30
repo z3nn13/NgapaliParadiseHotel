@@ -14,26 +14,17 @@
     <section class="result-section">
         <header class="result-section__header container--search">
             <h2 class="result-section__title">Select Room</h2>
-            <span class="result-section__found-text">Found {{ count($this->availableRoomData) }} Rooms</span>
+
+            <span class="result-section__found-text">Found {{ count($availableRoomData) }} Rooms</span>
 
             @livewire('sort-select')
-
-            {{-- <div class="result-section__box result-section__box--filter">
-                <select class="result-section__select result-section__select--filter" id="filterSelectValue" name="filterSelectValue">
-                    <option value="" disabled selected hidden>Filter By</option>
-                    <option value="1">Bed</option>
-                    <option value="1">View</option>
-                </select>
-            </div> --}}
         </header>
 
-        @forelse ($this->availableRoomData as $roomData)
+        @forelse ($paginatedData as $roomData)
             @php
                 $roomType = $roomData['roomType'];
                 $availableRoomIds = $roomData['availableRoomIds'];
             @endphp
-
-
             <x-room-result :wire:key="'room-type-' . $roomType->id"
                 :roomType='$roomType'
                 :availableRoomIds='$availableRoomIds' />
@@ -42,6 +33,12 @@
                 <p class="table__cell--not-found">There are no rooms available for these dates</p>
             </div>
         @endforelse
-    </section>
 
+        <!------- Table Pagination ------->
+        @if ($paginatedData->total() > $items_per_page)
+            <div class="table__pagination">
+                {{ $paginatedData->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            </div>
+        @endif
+    </section>
 </div>

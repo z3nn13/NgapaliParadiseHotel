@@ -23,7 +23,7 @@ class ReservationService
     }
 
     /**
-     * * Initializes the session for a new reservation
+     * Initializes the session for a new reservation
      * 
      * @param string $checkInDate
      * @param string $checkOutDate
@@ -31,37 +31,61 @@ class ReservationService
      */
     public function initializeSessionData($checkInDate, $checkOutDate, $numGuests): void
     {
-        $numNights = Carbon::parse($checkOutDate)->diffInDays(Carbon::parse($checkInDate));
-        session([
-            'booking' => [
-                'checkInDate' => $checkInDate,
-                'checkOutDate' => $checkOutDate,
-                'numGuests' => $numGuests,
-                'numNights' => $numNights,
-            ],
-        ]);
+        $booking = session('booking', []);
+
+        $updatedKeys = [
+            'checkInDate' => $checkInDate,
+            'checkOutDate' => $checkOutDate,
+            'numGuests' => $numGuests,
+            'numNights' => Carbon::parse($checkOutDate)->diffInDays(Carbon::parse($checkInDate))
+        ];
+
+        $booking = array_merge($booking, $updatedKeys);
+
+        session(['booking' => $booking]);
     }
 
+
     /**
-     * * Loads the available rooms for a given date range
+     * Loads the available rooms for a given date range
      * 
      * @param string $checkInDate
      * @param string $checkOutDate
+     * @return Collection
      */
     public function loadAvailableRoomData($checkInDate, $checkOutDate): Collection
     {
-        $availableRoomTypes = Room::availableRoomTypes($checkInDate, $checkOutDate)
+        return Room::availableRoomTypes($checkInDate, $checkOutDate)
             ->with('roomType.room_deals')
             ->get()
             ->map(function ($room) {
-                $roomType = $room->roomType;
                 $availableRoomIds = $this->roomHelper->parseAvailableRoomIds($room->room_ids);
-                return compact('roomType', 'availableRoomIds');
-            });
+                $reservedRoomIds = $this->getReservedRoomIdsFromSession();
 
-        return $availableRoomTypes;
+                $filteredRoomIds = array_diff($availableRoomIds, $reservedRoomIds);
+
+                return [
+                    'roomType' => $room->roomType,
+                    'availableRoomIds' => $filteredRoomIds,
+                ];
+            })
+            ->filter(function ($roomData) {
+                return !empty($roomData['availableRoomIds']);
+            });
     }
 
+    /**
+     * Get reserved room IDs from session
+     */
+    private function getReservedRoomIdsFromSession(): array
+    {
+        $reservationRooms = session('booking.reservation_rooms', []);
+        $reservedRoomIds = array_map(function ($reservationRoom) {
+            return $reservationRoom['room'] ? $reservationRoom['room']->id : null;
+        }, $reservationRooms);
+
+        return $reservedRoomIds;
+    }
 
     /** 
      * * Stores the data for a new reservation room in the session
@@ -71,16 +95,32 @@ class ReservationService
      */
     public static function storeRoomToSession(RoomDeal $roomDeal, array $availableRoomIds): void
     {
-        $room = Room::with('roomType')->find($availableRoomIds[0]);
-        $reservation_room = [
+        $room = Room::with('roomType')->find(reset($availableRoomIds));
+        $reservationRoom = [
             'roomDeal' => $roomDeal,
             'room' => $room,
         ];
 
-        session()->push('booking.reservation_rooms', $reservation_room);
+        session()->push('booking.reservation_rooms', $reservationRoom);
         session()->save();
     }
 
+    /**
+     * * Removes a room from the reservation rooms in the session.
+     *
+     * @param Room $room
+     */
+    public static function destroyRoomFromSession(Room $room): void
+    {
+        $reservationRooms = session('booking.reservation_rooms', []);
+
+        $updatedReservationRooms = array_filter($reservationRooms, function ($reservationRoom) use ($room) {
+            return $reservationRoom['room']->id !== $room->id;
+        });
+
+        session(['booking.reservation_rooms' => $updatedReservationRooms]);
+        session()->save();
+    }
 
     /**
      * Sort rooms according to the selected price options
@@ -96,27 +136,30 @@ class ReservationService
             'low_to_high' => 'asc',
         ];
 
-        $selectedSortOption = $sortDirections[$selectedSortOption];
+        $selectedSortDirection = $sortDirections[$selectedSortOption];
 
-        $sortedRoomTypeArrays = $roomTypeArrays->map(function ($roomTypeArray) use ($selectedSortOption) {
-            $roomType = $roomTypeArray['roomType'];
-
-            $sortedRoomDeals = $roomType->room_deals
-                ->orderBy('deal_mmk', $selectedSortOption)
-                ->get();
-
-            $roomType->setRelation('room_deals', $sortedRoomDeals);
-            $roomTypeArray['roomType'] = $roomType;
-
-            return $roomTypeArray;
+        $sortedRoomTypeArrays = $roomTypeArrays->map(function ($roomTypeArray) use ($selectedSortDirection) {
+            return $this->sortRoomDeals($roomTypeArray, $selectedSortDirection);
         });
 
-        $sortByMethod = ($selectedSortOption === 'desc') ? 'sortByDesc' : 'sortBy';
-        $priceMethod = ($selectedSortOption === 'desc') ? 'highest_price' : 'lowest_price';
+        $sortByMethod = ($selectedSortDirection === 'desc') ? 'sortByDesc' : 'sortBy';
+        $priceMethod = ($selectedSortDirection === 'desc') ? 'highest_price' : 'lowest_price';
 
         return $sortedRoomTypeArrays->$sortByMethod(function ($roomTypeArray) use ($priceMethod) {
             return $roomTypeArray['roomType']->$priceMethod();
         });
+    }
+
+    private function sortRoomDeals(array $roomTypeArray, string $selectedSortDirection): array
+    {
+        $roomType = $roomTypeArray['roomType'];
+
+        $sortedRoomDeals = $roomType->room_deals->sortBy('deal_mmk', SORT_REGULAR, $selectedSortDirection === 'desc');
+
+        $roomType->room_deals = $sortedRoomDeals;
+        $roomTypeArray['roomType'] = $roomType;
+
+        return $roomTypeArray;
     }
 }
 
