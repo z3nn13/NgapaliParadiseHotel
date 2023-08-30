@@ -67,7 +67,7 @@
 
         &--name {
             max-width: 15ch;
-            white-space: wrap;
+            min-width: 10ch;
         }
 
         &--bright {
