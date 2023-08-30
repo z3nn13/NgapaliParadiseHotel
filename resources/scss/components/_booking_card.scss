@@ -137,7 +137,6 @@
 
     &__room-image {
         border-radius: 8px;
-        min-width: 8rem;
         max-width: 10rem;
     }
 
@@ -172,22 +171,30 @@
     &__room-buttons {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    &__room-icon {
+        max-width: 20px;
+        height: min-content;
     }
 
     &__room-button {
         background: none;
         border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: transform 300ms ease;
+
+        &:hover:not(.booking-card__room-button--trigger-active) {
+            transform: scale(1.5);
+        }
 
         &--trigger {
-            width: 1.4rem;
-            height: 1.4rem;
-            align-self: start;
-            transition: transform 300ms ease;
-            cursor: pointer;
-
-            &:hover:not(.booking-card__room-button--trigger-active) {
-                transform: scale(1.5);
-            }
+            width: 14px;
+            height: min-content;
+            transform-origin: center;
 
             &-active {
                 transform: rotate(180deg);

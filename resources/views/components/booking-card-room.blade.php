@@ -1,3 +1,5 @@
+@props(['isLastRoom', 'roomType', 'roomDeal', 'price', 'iteration', 'room', 'active' => false])
+
 <li class="booking-card__room"
     x-data="{ open: {{ $isLastRoom ? 'true' : 'false' }} }">
 
@@ -31,11 +33,32 @@
             @click="open = !open"
             x-transition
             :class="{ 'booking-card__room-button--trigger-active': open }">
-            <img class="icon__angle-down"
-                src="{{ asset('/images/svg/angle-down.svg') }}">
+            <svg class="booking-card__room-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="256"
+                height="256"
+                viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71L8.46 9.17a1 1 0 0 0-1.41 0a1 1 0 0 0 0 1.42l4.24 4.24a1 1 0 0 0 1.42 0L17 10.59a1 1 0 0 0 0-1.42Z" />
+            </svg>
         </button>
-        <button class="booking-card__room-button
-                        booking-card__room-button--delete">
-        </button>
+        @if ($active)
+            <button class="booking-card__room-button
+                        booking-card__room-button--delete"
+                wire:click='confirmDeleteRoom({{ json_encode($room) }})'>
+                <svg class="booking-card__room-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M6 12h12" />
+                </svg>
+            </button>
+        @endif
     </div>
 </li>

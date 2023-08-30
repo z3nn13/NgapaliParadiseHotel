@@ -10,10 +10,11 @@
             <div class="billing-summary">
                 <h2 class="booking-card__title">Reservation Details</h2>
                 <ul>
-                    @foreach ($reservationRooms as $room)
+                    @foreach ($reservationRooms as $roomData)
                         @php
-                            $roomType = $room['room']->roomType;
-                            $roomDeal = $room['roomDeal'];
+                            $room = $roomData['room'];
+                            $roomDeal = $roomData['roomDeal'];
+                            $roomType = $room->roomType;
                             $roomPrice = $this->unit . ' ' . $this->getRoomPrice($roomDeal);
                         @endphp
 
@@ -21,6 +22,8 @@
                             :roomType='$roomType'
                             :iteration='$loop->iteration'
                             :price='$roomPrice'
+                            :room='$room'
+                            :active='true'
                             :roomDeal='$roomDeal' />
                     @endforeach
                 </ul>
@@ -32,7 +35,7 @@
 
                 <x-booking-card-details :active='true'
                     :subTotal='$subTotal'
-                    :totalAmount='$subTotal'
+                    :totalAmount='$totalAmount'
                     :coupon='$coupon'
                     :couponCode='$couponCode' />
             </div>

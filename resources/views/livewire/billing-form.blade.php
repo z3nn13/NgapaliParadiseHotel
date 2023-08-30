@@ -61,11 +61,11 @@
                     <option value="USD">USD</option>
                 </select>
             </div>
-
-            <div class="center">
-                <button class="billing-form__button--submit button"
-                    type="submit">Continue</button>
-            </div>
+        </div>
+        <div class="center">
+            <button class="billing-form__button--submit button"
+                type="submit">Continue</button>
+        </div>
     </form>
 </div>
 
@@ -73,33 +73,18 @@
     <script>
         $(document).ready(function() {
             $(".select2").select2({
-                placeholder: "Please select an option",
-                minimumResultsForSearch: 6,
+                allowClear: false,
+                minimumResultsForSearch: 20,
+                dropdownCssClass: 'billing-form__select2-dropdown',
             });
 
-            $('#countrySelect, #currencySelect').select2();
 
             $('#countrySelect').on('change', function() {
                 @this.set('country', $(this).val());
             });
 
-            // Livewire integration for Preferred Currency select
             $('#currencySelect').on('change', function() {
                 @this.set('preferredCurrency', $(this).val());
-            });
-
-            // Reflect wire:loading behavior for the Preferred Currency select
-            Livewire.hook('message.processing', (message, component) => {
-                if (message.from == 'preferredCurrency') {
-                    $('#currencySelect').prop('disabled', true);
-                }
-            });
-
-            Livewire.hook('message.processed', (message, component) => {
-                if (message.from == 'preferredCurrency') {
-                    $('#currencySelect').prop('disabled', false);
-                    $('#currencySelect').trigger('change.select2'); // Trigger Select2 update
-                }
             });
         });
     </script>

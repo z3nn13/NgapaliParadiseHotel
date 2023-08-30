@@ -105,15 +105,6 @@ $(function () {
         });
     });
 
-    $(window).on("swal:cancel", function (event) {
-        const detail = event.detail;
-        Swal.fire({
-            title: detail.title,
-            text: detail.text,
-            icon: detail.type,
-        });
-    });
-
     $(window).on("swal:confirm_cancel", function (event) {
         const detail = event.detail;
         Swal.fire({
@@ -146,6 +137,24 @@ $(function () {
         }).then(function (result) {
             if (result.isConfirmed) {
                 Livewire.emit(`delete${event.detail.modelName}s`, detail.ids);
+            }
+        });
+    });
+
+    $(window).on("swal:confirm_delete_room", function (event) {
+        const detail = event.detail;
+        Swal.fire({
+            title: detail.title,
+            text: detail.text,
+            icon: detail.type,
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#424242",
+            confirmButtonText: "Yes, delete it!",
+            reverseButtons: true,
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                Livewire.emit("destroyReservationRoom", detail.room);
             }
         });
     });
