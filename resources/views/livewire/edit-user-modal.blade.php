@@ -6,8 +6,39 @@
             <form class="modal__form"
                 wire:submit.prevent="saveUser">
 
-                <div class="modal__form--left">
+                <!--------  User Profile Image  ---------->
+                <div class="modal__input-group">
+                    <label class="modal__label"
+                        for="user_image">Profile Picture:</label>
 
+                    @php
+                        $userImageExists = $userImage;
+                        $userImageIsUrl = is_string($userImage);
+                        $hasNoErrors = empty($errors->get('userImage'));
+                    @endphp
+
+                    @if ($userImageExists && $hasNoErrors)
+                        @if ($userImageIsUrl)
+                            <img class="modal__image--profile"
+                                src="{{ asset($userImage) }}">
+                        @else
+                            <img class="modal__image--profile"
+                                src="{{ $userImage->temporaryUrl() }}">
+                        @endif
+                    @endif
+                    <input class="modal__file"
+                        id="user_image"
+                        name="user_image"
+                        type="file"
+                        wire:model="userImage">
+                    @error('userImage')
+                        <span class="modal__error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+                <!--------  User Role   ---------->
+                <div class="modal__form--left">
                     @if (auth()->user()->role->name === 'admin')
                         <div class="modal__input-group"
                             wire:ignore>
