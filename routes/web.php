@@ -1,15 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\RoomsIndex;
 use App\Http\Livewire\UserDashboard;
 use App\Http\Livewire\AdminDashboard;
 use App\Http\Livewire\AdminRoomIndex;
 use App\Http\Livewire\AdminUserIndex;
+use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ReservationCreate;
 use App\Http\Livewire\ReservationSearch;
 use App\Http\Livewire\UserBookingDetails;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MailingListController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminReservationController;
 
@@ -56,5 +57,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('reservations', AdminReservationController::class);
 });
 
+Route::post('/subscribe', [MailingListController::class, 'subscribe'])->name('subscribe');
 // Include authentication routes
 require __DIR__ . '/auth.php';

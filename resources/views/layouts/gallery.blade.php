@@ -16,19 +16,5 @@
 
     @livewire('gallery-lightbox')
 
-
-    <section class="newsletter">
-        <h3 class="newsletter__heading">Newsletter</h3>
-        <h2 class="newsletter__title">Subscribe to recieve our latest news and information</h2>
-
-        <form class="newsletter-form"
-            action="">
-            <input class="newsletter-form__input"
-                name="email"
-                type="email"
-                placeholder="Your Email">
-            <button class="newsletter-form__button"
-                type="submit">Submit</button>
-        </form>
-    </section>
+    <x-newsletter></x-newsletter>
 </x-app-layout>
