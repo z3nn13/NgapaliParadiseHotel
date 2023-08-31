@@ -6,24 +6,14 @@
             <p class="dashboard-heading__subtitle">Welcome back to your dashboard</p>
         </div>
         <div class="dashboard-heading__options">
-            <select class="dashboard-heading__option--select select2"
-                wire:model="selectedPeriod">
-                <option value="today">Today</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-            </select>
-            <button class="dashboard-heading__option--export"
-                type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none">
-                    <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
-                        fill="black" />
-                </svg>
-                Export As
-            </button>
+            <div class="dashboard-heading__tab-navigation">
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'today' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'today')">Today</button>
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'monthly' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'monthly')">Monthly</button>
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'yearly' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'yearly')">Yearly</button>
+            </div>
         </div>
     </section>
     <!------- Dashboard Heading End ------->

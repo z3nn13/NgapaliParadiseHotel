@@ -46,6 +46,10 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return User::find($this->userIds);
+        if ($this->userIds) {
+            return User::findOrFail($this->userIds);
+        } else {
+            return User::all();
+        }
     }
 }

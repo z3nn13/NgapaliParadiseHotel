@@ -11,7 +11,7 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
 {
     private $reservationIds;
 
-    public function __construct($reservationIds)
+    public function __construct($reservationIds = null)
     {
         $this->reservationIds = $reservationIds;
     }
@@ -49,6 +49,10 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return Reservation::find($this->reservationIds);
+        if ($this->reservationIds) {
+            return Reservation::findOrFail($this->reservationIds);
+        } else {
+            return Reservation::all();
+        }
     }
 }

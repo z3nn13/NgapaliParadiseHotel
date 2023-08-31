@@ -45,31 +45,44 @@
     }
 
     &__option--bulk {
-        padding: 0.5rem 1rem;
+        background: hsl(var(--clr-neutral-900));
+        color: hsl(var(--clr-neutral-100));
+
+        padding: 0.7rem 1rem;
         cursor: pointer;
-        border-radius: 25px;
-        border: 2px solid black;
+        border-radius: 10px;
+
         position: relative;
         white-space: nowrap;
-        background: none;
+        font-weight: 600;
+        transition: transform 300ms ease, filter 200ms ease;
+
+        &:hover {
+            filter: opacity(0.8);
+            transform: scale(1.05);
+        }
+    }
+
+    &__option--selected {
+        color: hsl(var(--clr-neutral-900) / 0.5);
     }
 
     &__option--add {
         cursor: pointer;
         border: none;
         background: none;
-        border-radius: 25px;
+        border-radius: 10px;
         color: hsl(var(--clr-neutral-100));
-        background-color: hsl(var(--clr-neutral-900));
+        background-color: hsl(var(--clr-cta-400));
 
         gap: 5px;
 
-        padding: 0.5rem 1rem;
+        padding: 0.7rem 1rem;
         font-weight: 600;
-        transition: transform 300ms ease;
+        transition: transform 300ms ease, filter 200ms ease;
 
         &:hover {
-            background-color: hsl(var(--clr-neutral-900) / 0.8);
+            filter: opacity(0.8);
             transform: scale(1.05);
         }
     }

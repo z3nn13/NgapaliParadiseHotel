@@ -116,8 +116,11 @@ trait WithBulkActions
     public function bulkExport(string $exportClass, string $fileName)
     {
         $modelIds = $this->getSelectedModels();
-        if ($modelIds->isNotEmpty()) {
-            return Excel::download(new $exportClass($modelIds), $fileName);
+
+        if ($modelIds->isEmpty()) {
+            return Excel::download(new $exportClass(), $fileName);
         }
+
+        return Excel::download(new $exportClass($modelIds), $fileName);
     }
 }

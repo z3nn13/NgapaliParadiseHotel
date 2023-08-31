@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\WithBulkActions;
-use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Reservation;
 use Livewire\WithPagination;
+use App\Exports\ReservationsExport;
 use App\Http\Livewire\Traits\WithSorting;
+use App\Http\Livewire\Traits\WithBulkActions;
 
 class AdminDashboard extends Component
 {
@@ -20,8 +20,6 @@ class AdminDashboard extends Component
     protected $listeners = ['deleteReservations' => 'deleteReservations', 'reservationUpdated' => 'render'];
     protected $queryString = [
         'searchQuery' => ['except' => '', 'as' => 'search'],
-        // 'sortField' => ['except' => '', 'as' => 'sortField'],
-        // 'sortDirection' => ['except' => '', 'as' => 'sortBy'],
     ];
     public function render()
     {
@@ -39,6 +37,6 @@ class AdminDashboard extends Component
 
     public function exportReservations()
     {
-        return $this->bulkExport(ReservationExport::class, 'Reservations.xlsx');
+        return $this->bulkExport(ReservationsExport::class, 'Reservations.xlsx');
     }
 }

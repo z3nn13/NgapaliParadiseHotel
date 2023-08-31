@@ -47,6 +47,10 @@ class RoomTypesExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return RoomType::find($this->roomTypeIds);
+        if ($this->roomTypeIds) {
+            return RoomType::findOrFail($this->roomTypeIds);
+        } else {
+            return RoomType::all();
+        }
     }
 }

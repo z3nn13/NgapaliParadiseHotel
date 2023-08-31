@@ -1,13 +1,61 @@
 <div>
     @livewire('admin-reports')
+    <section class="dashboard-heading container__admin-dashboard">
 
+        <button class="dashboard-heading__option--export"
+            type="submit"
+            wire:click="exportReservations">
+            Export As
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none">
+                <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
+                    fill="black" />
+            </svg>
+        </button>
+    </section>
     <!------- Booking Table Start ------->
     <section class="table__wrapper container__admin-dashboard">
         <div class="table__container">
             <table class="table">
                 <div class="table__title-bar">
                     <h2 class="table__caption">Bookings</h2>
-                    <div class="table__options">
+                    <div class="table__options"
+                        x-data="{ selected: @entangle('selectedModels') }">
+                        <div class="table___option"
+                            x-show="Object.values(selected).some(value => value === true);">
+                            <p class="table__option">{{ count($this->getSelectedModels()->values()->all()) }} selected</p>
+                        </div>
+
+
+                        <x-dropdown>
+                            <div class="dropdown">
+                                <x-slot name="trigger">
+                                    <div x-data="{ selected: @entangle('selectedModels') }">
+
+                                        <div class="dashboard-heading__option table__option--bulk"
+                                            x-show="Object.values(selected).some(value => value === true);"
+                                            x-transition.duration.300>
+                                            Bulk
+                                            Actions +
+                                        </div>
+                                    </div>
+                                </x-slot>
+                                <div class="table__dropdown-container"
+                                    x-ref="container">
+                                    <button class="table__option table__dropdown-option"
+                                        wire:click='confirmDelete(
+                        "RoomType", @json($this->getSelectedModels()->values()->all())
+                        )'>
+                                        Bulk Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </x-dropdown>
+
                         <div class="table__option table__option--filter">
                             <p>Filters</p>
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +90,7 @@
                             @click="show = !show"
                             wire:model="selectAll">
                     </th>
+
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="id">
