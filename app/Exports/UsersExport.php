@@ -11,7 +11,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
 {
     private $userIds;
 
-    public function __construct($userIds)
+    public function __construct($userIds = null)
     {
         $this->userIds = $userIds;
     }

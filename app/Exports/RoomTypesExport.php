@@ -11,7 +11,7 @@ class RoomTypesExport implements FromCollection, WithHeadings, WithMapping
 {
     private $roomTypeIds;
 
-    public function __construct($roomTypeIds)
+    public function __construct($roomTypeIds = null)
     {
         $this->roomTypeIds = $roomTypeIds;
     }
