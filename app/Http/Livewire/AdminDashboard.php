@@ -35,8 +35,8 @@ class AdminDashboard extends Component
     }
 
 
-    public function exportReservations()
+    public function exportReservations(string $filetype)
     {
-        return $this->bulkExport(ReservationsExport::class, 'Reservations.xlsx');
+        return $this->bulkExport(ReservationsExport::class, 'Reservations', $filetype);
     }
 }

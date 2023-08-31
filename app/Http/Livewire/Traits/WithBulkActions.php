@@ -113,14 +113,15 @@ trait WithBulkActions
      * @param string $fileName
      * @return mixed
      */
-    public function bulkExport(string $exportClass, string $fileName)
+    public function bulkExport(string $exportClass, string $fileName, string $filetype)
     {
         $modelIds = $this->getSelectedModels();
 
-        if ($modelIds->isEmpty()) {
-            return Excel::download(new $exportClass(), $fileName);
-        }
+        $filetypes = ['xlsx', 'pdf', 'csv'];
+        if (!in_array($filetype, $filetypes)) return;
 
-        return Excel::download(new $exportClass($modelIds), $fileName);
+        $fullName = $fileName . '.' . $filetype;
+
+        return Excel::download(new $exportClass($modelIds), $fullName);
     }
 }

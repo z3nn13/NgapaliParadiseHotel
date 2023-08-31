@@ -49,10 +49,9 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        if ($this->reservationIds) {
-            return Reservation::findOrFail($this->reservationIds);
-        } else {
+        if ($this->reservationIds->isEmpty()) {
             return Reservation::all();
         }
+        return Reservation::findOrFail($this->reservationIds);
     }
 }

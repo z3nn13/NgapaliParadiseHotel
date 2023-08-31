@@ -11,7 +11,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
 {
     private $userIds;
 
-    public function __construct($userIds = null)
+    public function __construct($userIds)
     {
         $this->userIds = $userIds;
     }
@@ -46,10 +46,9 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        if ($this->userIds) {
-            return User::findOrFail($this->userIds);
-        } else {
+        if ($this->userIds->isEmpty()) {
             return User::all();
         }
+        return User::findOrFail($this->userIds);
     }
 }

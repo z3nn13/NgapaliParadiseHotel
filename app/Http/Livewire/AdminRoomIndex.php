@@ -36,8 +36,8 @@ class AdminRoomIndex extends Component
         $this->bulkDelete(RoomType::class, $roomTypeIds);
     }
 
-    public function exportRoomTypes()
+    public function exportRoomTypes(string $filetype)
     {
-        return $this->bulkExport(RoomTypesExport::class, 'RoomTypes.xlsx',);
+        return $this->bulkExport(RoomTypesExport::class, 'RoomTypes', $filetype);
     }
 }

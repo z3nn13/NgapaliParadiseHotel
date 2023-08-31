@@ -33,8 +33,8 @@ class AdminUserIndex extends Component
         $this->bulkDelete(User::class, $userIds);
     }
 
-    public function exportUsers()
+    public function exportUsers(string $filetype)
     {
-        return $this->bulkExport(UsersExport::class, 'Users.xlsx');
+        return $this->bulkExport(UsersExport::class, 'Users', $filetype);
     }
 }
