@@ -9,10 +9,10 @@
             <div class="dashboard-heading__tab-navigation">
                 <button class="dashboard-heading__tab {{ $selectedPeriod === 'today' ? 'dashboard-heading__tab--active' : '' }}"
                     wire:click="$set('selectedPeriod', 'today')">Today</button>
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'weekly' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'weekly')">Weekly</button>
                 <button class="dashboard-heading__tab {{ $selectedPeriod === 'monthly' ? 'dashboard-heading__tab--active' : '' }}"
                     wire:click="$set('selectedPeriod', 'monthly')">Monthly</button>
-                <button class="dashboard-heading__tab {{ $selectedPeriod === 'yearly' ? 'dashboard-heading__tab--active' : '' }}"
-                    wire:click="$set('selectedPeriod', 'yearly')">Yearly</button>
             </div>
         </div>
     </section>

@@ -149,7 +149,10 @@
                     </x-sortable-table-heading>
 
                     <th class="table__heading">Paid </th>
-                    <th class="table__heading">Status</th>
+                    <x-sortable-table-heading :sortDirection=$sortDirection
+                        sortField="status">
+                        Status
+                    </x-sortable-table-heading>
                     <th class="table__heading">Actions</th>
                 </thead>
 

@@ -34,7 +34,6 @@ class ReportService
     {
         $periodMappings = [
             'monthly' => ['startOfMonth', 'endOfMonth'],
-            'yearly' => ['startOfYear', 'endOfYear'],
             'weekly' => ['startOfWeek', 'endOfWeek'],
         ];
 
