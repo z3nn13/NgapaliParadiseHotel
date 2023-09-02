@@ -90,6 +90,7 @@ trait WithBulkActions
                 "text" => $message,
             ]
         );
+        $this->reset('selectAll');
     }
 
     public function confirmDelete(string $modelClassName, array $modelIds)

@@ -49,15 +49,14 @@
         font-weight: 600;
         white-space: nowrap;
         cursor: pointer;
-        transition: transform 300ms ease;
+        transition: transform 300ms ease, filter 200ms ease;
         position: relative;
 
         &:active {
-            filter: brightness(1.2);
+            transform: scale(1.05);
         }
-
         &:hover {
-            transform: scale(1.1);
+            filter: opacity(0.75);
         }
     }
 
