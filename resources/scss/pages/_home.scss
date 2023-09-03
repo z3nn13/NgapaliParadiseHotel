@@ -2,20 +2,20 @@
 
 // Wave Section
 .wave-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid hsl(var(--clr-primary-500) / 0.2);
 
     &__left {
         padding: var(--margin-size);
         font-weight: 500;
         font-size: var(--fs-500);
-        border-right: 1px solid hsl(var(--clr-primary-500) / 0.2);
+        text-align: center;
+        border-bottom: 3px solid hsl(var(--clr-primary-500));
     }
 
     &__paragraph {
-        text-align: right;
+        text-align: center;
         padding: var(--margin-size);
+        padding-top: 0;
         font-family: var(--ff-secondary);
     }
     &__text--bold {
@@ -119,5 +119,22 @@
 @include m.mq(medium) {
     .room-section {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .wave-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        &__left {
+            border-right: 1px solid hsl(var(--clr-primary-500) / 0.2);
+            max-width: 100%;
+            text-align: left;
+            padding: var(--margin-size);
+        }
+
+        &__paragraph {
+            text-align: right;
+            padding: var(--margin-size);
+        }
     }
 }

@@ -2,6 +2,10 @@
 
 @include m.mq(small) {
     .container {
+        &--default {
+            max-width: 35rem;
+            margin-inline: auto;
+        }
         &--landing {
             width: calc(100% - (var(--margin-size) * 2));
             margin-inline: auto;
