@@ -1,12 +1,16 @@
+@use "../../abstract/mixins" as m;
+
 .container__admin-dashboard {
-    max-width: calc(100% - 4rem);
+    max-width: calc(100% - var(--margin-size));
     margin-inline: auto;
 }
 
 .dashboard-heading {
     display: flex;
+    flex-direction: column;
+
     justify-content: space-between;
-    align-items: end;
+    gap: 2rem;
     font-family: var(--ff-secondary);
     margin-top: 2rem;
 
@@ -99,9 +103,17 @@
     }
 }
 
+@include m.mq(medium) {
+    .dashboard-heading {
+        flex-direction: row;
+        align-items: end;
+    }
+}
+
 .dashboard-report {
     margin-top: 3rem;
     margin-bottom: 2rem;
+    overflow-x: auto;
 
     &__list {
         display: flex;

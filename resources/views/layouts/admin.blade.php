@@ -40,8 +40,6 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/app.scss'])
     @livewireStyles
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-        rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
         rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css"
