@@ -51,6 +51,10 @@
         display: none;
     }
 
+    &__menu .hamburger {
+        stroke: hsl(var(--clr-neutral-100));
+    }
+
     @include m.mq(small) {
         border: none;
 

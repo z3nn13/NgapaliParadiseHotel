@@ -41,7 +41,9 @@
 
     &__hamburger {
         cursor: pointer;
+        stroke: #62382b;
     }
+
     &__title {
         font-family: var(--ff-secondary);
         font-weight: 600;
