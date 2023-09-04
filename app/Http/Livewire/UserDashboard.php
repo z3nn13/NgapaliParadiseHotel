@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithBulkActions;
 use App\Models\Reservation;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,7 +21,7 @@ class UserDashboard extends Component
         $reservations = $user->reservations()
             ->when($this->searchQuery, fn ($query) => $query
                 ->searchBy(trim($this->searchQuery)))
-            ->orderByDesc('created_at')
+            ->latest()
             ->paginate($this->items_per_page);
 
         return view(

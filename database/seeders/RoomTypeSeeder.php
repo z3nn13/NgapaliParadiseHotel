@@ -7,71 +7,30 @@ use App\Models\RoomType;
 use App\Models\RoomCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RoomTypeSeeder extends Seeder
 {
+    use HasFactory;
 
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $roomTypes = $this->get_room_types();
+        $this->call(RoomCategorySeeder::class);
 
-        RoomCategory::create(['room_category_name' => "Beachfront Sea View"]);
-        RoomCategory::create(['room_category_name' => "Partial Sea View"]);
+        $roomTypesData = $this->getCustomRoomTypes();
+        RoomType::insert($roomTypesData);
 
-        foreach ($roomTypes as $roomType) {
-            $roomType = RoomType::create($roomType);
-            $this->create_room_deals($roomType);
-            $this->create_rooms($roomType);
-        }
+        $roomTypeIds = array_column($roomTypesData, 'id');
+
+        $this->callWith(RoomDealSeeder::class, compact('roomTypeIds'));
+        $this->callWith(RoomSeeder::class, compact('roomTypeIds'));
     }
 
 
-    public function create_room_deals(RoomType $roomType)
-    {
-
-        /* Create Room Deals Data */
-        $deal_usd =  rand(20, 35);
-        $roomType->room_deals()->createMany([
-            [
-                "room_type_id" => $roomType["id"],
-                "deal_name" => "Room Only",
-                "deal_mmk" => $deal_usd * 2000,
-                "is_active" => true,
-            ],
-            [
-                "room_type_id" => $roomType["id"],
-                "deal_name" => "Breakfast + Bed",
-                "deal_mmk" => ($deal_usd + 5) * 2000,
-                "is_active" => true,
-            ],
-            [
-                "room_type_id" => $roomType["id"],
-                "deal_name" => "Extrabed + All Inclusive",
-                "deal_mmk" => ($deal_usd + 15) * 2000,
-                "is_active" => true,
-            ],
-        ]);
-    }
-
-
-    public function create_rooms(RoomType $roomType)
-    {
-        $roomLetter = range('A', 'C');
-
-        foreach ($roomLetter as $letter) {
-            $roomNumber = $roomType["id"] . $letter;
-            $roomType->rooms()->create([
-                "room_type_id" => $roomType["id"],
-                'room_number' => $roomNumber,
-            ]);
-        }
-    }
-
-
-    public function get_room_types(): array
+    public function getCustomRoomTypes(): array
     {
         return [
             [

@@ -14,10 +14,16 @@ class RoomTypeFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            //
+            "room_type_name" => $this->faker->sentence(4),
+            "room_image" => "https://source.unsplash.com/random/350x200",
+            "occupancy" => $this->faker->numberBetween(1, 6),
+            "view" => $this->faker->word,
+            "bedding" => $this->faker->randomElement(['1 Queen Bed', '2 Double Bed', '1 King Bed']),
+            "description" => $this->faker->paragraph,
+            "room_category_id" => $this->faker->numberBetween(1, 3),
         ];
     }
 }
