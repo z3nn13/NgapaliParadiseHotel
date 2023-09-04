@@ -26,7 +26,7 @@ Route::get('/rooms', RoomsIndex::class)->name('rooms.index');
 /*
 * Booking routes with 'booking.session' middleware 
 */
-Route::middleware('booking.session')->prefix('booking')->name('booking.')->group(function () {
+Route::middleware(['booking.session', 'booking.steps'])->prefix('booking')->name('booking.')->group(function () {
     Route::get('/search', ReservationSearch::class)->name('search');
     Route::get('/create', ReservationCreate::class)->name('create');
 

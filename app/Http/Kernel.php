@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'booking.owner' => \App\Http\Middleware\CheckBookingOwnership::class,
         'booking.session' => \App\Http\Middleware\CheckBookingSession::class,
+        'booking.steps' => \App\Http\Middleware\CheckBookingSteps::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
