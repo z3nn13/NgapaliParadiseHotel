@@ -22,7 +22,7 @@
                 <input class="booking__form__input"
                     type="date"
                     wire:model.lazy="checkOutDate"
-                    min="{{ $checkInDate ?? now()->toDateString() }}"
+                    min="{{ $minDate }}"
                     {{ $inputsDisabled ? 'disabled' : '' }}
                     required>
 
