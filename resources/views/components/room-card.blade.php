@@ -25,7 +25,7 @@
             <a class="room-card__cta room-card__cta--primary"
                 href="{{ route('index') }}">Book Now</a>
             <a class="room-card__cta room-card__cta--secondary"
-                href="{{ route('index') }}">Learn More...</a>
+                href="#">Learn More...</a>
         </footer>
     </div>
 </div>

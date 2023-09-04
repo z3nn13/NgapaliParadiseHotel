@@ -4,16 +4,23 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
+use App\Http\Livewire\UserDashboard;
 use LivewireUI\Modal\ModalComponent;
 use App\Http\Livewire\AdminUserIndex;
 
 class EditUserModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public User $user;
+    public $userImage;
 
     public function mount(User $user)
     {
         $this->user = $user;
+        $this->userImage = $user->user_image ?? '';
     }
 
     public function render()
@@ -30,22 +37,30 @@ class EditUserModal extends ModalComponent
     public function saveUser()
     {
         $this->validate();
+
+        $path = $this->userImage->store('images/avatars', 'public');
+        $this->user->user_image = $path;
         $this->user->save();
 
         $this->closeModalWithEvents([
-            AdminUserIndex::getName() => 'userUpdated'
+            AdminUserIndex::getName() => 'userUpdated',
+            UserDashboard::getName() => 'userUpdated',
         ]);
-        $this->emit('dataChanged', 'User', $this->user->id, 'saved');
+        $this->dispatchBrowserEvent('swal:notification', [
+            'type' => 'success',
+            'text' => 'User details were updated successfully.'
+        ]);
     }
-
     protected function rules(): array
     {
+        $userId = $this->user->id;
         return [
             'user.first_name' => ['required', 'string', 'max:255'],
             'user.last_name' => ['required', 'string', 'max:255'],
-            'user.email' => ['required', 'string', 'email', 'max:255'],
+            'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
             'user.phone_no' => ['required', 'string'],
             'user.role_id' => 'required|exists:roles,id',
+            'userImage' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

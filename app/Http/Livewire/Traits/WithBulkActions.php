@@ -10,8 +10,10 @@ trait WithBulkActions
 {
     public Collection $selectedModels;
     public bool $selectAll = false;
-    public string $searchQuery = "";
+    public $searchQuery = "";
     public $paginatedModels;
+    public $items_per_page = 6;
+
 
     public function mount()
     {
@@ -25,12 +27,12 @@ trait WithBulkActions
      * @param int $items_per_page
      * @return mixed
      */
-    public function loadPageItems($modelClass, $items_per_page)
+    public function loadPageItems($modelClass)
     {
         $data = $modelClass::when($this->searchQuery, fn ($query) => $query
             ->searchBy(trim($this->searchQuery)))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($items_per_page);
+            ->paginate($this->items_per_page);
 
         $this->paginatedModels = $data->items();
         return $data;
@@ -43,15 +45,8 @@ trait WithBulkActions
      */
     public function updatedSelectAll()
     {
-        // if ($this->selectAll) {
-        //     $this->selectedModels = collect($this->paginatedModels)->mapWithKeys(function ($model) {
-        //         return [$model['id'] => true];
-        //     });
-        // } else {
-        //     $this->selectedModels = new Collection();
-        // }
         $this->selectedModels = $this->selectAll
-            ? collect($this->paginatedModels)->keyBy('id')
+            ? collect($this->paginatedModels)->keyBy('id')->map(fn ($model) => true)
             : new Collection();
     }
 
@@ -62,8 +57,7 @@ trait WithBulkActions
      */
     public function getSelectedModels()
     {
-        return $this->selectedModels->keys();
-        // return $this->selectedModels->filter(fn ($p) => $p)->keys();
+        return $this->selectedModels->filter(fn ($p) => $p)->keys();
     }
 
     /**
@@ -96,12 +90,13 @@ trait WithBulkActions
                 "text" => $message,
             ]
         );
+        $this->reset('selectAll');
     }
 
     public function confirmDelete(string $modelClassName, array $modelIds)
     {
         $this->dispatchBrowserEvent(
-            "swal:confirm",
+            "swal:confirm_delete",
             [
                 "type" => "warning",
                 "title" => "Are you sure?",
@@ -119,11 +114,15 @@ trait WithBulkActions
      * @param string $fileName
      * @return mixed
      */
-    public function bulkExport(string $exportClass, string $fileName)
+    public function bulkExport(string $exportClass, string $fileName, string $filetype)
     {
         $modelIds = $this->getSelectedModels();
-        if ($modelIds->isNotEmpty()) {
-            return Excel::download(new $exportClass($modelIds), $fileName);
-        }
+
+        $filetypes = ['xlsx', 'pdf', 'csv'];
+        if (!in_array($filetype, $filetypes)) return;
+
+        $fullName = $fileName . '.' . $filetype;
+
+        return Excel::download(new $exportClass($modelIds), $fullName);
     }
 }

@@ -1,13 +1,15 @@
 <div class="billing-form__group">
     <label class="billing-form__group-label"
-        for="{{ $attributes['id'] }}">
+        for="{{ $name }}">
         {{ $slot }}
     </label>
-    <input value="{{ auth()->check() ? auth()->user()->$name : old($name) }}"
-        {{ $attributes->merge([
-            'class' => 'billing-form__group-input',
-            'required' => 'required',
-            'name' => $name,
-            'readonly' => auth()->check(),
-        ]) }}>
+    <input {{ $attributes->merge([
+        'class' => 'billing-form__group-input',
+        'required' => 'required',
+        'name' => $name,
+        'wire:model' => $name,
+    ]) }}>
+    @error($name)
+        <span class="auth-input__error">{{ $message }}</span>
+    @enderror
 </div>

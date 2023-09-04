@@ -1,0 +1,204 @@
+.booking-card {
+    &__container {
+        background-color: hsl(var(--clr-neutral-100));
+        border-radius: 15px;
+
+        padding: 3rem;
+        margin-bottom: 5rem;
+
+        font-family: var(--ff-secondary);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+    &__title {
+        font-weight: 600;
+        font-size: var(--fs-400);
+        margin-bottom: 1rem;
+    }
+    &__list {
+        display: grid;
+        font-weight: 600;
+        color: hsl(var(--clr-neutral-900) / 0.5);
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        gap: 3rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid hsl(var(--clr-neutral-900) / 0.1);
+
+        &--border-top {
+            border: none;
+            border-top: 2px solid hsl(var(--clr-neutral-900) / 0.1);
+        }
+
+        &--no-bottom {
+            border: none;
+        }
+
+        &--right {
+            justify-content: end;
+        }
+
+        &--last {
+            align-items: center;
+        }
+
+        &--flat {
+            padding: 0;
+            padding-bottom: 1rem;
+        }
+    }
+
+    &__text {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: hsl(var(--clr-neutral-900) / 0.5);
+
+        &--expanded {
+            margin-top: 1rem;
+            grid-column: span 2;
+            width: 100%;
+        }
+        &--no-break {
+            white-space: nowrap;
+        }
+
+        &--name {
+            max-width: 15ch;
+            min-width: 10ch;
+        }
+
+        &--bright {
+            color: hsl(var(--clr-neutral-900) / 0.8);
+        }
+
+        &--tinted {
+            color: hsl(var(--clr-sun-400));
+        }
+
+        &--special {
+            color: hsl(var(--clr-cta-400));
+        }
+
+        &--big {
+            font-size: var(--fs-350);
+        }
+        &--large {
+            font-size: var(--fs-500);
+        }
+    }
+
+    &__coupon-container {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    &__coupon-input {
+        border: 2px solid hsl(var(--clr-neutral-900) / 0.5);
+        border-radius: 10px;
+        outline: 0;
+        width: 14ch;
+        padding: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+        transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        color: hsl(var(--clr-neutral-900) / 0.5);
+
+        &:focus {
+            border: 2px solid hsl(var(--clr-neutral-900));
+            color: hsl(var(--clr-neutral-900));
+        }
+    }
+
+    &__link {
+        transition: color 300ms ease;
+        &:hover {
+            color: hsl(var(--clr-primary-400));
+        }
+    }
+}
+
+.booking-card {
+    &__room {
+        display: flex;
+        gap: 0.5rem;
+        border-bottom: 2px solid hsl(var(--clr-neutral-900) / 0.1);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    &__room-body {
+        display: grid;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    &__room-image {
+        border-radius: 8px;
+        max-width: 10rem;
+    }
+
+    &__room-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        gap: 1rem;
+
+        &--closed {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+
+            .booking-card__room-desc {
+                display: flex;
+                gap: 0.5rem;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &__room-price {
+        color: hsl(var(--clr-sun-400));
+        align-self: end;
+        font-weight: 600;
+        font-size: var(--fs-350);
+        white-space: nowrap;
+    }
+
+    &__room-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    &__room-icon {
+        max-width: 20px;
+        height: min-content;
+    }
+
+    &__room-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: transform 300ms ease;
+
+        &:hover:not(.booking-card__room-button--trigger-active) {
+            transform: scale(1.5);
+        }
+
+        &--trigger {
+            width: 14px;
+            height: min-content;
+            transform-origin: center;
+
+            &-active {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

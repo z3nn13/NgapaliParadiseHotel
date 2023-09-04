@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\WithBulkActions;
-use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Reservation;
 use Livewire\WithPagination;
+use App\Exports\ReservationsExport;
 use App\Http\Livewire\Traits\WithSorting;
+use App\Http\Livewire\Traits\WithBulkActions;
 
 class AdminDashboard extends Component
 {
@@ -17,11 +17,13 @@ class AdminDashboard extends Component
 
     public $reports;
 
-    protected $listeners = ['deleteReservations' => 'deleteReservations', 'bookingUpdated' => 'render'];
-
+    protected $listeners = ['deleteReservations' => 'deleteReservations', 'reservationUpdated' => 'render'];
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => 'search'],
+    ];
     public function render()
     {
-        $reservations = $this->loadPageItems(Reservation::class, 6);
+        $reservations = $this->loadPageItems(Reservation::class);
 
         return view('livewire.admin-dashboard', compact('reservations'))
             ->layout('layouts.admin', ['active' => "Dashboard"]);
@@ -33,8 +35,8 @@ class AdminDashboard extends Component
     }
 
 
-    public function exportReservations()
+    public function exportReservations(string $filetype)
     {
-        return $this->bulkExport(ReservationExport::class, 'Reservations.xlsx');
+        return $this->bulkExport(ReservationsExport::class, 'Reservations', $filetype);
     }
 }

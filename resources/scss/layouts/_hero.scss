@@ -1,19 +1,25 @@
+@use "../abstract/mixins" as m;
+
 // Hero Section
 .hero {
-    display: grid;
+    display: flex;
     margin: 0;
     padding: 0;
     position: relative;
+    justify-content: center;
 
     &__content {
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     &--landing {
-        grid-template-columns: 50% 50%;
+        flex-direction: column;
 
         .hero__content {
+            padding-top: calc(var(--margin-size) * 2);
+            padding-bottom: var(--margin-size);
             background-color: hsl(var(--clr-cta-400));
             padding-left: var(--margin-size);
         }
@@ -34,7 +40,7 @@
 
         .hero__span {
             font-size: var(--fs-300);
-            color: hsl(var(--clr-primary-200));
+            color: hsl(var(--clr-primary-100));
             opacity: 0.7;
         }
 
@@ -70,6 +76,18 @@
             text-align: center;
             max-width: 43ch;
             font-size: var(--fs-400);
+        }
+    }
+
+    @include m.mq(medium) {
+        &--landing {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            .hero__content {
+                padding-top: 0;
+                padding-bottom: 0;
+                justify-content: start;
+            }
         }
     }
 }

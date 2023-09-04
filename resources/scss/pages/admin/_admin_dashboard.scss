@@ -10,6 +10,10 @@
     font-family: var(--ff-secondary);
     margin-top: 2rem;
 
+    &--export {
+        justify-content: end;
+    }
+
     &__title {
         font-weight: 700;
         font-size: 3.125rem;
@@ -28,31 +32,76 @@
     }
 
     &__option--export {
-        display: flex;
-        white-space: nowrap;
-        align-items: center;
-        height: min-content;
-        border-radius: 15px;
+        background: hsl(var(--clr-neutral-900));
+        color: hsl(var(--clr-neutral-100));
+
+        border-radius: 10px;
         outline: none;
         border: none;
+
+        display: flex;
+        align-items: center;
+
+        height: min-content;
         padding: 0.5rem 1rem;
-        background: hsl(var(--clr-admin-100));
+
+        font-family: var(--ff-secondary);
         font-weight: 600;
-        transition: transform 300ms ease;
+        white-space: nowrap;
         cursor: pointer;
+        transition: transform 300ms ease, filter 200ms ease;
+        position: relative;
 
         &:active {
-            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+        &:hover {
+            filter: opacity(0.75);
+        }
+    }
+
+    &__tab-navigation {
+        position: relative;
+        display: inline-flex;
+    }
+
+    &__tab {
+        color: hsl(var(--clr-neutral-900) / 0.4);
+        border: none;
+
+        border-bottom: 1px solid hsl(var(--clr-neutral-900) / 0.15);
+        background-color: transparent;
+
+        padding: 0.625rem 1.25rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: border-bottom 150ms ease, color 300ms ease;
+
+        &:hover:not(.dashboard-heading__tab--active) {
+            border-bottom: 3px solid hsl(var(--clr-cta-400) / 0.5);
+            // border-color: hsl(var(--clr-cta-400) / 0.6);
         }
 
-        &:hover {
-            transform: scale(1.1);
+        &--active {
+            border-bottom: 3px solid hsl(var(--clr-cta-400));
+            // border-color: hsl(var(--clr-cta-400));
+            color: hsl(var(--clr-neutral-900));
         }
+    }
+
+    .tab-slider {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background-color: green;
+        transition: transform 0.3s ease;
     }
 }
 
 .dashboard-report {
     margin-top: 3rem;
+    margin-bottom: 2rem;
 
     &__list {
         display: flex;

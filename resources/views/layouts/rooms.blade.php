@@ -1,9 +1,11 @@
 <x-app-layout>
     <!-- Navigation Start -->
-    <x-nav type="primary"></x-nav>
+    <x-nav type="primary"
+        active="rooms"></x-nav>
 
     <!-- Hero Section Start-->
-    <section class="hero hero--primary set-bg" data-set-bg="{{ asset('images/backgrounds/hero__room.png') }}">
+    <section class="hero hero--primary set-bg"
+        data-set-bg="{{ asset('images/backgrounds/hero__room.png') }}">
         <div class="hero__content">
             <h2 class="hero__title">Our Bed & Rooms</h2>
             <h2 class="hero__subtitle">

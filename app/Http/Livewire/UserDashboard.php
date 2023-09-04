@@ -14,20 +14,28 @@ class UserDashboard extends Component
     public $searchQuery = "";
     public $items_per_page = "6";
 
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => "search"],
+        'page' => ['except' => 1],
+    ];
+
+    protected $listeners = ['userUpdated' => 'render'];
+
     public function render()
     {
-        $user = auth()->user();
+        $reservations = $this->getReservations(auth()->user());
 
-        $reservations = $user->reservations()
+        return view('livewire.user-dashboard', compact('reservations'))
+            ->layout('layouts.app');
+    }
+
+
+    private function getReservations($user)
+    {
+        return $user->reservations()
             ->when($this->searchQuery, fn ($query) => $query
                 ->searchBy(trim($this->searchQuery)))
             ->latest()
             ->paginate($this->items_per_page);
-
-        return view(
-            'livewire.user-dashboard',
-            compact('reservations')
-        )
-            ->layout('layouts.app');
     }
 }

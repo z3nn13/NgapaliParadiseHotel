@@ -21,7 +21,7 @@
                 <!------ User Profile Card Starts ------>
                 <div class="user-profile__card">
                     <img class="user-profile__card-image"
-                        src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}">
+                        src="{{ asset(auth()->user()->user_image) }}">
 
                     <div class="user-profile__content">
                         <h3 class="user-profile__username">
@@ -117,10 +117,17 @@
                                 </x-user-booking-table-row>
                             @empty
                                 <tr class="table__row">
-                                    <td class="table__cell table__cell--not-found">No bookings found for
-                                        <span class="text-semi-bold">
-                                            "{{ $searchQuery }}"
-                                        </span>
+
+                                    <td class="table__cell table__cell--not-found"
+                                        colspan="6">
+                                        @if ($searchQuery)
+                                            No bookings found for
+                                            <span class="text-semi-bold">"{{ $searchQuery }}"</span>
+                                        @else
+                                            You have not made any reservations yet.
+                                            <p>Click <a class="text-semi-bold"
+                                                    href="{{ route('index') }}">here</a> to book a room.</p>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforelse
@@ -130,7 +137,7 @@
                 </div>
 
                 <!------- Table Pagination ------->
-                @if ($reservations->items())
+                @if ($reservations->total() > $items_per_page)
                     <div class="table__pagination">
                         {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
                     </div>

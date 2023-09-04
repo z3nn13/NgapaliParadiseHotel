@@ -33,8 +33,8 @@ class EditRoomTypeModal extends ModalComponent
 
     public function saveRoomType()
     {
-        $this->validate();
 
+        $this->validate();
         $path = $this->roomImage->store('images/rooms', 'public');
 
         $this->roomType->room_image = $path;
@@ -43,8 +43,10 @@ class EditRoomTypeModal extends ModalComponent
         $this->closeModalWithEvents([
             AdminRoomIndex::getName() => 'roomUpdated'
         ]);
-        $message = 'Room Type ID #' . sprintf('%04d', $this->roomType->id) . ' saved successfully.';
-        $this->emit('dataChanged', 'Saved', $message);
+        $this->dispatchBrowserEvent('swal:notification', [
+            'type' => 'success',
+            'text' => 'Room Type ID #' . $this->roomType->formatted_id . ' saved successfully.'
+        ]);
     }
 
     protected function rules(): array
@@ -56,7 +58,7 @@ class EditRoomTypeModal extends ModalComponent
             'roomType.view' => 'required|string|max:255',
             'roomType.bedding' => 'required|string|max:255',
             'roomType.description' => 'nullable|string|max:1000',
-            'roomImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'roomImage' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

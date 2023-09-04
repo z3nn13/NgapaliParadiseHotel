@@ -4,16 +4,18 @@
             <h1 class="modal__title">Mark As</h1>
             <form class="modal__form modal__form--status"
                 wire:submit.prevent='saveBookingStatus'>
-                <label for="">Booking Status:</label>
-                <select class="modal__select"
-                    id=""
-                    name="Status"
-                    wire:model='status'>
-                    <option value="completed">Completed</option>
-                    <option value="cancelling">Cancelling</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="upcoming">Upcoming</option>
-                </select>
+                <div wire:ignore>
+                    <label for="">Booking Status:</label>
+                    <select class="modal__select select2"
+                        id="statusSelect"
+                        name="Status">
+                        @foreach (['finished', 'cancelling', 'cancelled', 'upcoming'] as $option)
+                            <option value="{{ $option }}"
+                                @if (strtolower($status) === $option) selected @endif>{{ ucfirst($option) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="modal__cta-container">
                     <button class="modal__cta-btn modal__cta-btn--save"
                         type="submit">Save</button>
@@ -24,4 +26,19 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $('#statusSelect').on('change', function(e) {
+                var data = $('#statusSelect').select2("val");
+                @this.set('status', data);
+            });
+
+            $("#statusSelect").select2({
+                placeholder: "Select a booking status",
+                allowClear: false,
+                minimumResultsForSearch: 6,
+                dropdownCssClass: "category-select__select",
+            });
+        });
+    </script>
 </div>

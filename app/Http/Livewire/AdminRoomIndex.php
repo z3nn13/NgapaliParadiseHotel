@@ -17,10 +17,15 @@ class AdminRoomIndex extends Component
     use WithBulkActions;
 
     protected $listeners = ['deleteRoomTypes' => 'deleteRoomTypes', 'roomUpdated' => 'render'];
+    protected $queryString = [
+        'searchQuery' => ['except' => '', 'as' => 'search'],
+        // 'sortField' => ['except' => '', 'as' => 'sortField'],
+        // 'sortDirection' => ['except' => '', 'as' => 'sortBy'],
+    ];
 
     public function render()
     {
-        $roomTypes = $this->loadPageItems(RoomType::class, 6);
+        $roomTypes = $this->loadPageItems(RoomType::class);
 
         return view('livewire.admin-room-index', compact('roomTypes'))
             ->layout('layouts.admin', ['active' => 'Rooms']);
@@ -31,8 +36,8 @@ class AdminRoomIndex extends Component
         $this->bulkDelete(RoomType::class, $roomTypeIds);
     }
 
-    public function exportRoomTypes()
+    public function exportRoomTypes(string $filetype)
     {
-        return $this->bulkExport(RoomTypesExport::class, 'RoomTypes.xlsx',);
+        return $this->bulkExport(RoomTypesExport::class, 'RoomTypes', $filetype);
     }
 }

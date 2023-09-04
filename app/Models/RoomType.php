@@ -16,7 +16,6 @@ class RoomType extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'room_type_name',
         'room_category_id',
         'room_image',
@@ -87,8 +86,13 @@ class RoomType extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function category()
+    public function roomCategory()
     {
         return $this->belongsTo(RoomCategory::class, 'room_category_id');
+    }
+
+    public function getFormattedIdAttribute()
+    {
+        return sprintf('%03d', $this->id);
     }
 }

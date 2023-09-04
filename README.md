@@ -1,3 +1,7 @@
+# Work In Progress
+
+# Ask about stripe keys
+
 # Testing Guide
 
 Seeded auth email: "text@example.com"
@@ -15,9 +19,22 @@ Seed auth password: "password"
 -   trimmed search query
 -   id search query
 -   all field search query
--   validation of form fields
+-   validation of modal form fields
 -   logged in booking process (when admin table)
 -   max coupon (set max uses to one)
+-   booking not found text
+
+Payment succeeds
+
+4242 4242 4242 4242
+
+Payment requires authentication
+
+4000 0025 0000 3155
+
+Payment is declined
+
+4000 0000 0000 9995
 
 -   <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 

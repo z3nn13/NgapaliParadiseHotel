@@ -6,7 +6,7 @@
     font-family: var(--ff-secondary);
 
     &__item {
-        margin-top: calc(var(--margin-size));
+        margin-bottom: calc(var(--margin-size));
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
@@ -16,6 +16,7 @@
             display: block;
             text-align: center;
             margin-inline: auto;
+            margin-top: calc(var(--margin-size));
             max-width: 72ch;
         }
     }
@@ -74,6 +75,7 @@
 
         display: flex;
         justify-content: space-evenly;
+
         gap: 7rem;
     }
 

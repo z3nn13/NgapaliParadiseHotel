@@ -19,7 +19,7 @@
     &--create {
         display: grid;
         grid-template-columns: auto 1fr;
-        width: fit-content;
+        width: min-content;
         transform: scale(0.9);
         margin-inline: auto;
         margin-bottom: 3rem;
@@ -33,10 +33,7 @@
     margin-right: 3rem;
     font-weight: 500;
     padding: 1.5rem;
-
-    & > * {
-        margin-bottom: 21px;
-    }
+    height: fit-content;
 
     &__title {
         font-weight: 600;
@@ -103,6 +100,7 @@
     &__item {
         display: flex;
         justify-content: space-between;
+        gap: 2rem;
         white-space: nowrap;
 
         &--right {
@@ -127,8 +125,8 @@
     &__coupon-input,
     &__coupon-input:focus {
         border: 1px solid hsl(var(--clr-neutral-900) / 0.2);
-        width: 15ch;
-        padding: 1rem 2rem;
+        width: 14ch;
+        padding: 1rem;
         border-radius: 10px;
         text-align: center;
         text-transform: uppercase;

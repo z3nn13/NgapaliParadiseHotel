@@ -6,24 +6,14 @@
             <p class="dashboard-heading__subtitle">Welcome back to your dashboard</p>
         </div>
         <div class="dashboard-heading__options">
-            <select class="dashboard-heading__option--select select2"
-                wire:model="selectedPeriod">
-                <option value="today">Today</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-            </select>
-            <button class="dashboard-heading__option--export"
-                type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none">
-                    <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
-                        fill="black" />
-                </svg>
-                Export As
-            </button>
+            <div class="dashboard-heading__tab-navigation">
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'today' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'today')">Today</button>
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'weekly' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'weekly')">Weekly</button>
+                <button class="dashboard-heading__tab {{ $selectedPeriod === 'monthly' ? 'dashboard-heading__tab--active' : '' }}"
+                    wire:click="$set('selectedPeriod', 'monthly')">Monthly</button>
+            </div>
         </div>
     </section>
     <!------- Dashboard Heading End ------->
@@ -32,19 +22,19 @@
         <ul class="dashboard-report__list">
             <div class="dashboard-report__item">
                 <h2 class="dashboard-report__title">${{ $reportData['totalRevenue'] / 2000 }}.00</h2>
-                <p class="dashboard-report__subtitle">Total Revenue {{ ucfirst($selectedPeriod) }}</p>
+                <p class="dashboard-report__subtitle">Total Revenue</p>
             </div>
             <div class="dashboard-report__item">
                 <h2 class="dashboard-report__title">{{ $reportData['totalBookings'] }}</h2>
-                <p class="dashboard-report__subtitle">Total Bookings {{ ucfirst($selectedPeriod) }}</p>
+                <p class="dashboard-report__subtitle">New Bookings</p>
             </div>
             <div class="dashboard-report__item">
                 <h2 class="dashboard-report__title">{{ $reportData['totalUsers'] }}</h2>
-                <p class="dashboard-report__subtitle">New Members {{ ucfirst($selectedPeriod) }}</p>
+                <p class="dashboard-report__subtitle">New Members</p>
             </div>
             <div class="dashboard-report__item">
                 <h2 class="dashboard-report__title">{{ $reportData['totalRoomsBooked'] }}</h2>
-                <p class="dashboard-report__subtitle">Rooms Booked {{ ucfirst($selectedPeriod) }}</p>
+                <p class="dashboard-report__subtitle">Rooms Booked</p>
             </div>
         </ul>
     </section>

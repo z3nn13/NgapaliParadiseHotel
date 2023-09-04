@@ -1,4 +1,4 @@
-@props(['type' => 'primary'])
+@props(['type' => 'primary', 'active' => ''])
 <nav {{ $attributes->merge(['class' => 'nav nav--' . $type]) }}>
     <ul class="nav__list">
         <a class="nav__link--home"
@@ -6,20 +6,25 @@
             src="/images/logos/trial.png"
             alt="logo"
             width="90"></a>
-        <li class="nav__item"><a class="nav__link"
-                href="{{ route('rooms.index') }}">rooms</a></li>
-        <li class="nav__item"><a class="nav__link"
-                href="{{ route('gallery.index') }}">gallery</a></li>
-        <li class="nav__item"><a class="nav__link"
-                href="{{ route('about.index') }}">about</a></li>
+        <li class="nav__item">
+            <a class="nav__link {{ $active === 'rooms' ? 'nav__link--active' : '' }}"
+                href="{{ route('rooms.index') }}">rooms</a>
+        </li>
+        <li class="nav__item">
+            <a class="nav__link {{ $active === 'gallery' ? 'nav__link--active' : '' }}"
+                href="{{ route('gallery.index') }}">gallery</a>
+        </li>
+        <li class="nav__item">
+            <a class="nav__link {{ $active === 'about' ? 'nav__link--active' : '' }}""
+                href="{{ route('about.index') }}">about</a>
+        </li>
     </ul>
 
     @auth
-        <div class="admin-nav__item nav__item--auth"
+        <div class="nav__item nav__item--auth"
             x-data="{ nav_dropdown: false }">
             <img class="admin-nav__profile-pic profile__picture"
-                src="{{ asset(auth()->user()->user_image) ?? asset('images/misc/no-image.png') }}"
-                width="100">
+                src="{{ asset(auth()->user()->user_image) }}">
             <p class="admin-nav__username">
                 {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
             </p>

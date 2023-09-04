@@ -15,15 +15,27 @@
 
                 <ul class="perks__list">
                     <li class="perks__item">
+                        <img class="perks__icon--check"
+                            src="{{ asset('images/svgs/carbon-checkmark-outline.png') }}"
+                            alt="checkmark icon">
                         <p class="perks__text">Exclusive 30% Coupon Code</p>
                     </li>
                     <li class="perks__item">
+                        <img class="perks__icon--check"
+                            src="{{ asset('images/svgs/carbon-checkmark-outline.png') }}"
+                            alt="checkmark icon">
                         <p class="perks__text">Highest Priority Support</p>
                     </li>
                     <li class="perks__item">
+                        <img class="perks__icon--check"
+                            src="{{ asset('images/svgs/carbon-checkmark-outline.png') }}"
+                            alt="checkmark icon">
                         <p class="perks__text">100% Free (Limited Time)</p>
                     </li>
                     <li class="perks__item">
+                        <img class="perks__icon--check"
+                            src="{{ asset('images/svgs/carbon-checkmark-outline.png') }}"
+                            alt="checkmark icon">
                         <p class="perks__text">Unlock Member Unique Features</p>
                     </li>
                 </ul>
@@ -38,10 +50,13 @@
                 @csrf
                 <h2 class="register-form__title">Become a member</h2>
                 <div class="register-form__input-group">
-                    <x-auth-input-field name="first_name"
-                        type="text">First Name</x-auth-input-field>
-                    <x-auth-input-field name="last_name"
-                        type="text">Last Name</x-auth-input-field>
+                    <div class="register-form__input-group--flex">
+                        <x-auth-input-field name="first_name"
+                            type="text">First Name</x-auth-input-field>
+                        <x-auth-input-field name="last_name"
+                            type="text">Last Name</x-auth-input-field>
+                    </div>
+
                     <x-auth-input-field name="email"
                         type="mail">Email Address</x-auth-input-field>
                     <x-auth-input-field name="password"
@@ -63,8 +78,13 @@
                     type="submit">
                     Join Now
                 </button>
-                <p class="register-form__footer">Already a member? <a class="register-form__link"
-                        href="/login">Sign In</a></p>
+                <div class="register-form__footer center">
+                    <p>Already a member?
+                    </p>
+                    <a class="register-form__link"
+                        href="/login">Sign In
+                    </a>
+                </div>
             </form>
         </div>
     </div>

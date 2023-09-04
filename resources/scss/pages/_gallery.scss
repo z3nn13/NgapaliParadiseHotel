@@ -25,13 +25,13 @@
 
     .gallery {
         &__card {
+            --transition-speed: 300ms;
             height: 250px;
-
             position: relative;
             border-radius: 15px;
             overflow: hidden;
             background-color: black;
-            transition: transform 300ms ease;
+            transition: transform var(--transition-speed) ease;
 
             &-image {
                 /* Styling Stuff */
@@ -40,7 +40,7 @@
                 object-fit: cover;
 
                 opacity: 1;
-                transition: opacity 300ms ease-in-out;
+                transition: opacity var(--transition-speed) ease-in-out;
             }
 
             &:hover,

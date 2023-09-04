@@ -30,7 +30,9 @@ class UpdateBookingStatusModal extends ModalComponent
         $this->closeModalWithEvents([
             AdminDashboard::getName() => 'reservationUpdated'
         ]);
-        $message = 'Booking ID #' . sprintf('%04d', $this->reservation->id) . 'has been saved successfully';
-        $this->emit('dataChanged', 'Save Successful!', $message);
+        $this->dispatchBrowserEvent('swal:notification', [
+            'type' => 'success',
+            'text' => 'Booking ID #' . $this->reservation->formatted_id . ' has been updated successfully'
+        ]);
     }
 }

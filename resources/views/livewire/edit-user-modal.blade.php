@@ -6,25 +6,56 @@
             <form class="modal__form"
                 wire:submit.prevent="saveUser">
 
-                <div class="modal__form--left">
+                <!--------  User Profile Image  ---------->
+                <div class="modal__input-group">
+                    <label class="modal__label"
+                        for="user_image">Profile Picture:</label>
 
-                    <div class="modal__input-group">
-                        <label class="modal__label"
-                            for="role_id">Role:</label>
-                        <select class="modal__select"
-                            id="role_id"
-                            name="role_id"
-                            wire:model="user.role_id">
-                            <!-- Populate the options with available roles -->
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}"
-                                    selected>{{ $role->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('user.role_id')
-                            <span class="modal__error">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    @php
+                        $userImageExists = $userImage;
+                        $userImageIsUrl = is_string($userImage);
+                        $hasNoErrors = empty($errors->get('userImage'));
+                    @endphp
+
+                    @if ($userImageExists && $hasNoErrors)
+                        @if ($userImageIsUrl)
+                            <img class="modal__image--profile"
+                                src="{{ asset($userImage) }}">
+                        @else
+                            <img class="modal__image--profile"
+                                src="{{ $userImage->temporaryUrl() }}">
+                        @endif
+                    @endif
+                    <input class="modal__file"
+                        id="user_image"
+                        name="user_image"
+                        type="file"
+                        wire:model="userImage">
+                    @error('userImage')
+                        <span class="modal__error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+                <!--------  User Role   ---------->
+                <div class="modal__form--left">
+                    @if (auth()->user()->role->name === 'admin')
+                        <div class="modal__input-group"
+                            wire:ignore>
+                            <label class="modal__label">Role:</label>
+                            <select class="modal__select select2"
+                                id="roleSelect">
+                                <!-- Populate the options with available roles -->
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                        @if ($user->role->id === $role->id) selected @endif>{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('user.role_id')
+                                <span class="modal__error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="modal__input-group">
                         <label class="modal__label"
@@ -93,4 +124,20 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $('#roleSelect').on('change', function(e) {
+                var data = $('#roleSelect').select2("val");
+                @this.set('user.role_id', data);
+            });
+
+            $("#roleSelect").select2({
+                placeholder: "Select a role",
+                allowClear: false,
+                minimumResultsForSearch: 6,
+                dropdownCssClass: "category-select__select",
+            });
+        });
+    </script>
+
 </div>

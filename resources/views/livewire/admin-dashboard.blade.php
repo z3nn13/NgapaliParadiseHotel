@@ -1,13 +1,116 @@
 <div>
     @livewire('admin-reports')
-
+    <section class="dashboard-heading dashboard-heading--export container__admin-dashboard">
+        <x-dropdown>
+            <x-slot name='trigger'>
+                <button class="dashboard-heading__option--export"
+                    type="submit">
+                    Export As
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none">
+                        <path d="M5 20H19V18H5M19 9H15V3H9V9H5L12 16L19 9Z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+            </x-slot>
+            <div class="export__dropdown-container"
+                x-ref="container">
+                <button class="export__dropdown-option"
+                    wire:click="exportReservations('xlsx')">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16">
+                        <path fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM7.86 14.841a1.13 1.13 0 0 0 .401.823c.13.108.29.192.479.252c.19.061.411.091.665.091c.338 0 .624-.053.858-.158c.237-.105.416-.252.54-.44a1.17 1.17 0 0 0 .187-.656c0-.224-.045-.41-.135-.56a1.002 1.002 0 0 0-.375-.357a2.028 2.028 0 0 0-.565-.21l-.621-.144a.97.97 0 0 1-.405-.176a.37.37 0 0 1-.143-.299c0-.156.061-.284.184-.384c.125-.101.296-.152.513-.152c.143 0 .266.023.37.068a.624.624 0 0 1 .245.181a.56.56 0 0 1 .12.258h.75a1.093 1.093 0 0 0-.199-.566a1.21 1.21 0 0 0-.5-.41a1.813 1.813 0 0 0-.78-.152c-.293 0-.552.05-.777.15c-.224.099-.4.24-.527.421c-.127.182-.19.395-.19.639c0 .201.04.376.123.524c.082.149.199.27.351.367c.153.095.332.167.54.213l.618.144c.207.049.36.113.462.193a.387.387 0 0 1 .153.326a.512.512 0 0 1-.085.29a.558.558 0 0 1-.255.193c-.111.047-.25.07-.413.07c-.117 0-.224-.013-.32-.04a.837.837 0 0 1-.249-.115a.578.578 0 0 1-.255-.384h-.764Zm-3.726-2.909h.893l-1.274 2.007l1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415H1.5l1.24-2.016l-1.228-1.983h.931l.832 1.438h.036l.823-1.438Zm1.923 3.325h1.697v.674H5.266v-3.999h.791v3.325Zm7.636-3.325h.893l-1.274 2.007l1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415h-.861l1.24-2.016l-1.228-1.983h.931l.832 1.438h.036l.823-1.438Z" />
+                    </svg>
+                    XLSX
+                </button>
+                <button class="export__dropdown-option"
+                    wire:click="exportReservations('pdf')">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 256 256">
+                        <path fill="currentColor"
+                            d="M48 120h160a8 8 0 0 0 8-8V88a8 8 0 0 0-2.34-5.66l-56-56A8 8 0 0 0 152 24H56a16 16 0 0 0-16 16v72a8 8 0 0 0 8 8Zm104-76l44 44h-44Zm72 108a8 8 0 0 1-8 8h-24v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0v-56a8 8 0 0 1 8-8h32a8 8 0 0 1 8 8Zm-160-8H48a8 8 0 0 0-8 8v56a8 8 0 0 0 16 0v-8h8a28 28 0 0 0 0-56Zm0 40h-8v-24h8a12 12 0 0 1 0 24Zm64-40h-16a8 8 0 0 0-8 8v56a8 8 0 0 0 8 8h16a36 36 0 0 0 0-72Zm0 56h-8v-40h8a20 20 0 0 1 0 40Z" />
+                    </svg>
+                    PDF
+                </button>
+                <button class="export__dropdown-option"
+                    wire:click="exportReservations('csv')">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 256 256">
+                        <g fill="currentColor">
+                            <path d="M208 88h-56V32Z"
+                                opacity=".2" />
+                            <path
+                                d="M48 180c0 11 7.18 20 16 20a14.24 14.24 0 0 0 10.22-4.66a8 8 0 0 1 11.56 11.06A30.06 30.06 0 0 1 64 216c-17.65 0-32-16.15-32-36s14.35-36 32-36a30.06 30.06 0 0 1 21.78 9.6a8 8 0 0 1-11.56 11.06A14.24 14.24 0 0 0 64 160c-8.82 0-16 9-16 20Zm79.6-8.69c-4-1.16-8.14-2.35-10.45-3.84c-1.25-.81-1.23-1-1.12-1.9a4.57 4.57 0 0 1 2-3.67c4.6-3.12 15.34-1.73 19.83-.56a8 8 0 0 0 4.14-15.48c-2.12-.55-21-5.22-32.84 2.76a20.58 20.58 0 0 0-9 14.95c-2 15.88 13.65 20.41 23 23.11c12.06 3.49 13.12 4.92 12.78 7.59c-.31 2.41-1.26 3.34-2.14 3.93c-4.6 3.06-15.17 1.56-19.55.36a8 8 0 0 0-4.31 15.44a61.34 61.34 0 0 0 15.19 2c5.82 0 12.3-1 17.49-4.46a20.82 20.82 0 0 0 9.19-15.23c2.19-17.31-14.32-22.14-24.21-25Zm83.09-26.84a8 8 0 0 0-10.23 4.84L188 184.21l-12.47-34.9a8 8 0 0 0-15.07 5.38l20 56a8 8 0 0 0 15.07 0l20-56a8 8 0 0 0-4.84-10.22ZM216 88v24a8 8 0 0 1-16 0V96h-48a8 8 0 0 1-8-8V40H56v72a8 8 0 0 1-16 0V40a16 16 0 0 1 16-16h96a8 8 0 0 1 5.66 2.34l56 56A8 8 0 0 1 216 88Zm-27.31-8L160 51.31V80Z" />
+                        </g>
+                    </svg>
+                    CSV
+                </button>
+            </div>
+        </x-dropdown>
+    </section>
     <!------- Booking Table Start ------->
     <section class="table__wrapper container__admin-dashboard">
         <div class="table__container">
             <table class="table">
                 <div class="table__title-bar">
                     <h2 class="table__caption">Bookings</h2>
-                    <div class="table__options">
+                    <div class="table__options"
+                        x-data="{ selected: @entangle('selectedModels') }">
+                        <div class="table___option"
+                            x-show="Object.values(selected).some(value => value === true);">
+                            <p class="table__option--selected">{{ count($this->getSelectedModels()->values()->all()) }} selected</p>
+                        </div>
+
+
+                        <x-dropdown>
+                            <div class="dropdown">
+                                <x-slot name="trigger">
+                                    <div x-data="{ selected: @entangle('selectedModels') }">
+
+                                        <div class="dashboard-heading__option table__option--bulk"
+                                            x-show="Object.values(selected).some(value => value === true);"
+                                            x-transition.duration.300>
+                                            Bulk Actions
+                                            <span x-text="dropdown ? '-' : '+'"></span>
+                                        </div>
+                                    </div>
+                                </x-slot>
+                                <div class="bulk__dropdown-container"
+                                    x-ref="container">
+                                    <button class="bulk__dropdown-option"
+                                        wire:click='confirmDelete(
+                                            "Reservation", @json($this->getSelectedModels()->values()->all())
+                                            )'>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="none"
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="1.5"
+                                                d="m14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0">
+                                            </path>
+                                        </svg>
+                                        Delete
+                                    </button>
+
+                                </div>
+                            </div>
+                        </x-dropdown>
+
                         <div class="table__option table__option--filter">
                             <p>Filters</p>
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +142,9 @@
                     <th class="table__heading">
                         <input class="table__checkbox"
                             type="checkbox"
-                            @click="show = !show"
                             wire:model="selectAll">
                     </th>
+
 
                     <x-sortable-table-heading :sortDirection=$sortDirection
                         sortField="id">
@@ -59,7 +162,10 @@
                     </x-sortable-table-heading>
 
                     <th class="table__heading">Paid </th>
-                    <th class="table__heading">Status</th>
+                    <x-sortable-table-heading :sortDirection=$sortDirection
+                        sortField="status">
+                        Status
+                    </x-sortable-table-heading>
                     <th class="table__heading">Actions</th>
                 </thead>
 
@@ -69,9 +175,17 @@
                         <x-admin-booking-table-row wire:model.defer="selectAll"
                             :reservation="$reservation"></x-admin-booking-table-row>
                     @empty
-                        <tr>
-                            <td class="table_cell"></td>
-                            <td class="table__cell">No Bookings Found</td>
+                        <tr class="table__row">
+                            <td class="table__cell table__cell--not-found"
+                                colspan="7">
+                                @if ($searchQuery)
+                                    No bookings found for
+                                    "<span class="text-semi-bold">{{ $searchQuery }}</span>".
+                                @else
+                                    There are no existing booking records.
+                                    <p>Please make a <span class="text-semi-bold">reservation</span> or run the seeder file.</p>
+                                @endif
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -80,9 +194,12 @@
         </div>
 
         <!------- Table Pagination ------->
-        <div class="table__pagination">
-            {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
-        </div>
+        @if ($reservations->total() > $items_per_page)
+            <div class="table__pagination">
+                {{ $reservations->onEachSide(1)->links('livewire.livewire-pagination-links') }}
+            </div>
+        @endif
+
     </section>
 
     <!------- Booking Table End ------->

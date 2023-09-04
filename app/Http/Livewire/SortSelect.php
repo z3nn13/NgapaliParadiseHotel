@@ -9,9 +9,9 @@ class SortSelect extends Component
 {
     public $selectedSortOption;
 
-    public function option_selected()
+    public function updatedSelectedSortOption($value)
     {
-        $this->emit('option_selected', $this->selectedSortOption);
+        $this->emit('optionSelected', $this->selectedSortOption);
     }
 
     public function render()

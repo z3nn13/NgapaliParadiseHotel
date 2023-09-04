@@ -13,18 +13,19 @@ class RoomTypeSeeder extends Seeder
 {
     use HasFactory;
 
-    /**
+    /*
      * Run the database seeds.
      */
     public function run(): void
     {
+        // Seeding Dependency
         $this->call(RoomCategorySeeder::class);
-
+        // Seeding Model
         $roomTypesData = $this->getCustomRoomTypes();
         RoomType::insert($roomTypesData);
 
+        // Seeding HasMany Relationships
         $roomTypeIds = array_column($roomTypesData, 'id');
-
         $this->callWith(RoomDealSeeder::class, compact('roomTypeIds'));
         $this->callWith(RoomSeeder::class, compact('roomTypeIds'));
     }

@@ -6,8 +6,7 @@
     </label>
 
     <select class="category-select__select select2"
-        id="select2-dropdown"
-        wire:model="selectedRoomCategory">
+        id="select2-dropdown">
         <option></option>
         @forelse ($roomCategories as $category)
             <option value="{{ $category->id }}">{{ $category->room_category_name }}</option>
@@ -24,9 +23,6 @@
             });
         });
 
-        /*-------------------
-            Customize Select2
-        ---------------------*/
 
         $(".select2").select2({
             placeholder: "Please select a room category",

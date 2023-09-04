@@ -1,9 +1,9 @@
 <div class="billing-summary__item">
-    <p class="billing-summary__room-extra">{{ session('numNights') }} Nights {{ session('numGuests') }} Guests</p>
+    <p class="billing-summary__room-extra">{{ $numNights }} Nights {{ $numGuests }} Guests</p>
 </div>
 
 <div class="billing-summary__item billing-summary__item--right">
-    <p>+ Add Rooms</p>
+    <a href="{{ route('booking.search') }}">+ Add Rooms</a>
 </div>
 
 <div class="billing-summary__item billing-summary__item--divider">
@@ -15,7 +15,7 @@
     <p class="billing-summary__coupon-title">Coupon Code</p>
     <div class="billing-summary__coupon">
         <input class="billing-summary__coupon-input"
-            wire:model='couponCode' />
+            wire:model.lazy='couponCode' />
         @if ($this->coupon && $this->couponCode)
             <p class="billing-summary__coupon-success">
                 {{ $this->coupon->discount_percentage }}% discount applied!

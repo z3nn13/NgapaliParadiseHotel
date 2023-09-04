@@ -28,8 +28,8 @@
         x-ref="trigger">{{ $trigger }}
 
         <div x-show="dropdown"
-            x-transition.scale.origin.top
             x-transition.scale.80
+            x-transition.scale.origin.top
             @click.outside="dropdown = false">
             {{ $slot }}
         </div>

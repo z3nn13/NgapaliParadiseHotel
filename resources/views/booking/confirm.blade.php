@@ -3,14 +3,13 @@
     <x-step-bar active=3></x-step-bar>
 
     @php
-        $reservation_rooms = session('reservation_rooms');
-        
-        $billingData = session('billingData');
+        $reservation_rooms = session('booking.reservation_rooms');
+        $billingData = session('booking.billingData');
         $subTotal = $billingData['subTotal'];
         $totalAmount = $billingData['totalAmount'];
         $unit = '';
-        // $unit = $billingData['currency'] === 'MMK' ? 'Ks.' : "$";
-        $coupon = isset($billingData['coupon']) ? json_decode($billingData['coupon']) : null;
+        $unit = $billingData['preferredCurrency'] === 'MMK' ? 'Ks.' : "$";
+        $coupon = $billingData['coupon'];
         
     @endphp
 
@@ -23,8 +22,8 @@
                 @foreach ($reservation_rooms as $room)
                     @php
                         $roomDeal = $room['roomDeal'];
-                        $roomType = $room['roomType'];
-                        $roomPrice = $billingData['currency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd();
+                        $roomType = $room['room']->roomType;
+                        $roomPrice = $billingData['preferredCurrency'] === 'MMK' ? $roomDeal->deal_mmk : $roomDeal->deal_usd;
                         $iteration = $loop->iteration;
                     @endphp
 
@@ -52,7 +51,7 @@
                             </div>
 
 
-                            <p class="billing-summary__room-price">$ {{ $roomPrice }}</p>
+                            <p class="billing-summary__room-price">{{ $unit }} {{ $roomPrice }}</p>
                         </div>
 
                         <div class="billing-summary__room-body"
@@ -66,8 +65,8 @@
                 @endforeach
 
                 <div class="billing-summary__item">
-                    <p class="billing-summary__room-extra">{{ session('numNights') }} Nights
-                        {{ session('numGuests') }} Guests</p>
+                    <p class="billing-summary__room-extra">{{ session('booking.numNights') }} Nights
+                        {{ session('booking.numGuests') }} Guests</p>
                 </div>
 
                 <div class="billing-summary__item billing-summary__item--divider">
@@ -99,14 +98,10 @@
                     <p class="billing-summary__total-value text-sun-400">{{ $unit }} {{ $totalAmount }}</p>
                 </div>
                 <div class="billing-summary__item">
-                    <form action="{{ route('booking.create', ['goBack' => true]) }}"
-                        method="POST">
-                        @csrf
-
-                        <button class="billing-summary__button billing-summary__button--back">
-                            <img src="{{ asset('images/svgs/bx-aritem-back.svg') }}"
-                                alt=""> Back</button>
-                    </form>
+                    <a class="billing-summary__button billing-summary__button--back"
+                        href="{{ route('booking.create') }}">
+                        <img src="{{ asset('images/svgs/bx-aritem-back.svg') }}"
+                            alt=""> Back</a>
 
                     <a class="billing-summary__button billing-summary__button--confirm"
                         href="{{ route('booking.payment') }}">

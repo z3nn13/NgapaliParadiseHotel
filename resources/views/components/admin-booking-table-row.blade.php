@@ -5,7 +5,7 @@
     $check_in_date = date('jS M Y', strtotime($reservation->check_in_date));
     
     $currency = $reservation->invoice->preferred_currency;
-    $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
+    $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd;
     $paid = $currency . ' ' . $amount;
 @endphp
 
@@ -22,7 +22,7 @@
 
     <!-- Reservation ID -->
     <td class="table__cell">
-        #{{ sprintf('%04d', $reservation->id) }}
+        #{{ $reservation->formatted_id }}
     </td>
 
     <!-- Guest Name -->
@@ -76,7 +76,7 @@
         </button>
 
         <!-- View Option -->
-        <form action="{{ route('admin.reservations.show', ['reservation' => $reservation->id]) }}">
+        <form action="{{ route('dashboard.bookings.show', ['reservation' => $reservation->id]) }}">
             <button class="table__dropdown-option table__dropdown-option--view"
                 type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg"

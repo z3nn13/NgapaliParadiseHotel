@@ -1,6 +1,13 @@
 @if ($paginator->hasPages())
     <div class="custom-pagination">
-
+        Items Per Page:
+        <select id="items_per_page"
+            name="items_per_page"
+            wire:model="items_per_page">
+            @for ($i = 1; $i <= 10; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
         <p class="text-sm text-gray-700 leading-5">
             Showing
             @if ($paginator->firstItem())

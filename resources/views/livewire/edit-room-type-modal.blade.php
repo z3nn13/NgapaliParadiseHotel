@@ -1,16 +1,14 @@
-<div class="modal__wrapper">
-
-    <div class="modal">
+<div class="modal">
+    <div class="modal__wrapper">
         <div class="modal__content">
             <h2 class="modal__title">Room Type</h2>
             <form class="modal__form"
                 wire:submit.prevent="saveRoomType">
-
                 <div class="modal__form--left">
 
                     <div class="modal__input-group">
                         <label class="modal__label"
-                            for="room_type_name">Room Type Name:</label>
+                            for="room_type_name">Room name:</label>
                         <input class="modal__input"
                             id="room_type_name"
                             name="room_type_name"
@@ -22,30 +20,31 @@
                     </div>
 
                     <div class="modal__input-group">
-                        <label class="modal__label"
-                            for="room_category_id">Room Category:</label>
-                        <select class="modal__select"
-                            id="room_category_id"
-                            name="room_category_id"
-                            wire:model="roomType.room_category_id">
-                            <!-- Populate the options with room categories -->
-                            @forelse ($roomCategories as $roomCategory)
-                                <option value="{{ $roomCategory->id }}"
-                                    selected>{{ $roomCategory->room_category_name }}</option>
-                            @empty
-                                <option disabled
-                                    selected>--No room categories found--</option>
-                            @endforelse
-                        </select>
+                        <div wire:ignore>
+                            <label class="modal__label"
+                                for="room_category_id">Room category:</label>
+                            <select class="modal__select select2"
+                                id="select2">
+                                <option selected></option>
+
+                                @forelse ($roomCategories as $roomCategory)
+                                    <option value="{{ $roomCategory->id }}">
+                                        {{ $roomCategory->room_category_name }}
+                                    </option>
+                                @empty
+                                    <option disabled
+                                        selected>--No room categories found--</option>
+                                @endforelse
+                            </select>
+                        </div>
                         @error('roomType.room_category_id')
-                            <span class="modal__error">{{ $message }}</span>
+                            <span class="modal__error">Room category is required</span>
                         @enderror
                     </div>
 
-
                     <div class="modal__input-group">
                         <label class="modal__label"
-                            for="room_image">Room Image:</label>
+                            for="room_image">Room image:</label>
 
                         @php
                             $roomImageExists = $roomImage;
@@ -56,10 +55,9 @@
                             @if ($roomImageIsUrl)
                                 <img class="modal__image"
                                     src="{{ asset($roomImage) }}">
-                            @elseif(is_array($roomImage))
-                                @dd($roomImage)
                             @else
-                                <img src="{{ $roomImage->temporaryUrl() }}">
+                                <img class="modal__image"
+                                    src="{{ $roomImage->temporaryUrl() }}">
                             @endif
                         @endif
                         <input class="modal__file"
@@ -138,4 +136,20 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $('#select2').on('change', function(e) {
+                var data = $('#select2').select2("val");
+                @this.set('roomType.room_category_id', data);
+            });
+        });
+
+
+        $(".select2").select2({
+            placeholder: "Please select a category",
+            allowClear: false,
+            minimumResultsForSearch: 6,
+            dropdownCssClass: "category-select__select",
+        });
+    </script>
 </div>

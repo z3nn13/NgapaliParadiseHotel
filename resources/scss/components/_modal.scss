@@ -1,4 +1,23 @@
 // Styles for the modal
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .modal {
     position: fixed;
     inset: 0;
@@ -11,7 +30,7 @@
     gap: 2rem;
     z-index: 1000;
     font-family: var(--ff-secondary);
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &__wrapper {
         position: absolute;
@@ -23,11 +42,11 @@
         padding: 2rem;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        width: min-content;
+        width: fit-content;
         max-height: 80%;
         margin-top: auto;
         margin-bottom: auto;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     &__title {
         font-size: var(--fs-400);
@@ -37,6 +56,9 @@
 
     &__form {
         display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 2rem;
 
         &--status {
@@ -49,29 +71,55 @@
         flex-direction: column;
         width: 25ch;
         font-size: 0.9rem;
-    }
-
-    &__label {
-        font-size: 16px;
-        margin-bottom: 8px;
-        color: hsl(var(--clr-neutral-900) / 0.8);
-    }
-    &__select {
+        position: relative;
         margin-bottom: 1rem;
     }
 
-    &__input {
-        padding: 1rem;
-        color: hsl(var(--clr-neutral-900) / 0.8);
-        border: 1px solid hsl(var(--clr-neutral-900) / 0.8);
-        border-radius: 4px;
-        margin-bottom: 16px;
+    &__label {
+        pointer-events: none;
+        font-size: 15px;
+        color: hsl(var(--clr-neutral-900) / 0.5);
+        padding-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    &__image {
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+
+        &--profile {
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            max-width: 10rem;
+        }
+    }
+
+    &__input,
+    &__textarea {
+        color: hsl(var(--clr-neutral-900));
+        border: 1.5px solid hsl(var(--clr-neutral-900) / 0.3);
+        padding: 0.5rem;
+        font-weight: 500;
+    }
+
+    &__input,
+    &__select + .select2-container .select2-selection--single {
+        border-radius: 50rem;
+        border: 1.5px solid hsl(var(--clr-neutral-900) / 0.3);
+        min-width: fit-content;
+    }
+
+    &__textarea {
+        border-radius: 2rem;
+        height: 7rem;
     }
 
     &__cta-container {
         display: flex;
         justify-content: flex-end;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-top: 2rem;
     }
     &__cta-btn {
@@ -86,7 +134,7 @@
             background-color: hsl(var(--clr-cta-400));
         }
         &--cancel {
-            background-color: hsl(var(--clr-sun-400));
+            background-color: hsl(var(--clr-neutral-900) / 0.8);
             margin-right: 16px;
         }
 

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mailing_list', function (Blueprint $table) {
+        Schema::create('mailing_lists', function (Blueprint $table) {
             $table->id();
-            $table->string("mail_address");
+            $table->string("email")->unique();
             $table->timestamps();
         });
     }

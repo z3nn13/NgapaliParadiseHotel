@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -92,10 +93,21 @@ class Reservation extends Model
         return $this->hasOne(Invoice::class);
     }
 
-    //  Get all of the rooms for the reservation.    
-
+    //  Get all of the rooms for the reservation.
     public function rooms()
     {
-        return $this->belongsToMany(Room::class, 'reservation_rooms')->withPivot('room_deal_id');
+        return $this->belongsToMany(Room::class, 'reservation_rooms')
+            ->withPivot('room_deal_id')
+            ->using(ReservationRoom::class);
+    }
+
+    public function num_nights()
+    {
+        return Carbon::parse($this->check_out_date)->diffInDays($this->check_in_date);
+    }
+
+    public function getFormattedIdAttribute()
+    {
+        return sprintf('%04d', $this->id);
     }
 }

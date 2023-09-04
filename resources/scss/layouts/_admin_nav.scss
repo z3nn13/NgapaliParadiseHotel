@@ -31,6 +31,14 @@
         }
     }
 
+    &__profile-pic {
+        max-width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid hsl(var(--clr-neutral-100) / 0.5);
+        aspect-ratio: 1/1;
+    }
+
     &__hamburger {
         cursor: pointer;
     }
@@ -48,14 +56,8 @@
         text-transform: capitalize;
         font-family: var(--ff-secondary);
         font-weight: 600;
+        cursor: default;
     }
-}
-
-.profile__picture {
-    border-radius: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    max-width: 3rem;
 }
 
 @include m.mq(medium) {
@@ -66,6 +68,7 @@
         flex: 1;
         flex-shrink: 0;
     }
+
     .admin-sidebar {
         background-color: hsl(var(--clr-cta-500));
         display: flex;

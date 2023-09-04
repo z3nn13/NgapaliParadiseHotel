@@ -11,7 +11,7 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
 {
     private $reservationIds;
 
-    public function __construct($reservationIds)
+    public function __construct($reservationIds = null)
     {
         $this->reservationIds = $reservationIds;
     }
@@ -31,12 +31,12 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
     public function map($reservation): array
     {
         $currency = $reservation->invoice->preferred_currency;
-        $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd();
+        $amount = $currency === 'MMK' ? $reservation->invoice->total_paid_mmk : $reservation->invoice->total_paid_usd;
         $paid = $currency . ' ' . $amount;
 
         return
             [
-                '#' . sprintf('%03d', $reservation->id),
+                $reservation->formatted_id,
                 $reservation->first_name . " " . $reservation->last_name,
                 $reservation->check_in_date,
                 $paid,
@@ -49,6 +49,9 @@ class ReservationsExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return Reservation::find($this->reservationIds);
+        if ($this->reservationIds->isEmpty()) {
+            return Reservation::all();
+        }
+        return Reservation::findOrFail($this->reservationIds);
     }
 }
