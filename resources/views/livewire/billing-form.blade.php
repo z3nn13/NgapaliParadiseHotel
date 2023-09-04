@@ -5,20 +5,20 @@
         wire:submit.prevent="submitForm">
         <div class="billing-form__payment-group">
             <div class="billing-form__radio-group">
-                <div class="billing-form__radio">
+                {{-- <div class="billing-form__radio">
                     <input type="radio"
                         value="1"
                         wire:model="paymentMethod"
                         disabled
                         required>
                     <span class="billing-form__radio-text">PayPal</span>
-                </div>
+                </div> --}}
                 <div class="billing-form__radio">
                     <input type="radio"
                         value="2"
                         wire:model="paymentMethod"
                         required>
-                    <span class="billing-form__radio-text">Credit Card</span>
+                    <span class="billing-form__radio-text">Card (Stripe)</span>
                 </div>
             </div>
         </div>

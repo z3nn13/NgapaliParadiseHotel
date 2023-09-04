@@ -88,6 +88,9 @@
         &--large {
             font-size: var(--fs-500);
         }
+        &--closed {
+            white-space: wrap;
+        }
     }
 
     &__coupon-container {
