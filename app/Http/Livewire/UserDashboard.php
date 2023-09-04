@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\WithBulkActions;
-use App\Models\Reservation;
 use Livewire\Component;
 use Livewire\WithPagination;
 
