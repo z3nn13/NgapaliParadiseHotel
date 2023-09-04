@@ -13,14 +13,16 @@ class UserDashboard extends Component
 
     public $searchQuery = "";
     public $items_per_page = "6";
-
+    protected $listeners = ['userUpdated' => 'render'];
     protected $queryString = [
         'searchQuery' => ['except' => '', 'as' => "search"],
-        'page' => ['except' => 1],
     ];
 
-    protected $listeners = ['userUpdated' => 'render'];
-
+    /**
+     * Renders the livewire component
+     *
+     * @return void
+     */
     public function render()
     {
         $reservations = $this->getReservations(auth()->user());
@@ -29,7 +31,12 @@ class UserDashboard extends Component
             ->layout('layouts.app');
     }
 
-
+    /**
+     * Gets the list of reservations belonging to the specified user
+     * 
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @return Collection
+     */
     private function getReservations($user)
     {
         return $user->reservations()
