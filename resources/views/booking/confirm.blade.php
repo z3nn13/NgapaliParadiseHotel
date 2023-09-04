@@ -90,9 +90,6 @@
                         @endif
                     </div>
                 </div>
-                <div class="billing-summary__item billing-summary__item--right">
-                    <p>Special Requests: included</p>
-                </div>
                 <div class="billing-summary__item billing-summary__item--divider">
                     <p class="billing-summary__total-title">Total Amount</p>
                     <p class="billing-summary__total-value text-sun-400">{{ $unit }} {{ $totalAmount }}</p>
@@ -100,14 +97,14 @@
                 <div class="billing-summary__item">
                     <a class="billing-summary__button billing-summary__button--back"
                         href="{{ route('booking.create') }}">
-                        <img src="{{ asset('images/svgs/bx-aritem-back.svg') }}"
+                        <img src="{{ asset('images/svgs/bx-arrow-back.svg') }}"
                             alt=""> Back</a>
 
                     <a class="billing-summary__button billing-summary__button--confirm"
-                        href="{{ route('booking.payment') }}">
+                        href="{{ route('booking.payment') }}"
+                        onclick="disableLinks(this);">
                         I Confirm
                     </a>
-
                 </div>
             </div>
         </section>
@@ -118,4 +115,13 @@
         </section>
 
     </div>
+    <script>
+        function disableLinks(link) {
+            var linksToDisable = document.querySelectorAll('.billing-summary__button');
+            for (var i = 0; i < linksToDisable.length; i++) {
+                linksToDisable[i].style.pointerEvents = 'none';
+                linksToDisable[i].style.opacity = '0.5';
+            }
+        }
+    </script>
 </x-app-layout>
