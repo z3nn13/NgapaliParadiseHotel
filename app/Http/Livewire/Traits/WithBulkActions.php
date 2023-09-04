@@ -8,39 +8,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 trait WithBulkActions
 {
-    /**
-     * Collection to hold the selected models.
-     *
-     * @var Collection
-     */
     public Collection $selectedModels;
-
-    /**
-     * Flag to determine if "select all" is checked.
-     *
-     * @var bool
-     */
-    public $selectAll = false;
-
-    /**
-     * String to store search query inputs.
-     *
-     * @var bool
-     */
-    public $searchQuery = "";
-
-    /**
-     * Collection to store paginated models.
-     *
-     * @var mixed
-     */
+    public bool $selectAll = false;
+    public string $searchQuery = "";
     public $paginatedModels;
 
-    /**
-     * Initialize the selected models collection.
-     *
-     * @return void
-     */
     public function mount()
     {
         $this->selectedModels = new Collection();
@@ -71,13 +43,16 @@ trait WithBulkActions
      */
     public function updatedSelectAll()
     {
-        if ($this->selectAll) {
-            $this->selectedModels = collect($this->paginatedModels)->mapWithKeys(function ($model) {
-                return [$model['id'] => true];
-            });
-        } else {
-            $this->selectedModels = new Collection();
-        }
+        // if ($this->selectAll) {
+        //     $this->selectedModels = collect($this->paginatedModels)->mapWithKeys(function ($model) {
+        //         return [$model['id'] => true];
+        //     });
+        // } else {
+        //     $this->selectedModels = new Collection();
+        // }
+        $this->selectedModels = $this->selectAll
+            ? collect($this->paginatedModels)->keyBy('id')
+            : new Collection();
     }
 
     /**
@@ -87,7 +62,8 @@ trait WithBulkActions
      */
     public function getSelectedModels()
     {
-        return $this->selectedModels->filter(fn ($p) => $p)->keys();
+        return $this->selectedModels->keys();
+        // return $this->selectedModels->filter(fn ($p) => $p)->keys();
     }
 
     /**
@@ -104,15 +80,36 @@ trait WithBulkActions
 
         $modelName = Str::headline(class_basename($modelClassName), ' ');
 
-        /* Prepare the message based on the number of deleted entries. */
         if (count($modelIds) === 1) {
             $formattedId = sprintf('%04d', $modelIds[0]);
-            $message = "{$modelName} ID #" . $formattedId . " has been deleted.";
+
+            $message = "{$modelName} ID #{$formattedId} has been deleted.";
         } else {
             $message = count($modelIds) . " entries have been deleted.";
         }
 
-        $this->emit('dataChanged', 'Deleted!', $message);
+        $this->dispatchBrowserEvent(
+            "swal:notification",
+            [
+                "type" => "success",
+                "title" => "Deleted!",
+                "text" => $message,
+            ]
+        );
+    }
+
+    public function confirmDelete(string $modelClassName, array $modelIds)
+    {
+        $this->dispatchBrowserEvent(
+            "swal:confirm",
+            [
+                "type" => "warning",
+                "title" => "Are you sure?",
+                "text" => "You won't be able to revert this!",
+                "modelName" => $modelClassName,
+                "ids" => $modelIds,
+            ]
+        );
     }
 
     /**

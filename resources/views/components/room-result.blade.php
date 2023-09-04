@@ -7,8 +7,10 @@
         </p>
 
         <div class="room-result__card">
-            <img class="room-result__card-image"
-                src="{{ asset($roomType->room_image) }}">
+            <div class="room-result__card-image-container">
+                <img class="room-result__card-image"
+                    src="{{ asset($roomType->room_image) }}">
+            </div>
             <div class="room-result__card-body">
                 <ul class="room-result__tags">
                     <li class="room-result__tag">
@@ -16,15 +18,15 @@
                         <p class="room-result__tag-value">Sleeps {{ $roomType->occupancy }}</p>
                     </li>
                     <li class="room-result__tag">
-                        <label class="room-result__tag-label">Bedding</label>
+                        <label class="room-result__tag-label">Bedding:</label>
                         <p class="room-result__tag-value">{{ $roomType->bedding }}</p>
                     </li>
                     <li class="room-result__tag">
-                        <label class="room-result__tag-label">View</label>
+                        <label class="room-result__tag-label">View:</label>
                         <p class="room-result__tag-value">{{ $roomType->view }}</p>
                     </li>
                     <li class="room-result__tag">
-                        <label class="room-result__tag-label">Wifi</label>
+                        <label class="room-result__tag-label">Wifi:</label>
                         <p class="room-result__tag-value">Free</p>
                     </li>
                 </ul>
