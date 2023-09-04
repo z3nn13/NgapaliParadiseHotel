@@ -25,14 +25,18 @@ class BookingSearchForm extends Component
     public function mount($pageType, $checkInDate = null, $checkOutDate = null, $numGuests = null)
     {
         $this->inputsDisabled = $pageType == 'search';
-        $this->checkInDate = $checkInDate ?? session('booking.checkInDate',);
+        $this->checkInDate = $checkInDate ?? session('booking.checkInDate');
         $this->checkOutDate = $checkOutDate ?? session('booking.checkOutDate');
         $this->numGuests = $numGuests ?? session('booking.numGuests', 1);
     }
 
     public function render()
     {
-        return view('livewire.booking-search-form');
+        $minDate = $this->checkInDate
+            ? Carbon::parse($this->checkInDate)->addDay()->format('Y-m-d')
+            : now()->toDateString();
+
+        return view('livewire.booking-search-form', compact('minDate'));
     }
 
 

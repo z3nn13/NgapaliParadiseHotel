@@ -18,6 +18,7 @@
             <input class="booking-card__coupon-input"
                 value="{{ $active ? '' : ($coupon ? $coupon->coupon_code : '') }}"
                 wire:model.debounce.400ms='couponCode'
+                wire:loading.attr='disabled'
                 {{ $active ?: 'disabled' }}>
             @if ($coupon)
                 @if ($couponCode)

@@ -45,9 +45,12 @@ class LoginRequest extends FormRequest
         $credentials = $this->only('email', 'password');
         $remember = $this->boolean('remember');
 
-        $role = Role::where('role_name', Str::lower($role_name));
-        $credentials['role_id'] = $role->id;
+        $role = Role::where('name', Str::lower($role_name))->first();
+        if (!$role) {
+            abort(404, 'Role not found');
+        }
 
+        $credentials['role_id'] = $role->id;
 
         if (!Auth::attempt($credentials, $remember)) {
             RateLimiter::hit($this->throttleKey());
