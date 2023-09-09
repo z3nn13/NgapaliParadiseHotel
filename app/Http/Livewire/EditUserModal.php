@@ -36,9 +36,13 @@ class EditUserModal extends ModalComponent
 
     public function saveUser()
     {
-        $this->validate();
+        if (is_string($this->userImage)) {
+            $path = $this->userImage;
+        } else {
+            $this->validate();
+            $path = $this->userImage->store('images/avatars', 'public');
+        }
 
-        $path = $this->userImage->store('images/avatars', 'public');
         $this->user->user_image = $path;
         $this->user->save();
 
@@ -60,7 +64,7 @@ class EditUserModal extends ModalComponent
             'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
             'user.phone_no' => ['required', 'string'],
             'user.role_id' => 'required|exists:roles,id',
-            'userImage' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'userImage' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
 }

@@ -34,8 +34,12 @@ class EditRoomTypeModal extends ModalComponent
     public function saveRoomType()
     {
 
-        $this->validate();
-        $path = $this->roomImage->store('images/rooms', 'public');
+        if (is_string($this->roomImage)) {
+            $path = $this->roomImage;
+        } else {
+            $this->validate();
+            $path = $this->roomImage->store('images/rooms', 'public');
+        }
 
         $this->roomType->room_image = $path;
         $this->roomType->save();

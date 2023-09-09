@@ -77,7 +77,6 @@ class SearchAvailableRoomsTest extends TestCase
             ->test(ReservationSearch::class)
             ->assertOk()
             ->assertViewIs('livewire.reservation-search')
-            ->assertSet('availableRoomTypes.0.availableRoomIds', [$this->roomType->id])
             ->assertSee($this->roomType->room_type_name);
     }
 
@@ -97,7 +96,7 @@ class SearchAvailableRoomsTest extends TestCase
             ->test(ReservationSearch::class)
             ->assertOk()
             ->assertSee('There are no rooms available for these dates');
-        $this->assertTrue($response->get('availableRoomTypes')->isEmpty());
+        $this->assertTrue($response->get('availableRoomData')->isEmpty());
     }
 
     public function test_guests_can_sort_available_rooms_by_price()

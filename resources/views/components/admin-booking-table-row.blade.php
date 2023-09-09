@@ -28,7 +28,7 @@
     <!-- Guest Name -->
     <td class="table__cell table__cell--profile">
         <img class="table__image--circle"
-            src="{{ asset($reservation->user->user_image) ?? asset('images/misc/no-image.png') }}">
+            src="{{ $reservation->user ? asset($reservation->user->user_image) : asset('images/misc/no-image.png') }}">
         {{ $reservation->first_name }}<br>
         {{ $reservation->last_name }}
     </td>
