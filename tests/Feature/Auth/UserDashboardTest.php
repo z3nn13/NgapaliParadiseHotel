@@ -7,12 +7,9 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Reservation;
-use Database\Seeders\RoleSeeder;
 use Database\Seeders\InvoiceSeeder;
 use App\Http\Livewire\UserDashboard;
 use Database\Seeders\PayTypeSeeder;
-use Database\Seeders\RoomTypeSeeder;
-use Database\Seeders\ReservationSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserDashboardTest extends TestCase
